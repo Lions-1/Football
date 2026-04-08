@@ -141,25 +141,27 @@ export default function Navbar() {
         {/* Right actions */}
         <div className="flex items-center gap-3 text-gray-700">
           {/* Search */}
-          {searchOpen ? (
-            <form onSubmit={handleSearch} className="flex items-center bg-gray-100 rounded-full px-3 py-1.5">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search jerseys..."
-                className="bg-transparent text-sm text-gray-900 placeholder-gray-400 outline-none w-40"
-                autoFocus
-              />
-              <button type="button" onClick={() => setSearchOpen(false)}>
-                <X className="w-4 h-4 text-gray-400" />
+          <div className="hidden sm:block">
+            {searchOpen ? (
+              <form onSubmit={handleSearch} className="flex items-center bg-gray-100 rounded-full px-3 py-1.5">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search jerseys..."
+                  className="bg-transparent text-sm text-gray-900 placeholder-gray-400 outline-none w-40"
+                  autoFocus
+                />
+                <button type="button" onClick={() => setSearchOpen(false)}>
+                  <X className="w-4 h-4 text-gray-400" />
+                </button>
+              </form>
+            ) : (
+              <button onClick={() => setSearchOpen(true)} className="hover:text-orange-500 transition">
+                <Search className="w-5 h-5" />
               </button>
-            </form>
-          ) : (
-            <button onClick={() => setSearchOpen(true)} className="hover:text-orange-500 transition">
-              <Search className="w-5 h-5" />
-            </button>
-          )}
+            )}
+          </div>
 
           <Link href="/wishlist" className="relative hover:text-orange-500 transition">
             <Heart className="w-5 h-5" />

@@ -297,16 +297,15 @@ export default async function Home() {
       </section>
 
       {/* Mebutik Sports branding banner */}
-      <section className="w-full">
-        <div className="relative w-full min-h-[260px] sm:min-h-[300px] md:min-h-0 md:aspect-[3.5/1]">
-          <Image
-            src="/hero-brand.png"
-            alt="Mebutik Sports — Premium Football Jerseys"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </div>
+      <section className="w-full bg-gray-100">
+        <Image
+          src="/hero-brand.png"
+          alt="Mebutik Sports — Premium Football Jerseys"
+          width={1400}
+          height={400}
+          className="w-full h-auto"
+          sizes="100vw"
+        />
       </section>
 
       {/* Browse by League — Top 5 only, bigger icons */}
