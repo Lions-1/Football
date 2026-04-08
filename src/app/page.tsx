@@ -62,7 +62,7 @@ export default async function Home() {
           className="object-cover hero-img"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
 
         <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 relative z-10 w-full">
           <div className="max-w-xl">
@@ -298,7 +298,7 @@ export default async function Home() {
 
       {/* Mebutik Sports branding banner */}
       <section className="w-full">
-        <div className="relative w-full aspect-[4/1] sm:aspect-[3.5/1]">
+        <div className="relative w-full aspect-[2/1] sm:aspect-[3/1] md:aspect-[3.5/1]">
           <Image
             src="/hero-brand.png"
             alt="Mebutik Sports — Premium Football Jerseys"
