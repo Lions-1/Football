@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
-import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS } from "@/lib/leagues-data";
 
 export const dynamic = "force-dynamic";
 
@@ -89,9 +89,16 @@ export default async function LeaguePage({ params }: Props) {
               <Link
                 key={team.id}
                 href={`/team/${team.slug}`}
-                className="bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-xl p-4 text-center transition-all shadow-sm"
+                className="group bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-xl p-4 text-center transition-all shadow-sm flex flex-col items-center gap-2"
               >
-                <p className="text-sm font-semibold">{team.name}</p>
+                {CLUB_LOGOS[team.slug] ? (
+                  <div className="w-12 h-12 relative">
+                    <img src={CLUB_LOGOS[team.slug]} alt={team.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 font-black text-lg">{team.name.charAt(0)}</div>
+                )}
+                <p className="text-xs font-semibold text-center leading-tight">{team.name}</p>
               </Link>
             ))}
           </div>
@@ -109,6 +116,7 @@ export default async function LeaguePage({ params }: Props) {
             price: p.price,
             image: (JSON.parse(p.images) as string[])[0] || "",
             teamName: p.team.name,
+            teamSlug: p.team.slug,
             surCommande: p.surCommande,
             category: p.category,
           }))}

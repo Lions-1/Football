@@ -43,6 +43,7 @@ export default async function ProductPage({ params }: Props) {
         price: p.price,
         image: (JSON.parse(p.images) as string[])[0] || "",
         teamName: p.team.name,
+        teamSlug: p.team.slug,
         surCommande: p.surCommande,
         category: p.category,
       }))}

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useWishlistStore } from "@/lib/store";
+import { CLUB_LOGOS, NATIONAL_TEAM_CRESTS } from "@/lib/leagues-data";
 
 interface ProductCardProps {
   id: string;
@@ -11,13 +12,18 @@ interface ProductCardProps {
   price: number;
   image: string;
   teamName: string;
+  teamSlug?: string;
   surCommande: boolean;
   category: string;
 }
 
 export default function ProductCard({
-  id, name, slug, price, image, teamName, surCommande, category,
+  id, name, slug, price, image, teamName, teamSlug = "", surCommande, category,
 }: ProductCardProps) {
+  const fallbackLogo = teamSlug
+    ? (CLUB_LOGOS[teamSlug] || NATIONAL_TEAM_CRESTS[teamSlug] || "")
+    : "";
+  const displayImage = image || fallbackLogo;
   const wishlist = useWishlistStore();
   const isWished = wishlist.items.includes(id);
 
@@ -50,17 +56,18 @@ export default function ProductCard({
 
         {/* Image */}
         <div className="aspect-square relative bg-gray-50 overflow-hidden">
-          {image ? (
+          {displayImage ? (
             <img
-              src={image}
+              src={displayImage}
               alt={name}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className={`absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-500 ${
+                !image && fallbackLogo ? "object-contain p-4" : "object-cover"
+              }`}
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-orange-50 to-orange-100 flex flex-col items-center justify-center gap-2 p-4">
-              <ShoppingBag className="w-10 h-10 text-orange-300" />
-              <span className="text-[10px] text-orange-400 font-semibold uppercase tracking-wide text-center leading-tight line-clamp-2">{teamName}</span>
+            <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+              <span className="text-4xl font-black text-gray-200">{teamName.charAt(0)}</span>
             </div>
           )}
         </div>

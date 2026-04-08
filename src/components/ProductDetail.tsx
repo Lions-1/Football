@@ -31,6 +31,7 @@ interface RelatedProduct {
   price: number;
   image: string;
   teamName: string;
+  teamSlug?: string;
   surCommande: boolean;
   category: string;
 }

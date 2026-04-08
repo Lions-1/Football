@@ -12,6 +12,7 @@ interface ProductData {
   price: number;
   images: string[];
   teamName: string;
+  teamSlug: string;
   surCommande: boolean;
   category: string;
 }
@@ -78,6 +79,7 @@ export default function HomeProducts() {
               price={product.price}
               image={product.images[0] || ""}
               teamName={product.teamName}
+              teamSlug={product.teamSlug}
               surCommande={product.surCommande}
               category={product.category}
             />

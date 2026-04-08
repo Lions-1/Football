@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "upload.wikimedia.org" },
       { protocol: "https", hostname: "logo.clearbit.com" },
       { protocol: "https", hostname: "flagcdn.com" },
+      { protocol: "https", hostname: "crests.football-data.org" },
+      { protocol: "https", hostname: "pulsesfootball.com" },
       { protocol: "http", hostname: "localhost" },
     ],
   },

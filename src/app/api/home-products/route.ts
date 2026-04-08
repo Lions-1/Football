@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
       price: p.price,
       images: JSON.parse(p.images) as string[],
       teamName: p.team.name,
+      teamSlug: p.team.slug,
       surCommande: p.surCommande,
       category: p.category,
     }))

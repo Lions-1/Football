@@ -92,6 +92,76 @@ export const COUNTRY_FLAGS: { name: string; slug: string; code: string }[] = [
   { name: "Ecuador", slug: "ecuador", code: "ec" },
 ];
 
+export const CLUB_LOGOS: Record<string, string> = {
+  // Premier League
+  "manchester-united": "https://crests.football-data.org/66.png",
+  "manchester-city":   "https://crests.football-data.org/65.png",
+  "arsenal":           "https://crests.football-data.org/57.png",
+  "chelsea":           "https://crests.football-data.org/61.png",
+  "liverpool":         "https://crests.football-data.org/64.png",
+  "tottenham-hotspur": "https://crests.football-data.org/73.png",
+  "newcastle-united":  "https://crests.football-data.org/67.png",
+  "aston-villa":       "https://crests.football-data.org/58.png",
+  "west-ham-united":   "https://crests.football-data.org/563.png",
+  "brighton-hove-albion": "https://crests.football-data.org/397.png",
+  "wolverhampton-wanderers": "https://crests.football-data.org/76.png",
+  "crystal-palace":    "https://crests.football-data.org/354.png",
+  "brentford":         "https://crests.football-data.org/402.png",
+  "nottingham-forest": "https://crests.football-data.org/351.png",
+  "fulham":            "https://crests.football-data.org/63.png",
+  "everton":           "https://crests.football-data.org/62.png",
+  // La Liga
+  "barcelona":         "https://crests.football-data.org/81.png",
+  "real-madrid":       "https://crests.football-data.org/86.png",
+  "atletico-madrid":   "https://crests.football-data.org/78.png",
+  "sevilla":           "https://crests.football-data.org/559.png",
+  "real-betis":        "https://crests.football-data.org/90.png",
+  "real-sociedad":     "https://crests.football-data.org/92.png",
+  "villarreal":        "https://crests.football-data.org/94.png",
+  "athletic-bilbao":   "https://crests.football-data.org/77.png",
+  "valencia":          "https://crests.football-data.org/95.png",
+  "osasuna":           "https://crests.football-data.org/87.png",
+  // Serie A
+  "juventus":          "https://crests.football-data.org/109.png",
+  "inter-milan":       "https://crests.football-data.org/108.png",
+  "ac-milan":          "https://crests.football-data.org/98.png",
+  "napoli":            "https://crests.football-data.org/113.png",
+  "roma":              "https://crests.football-data.org/100.png",
+  "lazio":             "https://crests.football-data.org/110.png",
+  "atalanta":          "https://crests.football-data.org/102.png",
+  "fiorentina":        "https://crests.football-data.org/99.png",
+  "torino":            "https://crests.football-data.org/586.png",
+  // Bundesliga
+  "bayern-munich":     "https://crests.football-data.org/5.png",
+  "borussia-dortmund": "https://crests.football-data.org/4.png",
+  "rb-leipzig":        "https://crests.football-data.org/721.png",
+  "bayer-leverkusen":  "https://crests.football-data.org/3.png",
+  "borussia-monchengladbach": "https://crests.football-data.org/15.png",
+  "eintracht-frankfurt": "https://crests.football-data.org/19.png",
+  "werder-bremen":     "https://crests.football-data.org/12.png",
+  "sc-freiburg":       "https://crests.football-data.org/17.png",
+  // Ligue 1
+  "paris-saint-germain": "https://crests.football-data.org/524.png",
+  "psg":               "https://crests.football-data.org/524.png",
+  "olympique-lyon":    "https://crests.football-data.org/523.png",
+  "olympique-marseille": "https://crests.football-data.org/516.png",
+  "as-monaco":         "https://crests.football-data.org/548.png",
+  "lille":             "https://crests.football-data.org/521.png",
+  "nice":              "https://crests.football-data.org/522.png",
+  "rennes":            "https://crests.football-data.org/529.png",
+  // Liga Portuguesa
+  "benfica":           "https://crests.football-data.org/496.png",
+  "porto":             "https://crests.football-data.org/503.png",
+  "sporting-cp":       "https://crests.football-data.org/498.png",
+  // Eredivisie
+  "ajax":              "https://crests.football-data.org/674.png",
+  "psv-eindhoven":     "https://crests.football-data.org/678.png",
+  "feyenoord":         "https://crests.football-data.org/675.png",
+  // Saudi Pro League
+  "al-hilal":          "https://crests.football-data.org/1920.png",
+  "al-nassr":          "https://crests.football-data.org/1919.png",
+};
+
 export const BRAND_LOGOS = [
   { name: "Nike", logo: "/logos/brands/nike.svg" },
   { name: "Adidas", logo: "/logos/brands/adidas.svg" },
