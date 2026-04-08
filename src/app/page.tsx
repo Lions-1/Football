@@ -61,7 +61,7 @@ export default async function Home() {
           className="object-cover hero-img"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/30" />
 
         <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 relative z-10 w-full">
           <div className="max-w-xl">
