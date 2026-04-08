@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import ProductCard from "./ProductCard";
+import StaggerGrid from "./StaggerGrid";
 
 interface ProductData {
   id: string;
@@ -69,22 +70,27 @@ export default function HomeProducts() {
           ))}
         </div>
       ) : products.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <StaggerGrid
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+          triggerKey={tab}
+          delay={70}
+        >
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              slug={product.slug}
-              price={product.price}
-              image={product.images[0] || ""}
-              teamName={product.teamName}
-              teamSlug={product.teamSlug}
-              surCommande={product.surCommande}
-              category={product.category}
-            />
+            <div key={product.id} className="stagger-item">
+              <ProductCard
+                id={product.id}
+                name={product.name}
+                slug={product.slug}
+                price={product.price}
+                image={product.images[0] || ""}
+                teamName={product.teamName}
+                teamSlug={product.teamSlug}
+                surCommande={product.surCommande}
+                category={product.category}
+              />
+            </div>
           ))}
-        </div>
+        </StaggerGrid>
       ) : (
         <div className="text-center py-16 text-gray-400">
           <p className="text-sm">No products in this category yet.</p>

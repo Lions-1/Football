@@ -63,3 +63,14 @@ body {
 .hero-section:hover .hero-img {
   transform: scale(1.07);
 }
+
+/* Stagger scroll-reveal */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.stagger-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

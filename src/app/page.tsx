@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { ArrowRight } from "lucide-react";
 import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
+import StaggerGrid from "@/components/StaggerGrid";
 
 export const dynamic = "force-dynamic";
 
@@ -185,14 +186,14 @@ export default async function Home() {
         {/* WC2026 Jersey Product Grid — below the image */}
         {wcProducts.length > 0 && (
           <div className="mx-auto max-w-7xl px-4 py-14">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
               {wcProducts.map((product) => {
                 const images = JSON.parse(product.images) as string[];
                 return (
                   <Link
                     key={product.id}
                     href={`/product/${product.slug}`}
-                    className="group block"
+                    className="group block stagger-item"
                   >
                     <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-orange-400 transition relative">
                       {images[0] && (
@@ -221,7 +222,7 @@ export default async function Home() {
                   </Link>
                 );
               })}
-            </div>
+            </StaggerGrid>
             <div className="mt-8 text-center">
               <Link
                 href="/league/national-teams"
@@ -259,11 +260,11 @@ export default async function Home() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
             {moroccoProducts.map((product) => {
               const imgs = JSON.parse(product.images) as string[];
               return (
-                <Link key={product.id} href={`/product/${product.slug}`} className="group block">
+                <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                   <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-green-400 transition relative">
                     {imgs[0] ? (
                       <img
@@ -290,7 +291,7 @@ export default async function Home() {
                 </Link>
               );
             })}
-          </div>
+          </StaggerGrid>
         )}
 
       </section>
@@ -314,12 +315,12 @@ export default async function Home() {
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-heading text-3xl font-bold text-gray-900 tracking-tight uppercase">Browse by League</h2>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
+          <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5" delay={80}>
             {leagues.filter(l => l.slug !== "national-teams").slice(0, 5).map((league) => (
               <Link
                 key={league.id}
                 href={`/league/${league.slug}`}
-                className="group bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-2xl p-6 text-center transition-all shadow-sm hover:shadow-lg"
+                className="group bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-2xl p-6 text-center transition-all shadow-sm hover:shadow-lg stagger-item"
               >
                 <div className="w-20 h-20 mx-auto mb-4 relative">
                   {LEAGUE_LOGOS[league.slug] ? (
@@ -340,7 +341,7 @@ export default async function Home() {
                 <p className="text-sm font-bold text-gray-900">{league.name}</p>
               </Link>
             ))}
-          </div>
+          </StaggerGrid>
           <div className="mt-8 text-center">
             <Link
               href="/products"
