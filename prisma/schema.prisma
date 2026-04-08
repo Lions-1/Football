@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model League {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+  order Int    @default(0)
+  teams Team[]
+}
+
+model Team {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  logo     String?
+  leagueId String
+  league   League    @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  products Product[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  price       Float
+  images      String   // JSON array of image URLs
+  sizes       String   // JSON array of available sizes
+  teamId      String
+  team        Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  category    String   @default("jersey") // jersey, tracksuit, retro, training, shorts, kids
+  season      String?  // e.g. "2025/26"
+  surCommande Boolean  @default(false)
+  featured    Boolean  @default(false)
+  bestSeller  Boolean  @default(false)
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+  wishlistItems WishlistItem[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  customerName  String
+  customerEmail String?
+  customerPhone String
+  address    String?
+  total      Float
+  status     String      @default("pending") // pending, confirmed, shipped, delivered
+  notes      String?
+  items      OrderItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  size      String
+  customName   String?
+  customNumber String?
+  price     Float
+}
+
+model WishlistItem {
+  id        String  @id @default(cuid())
+  sessionId String
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([sessionId, productId])
+}
+
+model AdminUser {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+}
