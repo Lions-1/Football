@@ -55,7 +55,7 @@ export default async function Home() {
       {/* Hero with grass field / stadium */}
       <section className="hero-section relative overflow-hidden min-h-[420px] md:min-h-[520px] flex items-center">
         <Image
-          src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1400&q=85"
+          src="/staduim.jpg"
           alt=""
           fill
           className="object-cover hero-img"
