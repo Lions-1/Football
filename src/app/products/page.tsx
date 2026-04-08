@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import ProductSearch from "@/components/ProductSearch";
+import FilterSidebar from "@/components/FilterSidebar";
 
 export const dynamic = "force-dynamic";
 
@@ -89,7 +90,8 @@ export default async function ProductsPage({ searchParams }: Props) {
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
-        <aside className="w-full md:w-56 shrink-0">
+        <aside className="w-full md:w-56 shrink-0 order-2 md:order-1">
+          <FilterSidebar>
           {/* Search */}
           <div className="mb-6">
             <ProductSearch initialQuery={searchQuery} />
@@ -148,10 +150,11 @@ export default async function ProductsPage({ searchParams }: Props) {
               </Link>
             ))}
           </div>
+          </FilterSidebar>
         </aside>
 
         {/* Products grid */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 order-1 md:order-2">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">{title}</h1>
           </div>

@@ -57,7 +57,7 @@ export default function Navbar() {
       {/* Top bar */}
       <div className="bg-gray-900 text-white text-xs">
         <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-1.5">
-          <span className="text-gray-300">Free delivery on orders over $500</span>
+          <span className="hidden sm:block text-gray-300">Free delivery on orders over $500</span>
           <div className="flex items-center gap-4">
             <a href="https://wa.me/21261614253" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition">WhatsApp</a>
             <Link href="/contact" className="text-gray-300 hover:text-white transition">Contact</Link>
@@ -71,7 +71,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
           <Image src="/logo.png" alt="Mebutik Sports" width={44} height={44} className="object-contain" priority />
-          <span className="text-2xl font-black tracking-wider text-gray-900">
+          <span className="text-lg sm:text-2xl font-black tracking-wider text-gray-900">
             <span className="text-orange-500">MEBUTIK</span>SPORTS
           </span>
         </Link>

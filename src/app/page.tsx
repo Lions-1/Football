@@ -105,14 +105,14 @@ export default async function Home() {
 
       {/* Stats strip */}
       <section className="bg-white border-b border-gray-200">
-        <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-200">
+        <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 md:divide-x divide-gray-200">
           {([
             { value: `${productCount}+`, label: "Products" },
             { value: `${leagues.length}`, label: "Leagues" },
             { value: `${teamCount}+`, label: "Teams" },
             { value: "24 / 7", label: "WhatsApp Support" },
           ] as { value: string; label: string }[]).map((stat, i) => (
-            <div key={i} className="flex flex-col items-center justify-center py-7 px-4 gap-0">
+            <div key={i} className={`flex flex-col items-center justify-center py-7 px-4 gap-0 ${i % 2 !== 0 ? "border-l border-gray-200 md:border-l-0" : ""} ${i < 2 ? "border-b border-gray-200 md:border-b-0" : ""}`}>
               <span className="block w-6 h-[2px] bg-orange-500 mb-3" />
               <span className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight tabular-nums leading-none">
                 {stat.value}

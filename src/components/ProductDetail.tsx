@@ -73,7 +73,7 @@ export default function ProductDetail({
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-6">
+      <nav className="flex items-center gap-1.5 text-xs text-gray-500 mb-6 overflow-hidden min-w-0">
         <Link href="/" className="hover:text-gray-900 transition">Home</Link>
         <ChevronRight className="w-3 h-3" />
         <Link href={`/league/${product.leagueSlug}`} className="hover:text-gray-900 transition">
