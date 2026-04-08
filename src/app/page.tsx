@@ -56,13 +56,13 @@ export default async function Home() {
       {/* Hero with grass field / stadium */}
       <section className="hero-section relative overflow-hidden min-h-[420px] md:min-h-[520px] flex items-center">
         <Image
-          src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1400&q=85"
+          src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1400&q=85"
           alt=""
           fill
           className="object-cover hero-img"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/10" />
 
         <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 relative z-10 w-full">
           <div className="max-w-xl">
