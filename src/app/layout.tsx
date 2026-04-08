@@ -10,6 +10,25 @@ const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald", weight: [
 export const metadata: Metadata = {
   title: "Mebutik Sports - Football Jerseys & Sportswear",
   description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear. mebutiksports.com",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+    shortcut: "/logo.png",
+  },
+  openGraph: {
+    title: "Mebutik Sports - Football Jerseys & Sportswear",
+    description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear.",
+    url: "https://mebutiksports.com",
+    siteName: "Mebutik Sports",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "Mebutik Sports" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Mebutik Sports - Football Jerseys & Sportswear",
+    description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({
@@ -20,6 +39,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className={`${inter.variable} ${oswald.variable} font-sans min-h-full flex flex-col bg-white text-gray-900`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Mebutik Sports",
+              url: "https://mebutiksports.com",
+              logo: "https://mebutiksports.com/logo.png",
+              sameAs: [],
+            }),
+          }}
+        />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
