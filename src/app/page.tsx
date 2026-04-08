@@ -298,7 +298,7 @@ export default async function Home() {
 
       {/* Mebutik Sports branding banner */}
       <section className="w-full">
-        <div className="relative w-full aspect-[2/1] sm:aspect-[3/1] md:aspect-[3.5/1]">
+        <div className="relative w-full min-h-[260px] sm:min-h-[300px] md:min-h-0 md:aspect-[3.5/1]">
           <Image
             src="/hero-brand.png"
             alt="Mebutik Sports — Premium Football Jerseys"
