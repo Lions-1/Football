@@ -141,7 +141,7 @@ export default function Navbar() {
         {/* Right actions */}
         <div className="flex items-center gap-3 text-gray-700">
           {/* Search */}
-          <div className="hidden sm:block">
+          <div className="hidden sm:flex sm:items-center">
             {searchOpen ? (
               <form onSubmit={handleSearch} className="flex items-center bg-gray-100 rounded-full px-3 py-1.5">
                 <input

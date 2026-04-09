@@ -297,13 +297,13 @@ export default async function Home() {
       </section>
 
       {/* Mebutik Sports branding banner */}
-      <section className="w-full bg-gray-900">
+      <section className="w-full bg-gray-900 overflow-hidden">
         <Image
           src="/hero-brand.png"
           alt="Mebutik Sports — Premium Football Jerseys"
           width={1400}
           height={400}
-          className="w-full h-auto"
+          className="w-full h-auto scale-[1.4] sm:scale-[1.15] md:scale-100 origin-center"
           sizes="100vw"
         />
       </section>
