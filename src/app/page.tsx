@@ -54,7 +54,7 @@ export default async function Home() {
   return (
     <div>
       {/* Hero with grass field / stadium */}
-      <section className="hero-section relative overflow-hidden min-h-[420px] md:min-h-[520px] flex items-center">
+      <section className="hero-section relative overflow-hidden min-h-[420px] md:min-h-[560px] flex items-center">
         <Image
           src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1400&q=85"
           alt=""
@@ -297,7 +297,7 @@ export default async function Home() {
       </section>
 
       {/* Mebutik Sports branding banner */}
-      <section className="w-full bg-gray-100">
+      <section className="w-full bg-gray-900">
         <Image
           src="/hero-brand.png"
           alt="Mebutik Sports — Premium Football Jerseys"
