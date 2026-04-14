@@ -15,16 +15,16 @@ const UCL_CLUB_SLUGS = [
 ];
 
 const F1_TEAMS = [
-  { name: "Red Bull Racing", slug: "red-bull-racing" },
-  { name: "Ferrari", slug: "ferrari" },
-  { name: "Mercedes", slug: "mercedes-amg-f1" },
-  { name: "McLaren", slug: "mclaren-f1" },
-  { name: "Alpine", slug: "alpine-f1" },
-  { name: "Aston Martin", slug: "aston-martin-f1" },
-  { name: "Williams", slug: "williams-f1" },
-  { name: "RB", slug: "rb-f1" },
-  { name: "Kick Sauber", slug: "kick-sauber" },
-  { name: "Haas", slug: "haas-f1" },
+  { name: "Red Bull Racing", slug: "red-bull-racing", color: "#1E41FF", short: "RBR" },
+  { name: "Ferrari",         slug: "ferrari",          color: "#DC0000", short: "FER" },
+  { name: "Mercedes",        slug: "mercedes-amg-f1",  color: "#00D2BE", short: "MER" },
+  { name: "McLaren",         slug: "mclaren-f1",       color: "#FF8000", short: "MCL" },
+  { name: "Alpine",          slug: "alpine-f1",        color: "#0090FF", short: "ALP" },
+  { name: "Aston Martin",    slug: "aston-martin-f1",  color: "#006F62", short: "AMF" },
+  { name: "Williams",        slug: "williams-f1",      color: "#005AFF", short: "WIL" },
+  { name: "RB",              slug: "rb-f1",            color: "#6692FF", short: "RB"  },
+  { name: "Kick Sauber",     slug: "kick-sauber",      color: "#52E252", short: "KS"  },
+  { name: "Haas",            slug: "haas-f1",          color: "#B6BABD", short: "HAA" },
 ];
 
 async function getHomeData() {
@@ -365,12 +365,11 @@ export default async function Home() {
                   href={`/team/${team.slug}`}
                   className="flex-shrink-0 group flex flex-col items-center gap-1"
                 >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 group-hover:border-red-400 flex items-center justify-center transition overflow-hidden relative">
-                    {CLUB_LOGOS[team.slug] ? (
-                      <Image src={CLUB_LOGOS[team.slug]} alt={team.name} fill className="object-contain p-2" unoptimized />
-                    ) : (
-                      <span className="text-white font-black text-sm">{team.name.charAt(0)}</span>
-                    )}
+                  <div
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition border-2 border-white/20 group-hover:border-white/70 font-black text-xs tracking-tight"
+                      style={{ backgroundColor: team.color + "33", borderColor: team.color + "99", color: team.color }}
+                    >
+                    {team.short}
                   </div>
                   <span className="text-[9px] text-white/60 group-hover:text-red-400 transition font-medium text-center w-14 truncate">
                     {team.name}
