@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "flagcdn.com" },
       { protocol: "https", hostname: "crests.football-data.org" },
       { protocol: "https", hostname: "pulsesfootball.com" },
+      { protocol: "https", hostname: "vamos-kw.com" },
+      { protocol: "https", hostname: "**.vamos-kw.com" },
       { protocol: "http", hostname: "localhost" },
     ],
   },
