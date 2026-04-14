@@ -62,7 +62,7 @@ async function getHomeData() {
       orderBy: { createdAt: "desc" },
       take: 6,
     }),
-    // UCL club products
+    // UCL club products — one per team via distinct
     prisma.product.findMany({
       where: {
         team: { slug: { in: UCL_CLUB_SLUGS } },
@@ -74,6 +74,7 @@ async function getHomeData() {
           { name: { contains: "GK" } },
         ],
       },
+      distinct: ["teamId"],
       include: { team: true },
       orderBy: { bestSeller: "desc" },
       take: 6,
@@ -283,11 +284,6 @@ export default async function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f2e]/60 via-[#0a0f2e]/30 to-[#0a0f2e]/80" />
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-            <div className="flex items-center gap-4 mb-4">
-              {LEAGUE_LOGOS["champions-league"] && (
-                <Image src={LEAGUE_LOGOS["champions-league"]} alt="UCL" width={60} height={60} className="object-contain" unoptimized />
-              )}
-            </div>
             <h2 className="font-heading text-5xl sm:text-7xl md:text-[110px] font-bold tracking-tight leading-[0.85] uppercase text-white text-center drop-shadow-lg">
               Champions <span className="text-[#c8a84b]">League</span>
             </h2>
@@ -363,7 +359,7 @@ export default async function Home() {
           {/* F1 teams marquee */}
           <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 pt-6 bg-gradient-to-t from-black/70 to-transparent">
             <div className="flex animate-marquee items-center gap-8 w-max">
-              {[...F1_TEAMS, ...F1_TEAMS].map((team, i) => (
+              {[...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS].map((team, i) => (
                 <Link
                   key={`${team.slug}-${i}`}
                   href={`/team/${team.slug}`}

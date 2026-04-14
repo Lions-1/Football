@@ -12,7 +12,7 @@ export const LEAGUE_LOGOS: Record<string, string> = {
   "eredivisie": "/logos/leagues/eredivisie.png",
   "liga-mx": "/logos/leagues/liga-mx.png",
   "liga-portugal": "/logos/leagues/liga-portugal.png",
-  "champions-league": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/UEFA_Champions_League_logo_2.svg/150px-UEFA_Champions_League_logo_2.svg.png",
+  "champions-league": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/UEFA_Champions_League_logo_2.svg/150px-UEFA_Champions_League_logo_2.svg.png",
   "f1": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/200px-F1.svg.png",
 };
 
@@ -194,13 +194,14 @@ export const CLUB_LOGOS: Record<string, string> = {
   "al-hilal":          "https://crests.football-data.org/1920.png",
   "al-nassr":          "https://crests.football-data.org/1919.png",
   // F1 Teams
-  "red-bull-racing":   "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Red_Bull_Racing_logo.svg/200px-Red_Bull_Racing_logo.svg.png",
-  "ferrari":           "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Ferrari_F1.png/200px-Ferrari_F1.png",
-  "mercedes-amg-f1":   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/200px-Mercedes_AMG_Petronas_F1_Logo.svg.png",
-  "mclaren-f1":        "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/McLaren_Racing_logo.svg/200px-McLaren_Racing_logo.svg.png",
-  "alpine-f1":         "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Alpine_F1_Team_Logo.svg/200px-Alpine_F1_Team_Logo.svg.png",
-  "aston-martin-f1":   "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Aston_Martin_F1_badge.svg/200px-Aston_Martin_F1_badge.svg.png",
-  "williams-f1":       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Williams_Racing_2020_logo.svg/200px-Williams_Racing_2020_logo.svg.png",
+  "red-bull-racing":   "https://logo.clearbit.com/redbullracing.com",
+  "ferrari":           "https://logo.clearbit.com/ferrari.com",
+  "mercedes-amg-f1":   "https://logo.clearbit.com/mercedesamgf1.com",
+  "mclaren-f1":        "https://logo.clearbit.com/mclaren.com",
+  "alpine-f1":         "https://logo.clearbit.com/alpinef1team.com",
+  "aston-martin-f1":   "https://logo.clearbit.com/astonmartinf1.com",
+  "williams-f1":       "https://logo.clearbit.com/williamsf1.com",
+  "haas-f1":           "https://logo.clearbit.com/haasf1team.com",
 };
 
 export const BRAND_LOGOS = [
