@@ -12,6 +12,8 @@ export const LEAGUE_LOGOS: Record<string, string> = {
   "eredivisie": "/logos/leagues/eredivisie.png",
   "liga-mx": "/logos/leagues/liga-mx.png",
   "liga-portugal": "/logos/leagues/liga-portugal.png",
+  "champions-league": "https://upload.wikimedia.org/wikipedia/en/thumb/b/bf/UEFA_Champions_League_logo_2.svg/150px-UEFA_Champions_League_logo_2.svg.png",
+  "f1": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/200px-F1.svg.png",
 };
 
 export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
@@ -191,6 +193,14 @@ export const CLUB_LOGOS: Record<string, string> = {
   // Saudi Pro League
   "al-hilal":          "https://crests.football-data.org/1920.png",
   "al-nassr":          "https://crests.football-data.org/1919.png",
+  // F1 Teams
+  "red-bull-racing":   "https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Red_Bull_Racing_logo.svg/200px-Red_Bull_Racing_logo.svg.png",
+  "ferrari":           "https://upload.wikimedia.org/wikipedia/en/thumb/d/d6/Ferrari_F1.png/200px-Ferrari_F1.png",
+  "mercedes-amg-f1":   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/200px-Mercedes_AMG_Petronas_F1_Logo.svg.png",
+  "mclaren-f1":        "https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/McLaren_Racing_logo.svg/200px-McLaren_Racing_logo.svg.png",
+  "alpine-f1":         "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Alpine_F1_Team_Logo.svg/200px-Alpine_F1_Team_Logo.svg.png",
+  "aston-martin-f1":   "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Aston_Martin_F1_badge.svg/200px-Aston_Martin_F1_badge.svg.png",
+  "williams-f1":       "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Williams_Racing_2020_logo.svg/200px-Williams_Racing_2020_logo.svg.png",
 };
 
 export const BRAND_LOGOS = [
@@ -306,6 +316,25 @@ export const LEAGUES_DATA = [
     name: "Liga Portugal",
     slug: "liga-portugal",
     teams: ["Benfica", "Porto", "Sporting CP", "Braga"],
+  },
+  {
+    name: "Champions League",
+    slug: "champions-league",
+    teams: [
+      "Real Madrid", "Manchester City", "Bayern Munich", "Paris Saint-Germain",
+      "Arsenal", "FC Barcelona", "Atletico Madrid", "AC Milan", "Inter Milan",
+      "Juventus", "Borussia Dortmund", "Bayer Leverkusen", "Liverpool",
+      "Chelsea", "Porto", "Benfica", "Ajax", "Napoli",
+    ],
+  },
+  {
+    name: "F1 2025",
+    slug: "f1",
+    teams: [
+      "Red Bull Racing", "Ferrari", "Mercedes AMG F1", "McLaren F1",
+      "Alpine F1", "Aston Martin F1", "Williams F1", "RB F1",
+      "Kick Sauber", "Haas F1",
+    ],
   },
 ];
 

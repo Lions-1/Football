@@ -74,6 +74,8 @@ export default function Footer() {
             <Link href="/league/bundesliga" className="block hover:text-orange-500 transition">Bundesliga</Link>
             <Link href="/league/serie-a" className="block hover:text-orange-500 transition">Serie A</Link>
             <Link href="/league/ligue-1" className="block hover:text-orange-500 transition">Ligue 1</Link>
+            <Link href="/league/champions-league" className="block hover:text-orange-500 transition">Champions League</Link>
+            <Link href="/league/f1" className="block hover:text-orange-500 transition">F1 2025</Link>
           </div>
         </div>
 
