@@ -193,15 +193,17 @@ export const CLUB_LOGOS: Record<string, string> = {
   // Saudi Pro League
   "al-hilal":          "https://crests.football-data.org/1920.png",
   "al-nassr":          "https://crests.football-data.org/1919.png",
-  // F1 Teams
-  "red-bull-racing":   "https://logo.clearbit.com/redbullracing.com",
-  "ferrari":           "https://logo.clearbit.com/ferrari.com",
-  "mercedes-amg-f1":   "https://logo.clearbit.com/mercedesamgf1.com",
-  "mclaren-f1":        "https://logo.clearbit.com/mclaren.com",
-  "alpine-f1":         "https://logo.clearbit.com/alpinef1team.com",
-  "aston-martin-f1":   "https://logo.clearbit.com/astonmartinf1.com",
-  "williams-f1":       "https://logo.clearbit.com/williamsf1.com",
-  "haas-f1":           "https://logo.clearbit.com/haasf1team.com",
+  // F1 Teams (verified Wikipedia thumbnails)
+  "red-bull-racing":   "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Red_Bull_Racing_-_2021_Logo.svg/250px-Red_Bull_Racing_-_2021_Logo.svg.png",
+  "ferrari":           "https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Scuderia_Ferrari_HP_logo_24.svg/250px-Scuderia_Ferrari_HP_logo_24.svg.png",
+  "mercedes-amg-f1":   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/250px-Mercedes_AMG_Petronas_F1_Logo.svg.png",
+  "mclaren-f1":        "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/McLaren_F1_logo.svg/250px-McLaren_F1_logo.svg.png",
+  "alpine-f1":         "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Alpine_F1_Team_Logo.svg/250px-Alpine_F1_Team_Logo.svg.png",
+  "aston-martin-f1":   "https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Aston_Martin_Aramco_2024_logo.png/250px-Aston_Martin_Aramco_2024_logo.png",
+  "williams-f1":       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Atlassian_Williams_F1_Team_logo.svg/250px-Atlassian_Williams_F1_Team_logo.svg.png",
+  "rb-f1":             "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/VCARB_F1_logo.svg/250px-VCARB_F1_logo.svg.png",
+  "kick-sauber":       "https://upload.wikimedia.org/wikipedia/commons/9/94/Logo_sauber_2023.jpg",
+  "haas-f1":           "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/TGR_Haas_F1_Team_Logo_%282026%29.svg/250px-TGR_Haas_F1_Team_Logo_%282026%29.svg.png",
 };
 
 export const BRAND_LOGOS = [

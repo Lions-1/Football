@@ -271,6 +271,66 @@ export default async function Home() {
         )}
       </section>
 
+      {/* ═══════════ MOROCCO WC 2026 — In Stock ═══════════ */}
+      <section className="mx-auto max-w-7xl px-4 py-14">
+        <div className="mb-8">
+          <p className="font-heading text-2xl font-bold text-green-500 uppercase tracking-tight mb-1">In Stock</p>
+          <div className="flex items-center justify-between">
+            <h2 className="font-heading text-3xl font-bold text-gray-900 tracking-tight uppercase flex items-center gap-3">
+              <img src="https://flagcdn.com/w40/ma.png" alt="Morocco" className="w-9 h-6 object-cover rounded-sm shadow-sm" />
+              Morocco WC 2026
+            </h2>
+            <Link href="/team/morocco" className="text-sm text-orange-500 font-semibold hover:underline flex items-center gap-1">
+              View all <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+
+        {moroccoProducts.length === 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="aspect-square rounded-xl bg-gray-100 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2">
+                <span className="text-3xl">��🇦</span>
+                <span className="text-[10px] text-gray-400 font-medium">Coming soon</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
+            {moroccoProducts.map((product) => {
+              const imgs = JSON.parse(product.images) as string[];
+              return (
+                <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-green-400 transition relative">
+                    {imgs[0] ? (
+                      <img
+                        src={imgs[0]}
+                        alt={product.name}
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-5xl">��🇦</span>
+                      </div>
+                    )}
+                    <span className="absolute top-2 left-2 bg-green-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                      IN STOCK
+                    </span>
+                  </div>
+                  <div className="mt-2.5 px-0.5">
+                    <p className="text-xs text-gray-400 font-medium truncate">{product.team.name}</p>
+                    <p className="text-sm text-gray-900 font-semibold truncate mt-0.5 group-hover:text-orange-500 transition">
+                      {product.name.replace(/World Cup 2026|2026|Fan Jersey Shirt|Fan Version|- /g, "").replace(/\s+/g, " ").trim()}
+                    </p>
+                    <p className="text-sm text-orange-500 font-bold mt-1">${product.price}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </StaggerGrid>
+        )}
+      </section>
+
       {/* ═══════════ CHAMPIONS LEAGUE ═══════════ */}
       <section className="relative w-full overflow-hidden bg-[#0a0f2e]">
         <div className="relative w-full min-h-[320px] sm:min-h-[420px] md:min-h-[500px]">
@@ -358,20 +418,28 @@ export default async function Home() {
           </div>
           {/* F1 teams marquee */}
           <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 pt-6 bg-gradient-to-t from-black/70 to-transparent">
-            <div className="flex animate-marquee items-center gap-8 w-max">
-              {[...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS].map((team, i) => (
+            <div className="flex animate-marquee items-center gap-6 w-max">
+              {[...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS].map((team, i) => (
                 <Link
                   key={`${team.slug}-${i}`}
                   href={`/team/${team.slug}`}
-                  className="flex-shrink-0 group flex flex-col items-center gap-1"
+                  className="flex-shrink-0 group flex flex-col items-center gap-1.5"
                 >
                   <div
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition border-2 border-white/20 group-hover:border-white/70 font-black text-xs tracking-tight"
-                      style={{ backgroundColor: team.color + "33", borderColor: team.color + "99", color: team.color }}
-                    >
-                    {team.short}
+                    className="w-28 sm:w-32 h-14 sm:h-16 rounded-lg bg-white/95 group-hover:bg-white flex items-center justify-center transition shadow-md border border-white/20 group-hover:border-red-400 px-3 py-2"
+                  >
+                    {CLUB_LOGOS[team.slug] ? (
+                      <img
+                        src={CLUB_LOGOS[team.slug]}
+                        alt={team.name}
+                        className="max-w-full max-h-full object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="font-black text-sm" style={{ color: team.color }}>{team.short}</span>
+                    )}
                   </div>
-                  <span className="text-[9px] text-white/60 group-hover:text-red-400 transition font-medium text-center w-14 truncate">
+                  <span className="text-[10px] text-white/70 group-hover:text-red-400 transition font-medium text-center truncate max-w-[8rem]">
                     {team.name}
                   </span>
                 </Link>
@@ -379,67 +447,6 @@ export default async function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* ═══════════ MOROCCO WC 2026 — In Stock ═══════════ */}
-      <section className="mx-auto max-w-7xl px-4 py-14">
-        <div className="mb-8">
-          <p className="font-heading text-2xl font-bold text-green-500 uppercase tracking-tight mb-1">In Stock</p>
-          <div className="flex items-center justify-between">
-            <h2 className="font-heading text-3xl font-bold text-gray-900 tracking-tight uppercase flex items-center gap-3">
-              <img src="https://flagcdn.com/w40/ma.png" alt="Morocco" className="w-9 h-6 object-cover rounded-sm shadow-sm" />
-              Morocco WC 2026
-            </h2>
-            <Link href="/team/morocco" className="text-sm text-orange-500 font-semibold hover:underline flex items-center gap-1">
-              View all <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-
-        {moroccoProducts.length === 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="aspect-square rounded-xl bg-gray-100 border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-2">
-                <span className="text-3xl">🇲🇦</span>
-                <span className="text-[10px] text-gray-400 font-medium">Coming soon</span>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
-            {moroccoProducts.map((product) => {
-              const imgs = JSON.parse(product.images) as string[];
-              return (
-                <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
-                  <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-green-400 transition relative">
-                    {imgs[0] ? (
-                      <img
-                        src={imgs[0]}
-                        alt={product.name}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-5xl">🇲🇦</span>
-                      </div>
-                    )}
-                    <span className="absolute top-2 left-2 bg-green-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
-                      IN STOCK
-                    </span>
-                  </div>
-                  <div className="mt-2.5 px-0.5">
-                    <p className="text-xs text-gray-400 font-medium truncate">{product.team.name}</p>
-                    <p className="text-sm text-gray-900 font-semibold truncate mt-0.5 group-hover:text-orange-500 transition">
-                      {product.name.replace(/World Cup 2026|2026|Fan Jersey Shirt|Fan Version|- /g, "").replace(/\s+/g, " ").trim()}
-                    </p>
-                    <p className="text-sm text-orange-500 font-bold mt-1">${product.price}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </StaggerGrid>
-        )}
-
       </section>
 
       {/* Mebutik Sports branding banner */}
