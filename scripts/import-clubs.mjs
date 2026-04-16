@@ -8,11 +8,11 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const BASE = "https://pulsesfootball.com";
 
-// Map club keywords in handle → our team slug
+// Map club keywords in handle → our team slug (must match DB team.slug exactly)
 const CLUB_MAP = {
   "manchester-united": "manchester-united",
   "manchester-city": "manchester-city",
-  "barcelona": "barcelona",
+  "barcelona": "fc-barcelona",
   "real-madrid": "real-madrid",
   "arsenal": "arsenal",
   "chelsea": "chelsea",
@@ -22,10 +22,20 @@ const CLUB_MAP = {
   "real-betis": "real-betis",
   "liverpool": "liverpool",
   "juventus": "juventus",
-  "psg": "psg",
+  "psg": "paris-saint-germain",
+  "paris-saint-germain": "paris-saint-germain",
   "bayern": "bayern-munich",
   "borussia-dortmund": "borussia-dortmund",
+  "dortmund": "borussia-dortmund",
+  "bayer-leverkusen": "bayer-leverkusen",
+  "leverkusen": "bayer-leverkusen",
   "napoli": "napoli",
+  "tottenham": "tottenham",
+  "newcastle": "newcastle-united",
+  "ajax": "ajax",
+  "benfica": "benfica",
+  "porto": "porto",
+  "sporting": "sporting-cp",
 };
 
 function detectClub(handle) {
@@ -148,6 +158,75 @@ async function main() {
     if (!clubSlug || teamImageMap[clubSlug]) continue;
     const imgs = pickBestImages(p.images || []);
     if (imgs.length > 0) teamImageMap[clubSlug] = imgs;
+  }
+
+  // Per-club search fallback: any UCL club still missing → hit Shopify search
+  const uclSlugs = [
+    "real-madrid", "fc-barcelona", "manchester-city", "bayern-munich",
+    "paris-saint-germain", "arsenal", "ac-milan", "inter-milan",
+    "borussia-dortmund", "bayer-leverkusen", "liverpool", "atletico-madrid",
+    "chelsea", "juventus", "napoli", "tottenham",
+  ];
+  const searchTermFor = {
+    "fc-barcelona": "barcelona",
+    "paris-saint-germain": "psg",
+    "bayern-munich": "bayern munich",
+    "borussia-dortmund": "dortmund",
+    "bayer-leverkusen": "leverkusen",
+    "inter-milan": "inter milan",
+    "ac-milan": "ac milan",
+    "atletico-madrid": "atletico madrid",
+    "manchester-city": "manchester city",
+    "manchester-united": "manchester united",
+    "real-madrid": "real madrid",
+    "liverpool": "liverpool",
+    "arsenal": "arsenal",
+    "chelsea": "chelsea",
+    "juventus": "juventus",
+    "napoli": "napoli",
+    "tottenham": "tottenham",
+  };
+
+  console.log("\n── Per-club search fallback ──");
+  for (const slug of uclSlugs) {
+    if (teamImageMap[slug]) continue; // already have images from collection
+    const q = searchTermFor[slug] || slug.replace(/-/g, " ");
+    const url = `${BASE}/search/suggest.json?q=${encodeURIComponent(q)}&resources[type]=product&resources[limit]=10`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      const prods = data?.resources?.results?.products || [];
+      // Find first home/fan jersey (prefer non-retro, non-long-sleeve)
+      const chosen = prods.find(p => {
+        const h = (p.handle || "").toLowerCase();
+        const t = (p.title || "").toLowerCase();
+        if (h.includes("kids") || h.includes("women") || h.includes("long-sleeve")) return false;
+        if (h.includes("retro") || h.includes("reissue")) return false;
+        return (t.includes("home") || t.includes("25/26") || t.includes("2025")) && p.featured_image?.url;
+      }) || prods.find(p => p.featured_image?.url);
+      if (!chosen) { console.log(`  ${slug}: no search results`); continue; }
+
+      // Fetch full product for multiple images
+      const detail = await fetch(`${BASE}/products/${chosen.handle}.json`);
+      let imgs = [chosen.featured_image.url];
+      if (detail.ok) {
+        const dj = await detail.json();
+        const full = dj?.product?.images || [];
+        const picked = full
+          .filter(i => {
+            const s = (i.src || "").toLowerCase();
+            return !s.includes("banner") && !s.includes("descricao") && !s.includes("small_");
+          })
+          .slice(0, 3)
+          .map(i => i.src);
+        if (picked.length > 0) imgs = picked;
+      }
+      teamImageMap[slug] = imgs;
+      console.log(`  ${slug}: found via search "${q}" → ${chosen.title} (${imgs.length} imgs)`);
+    } catch (e) {
+      console.log(`  ${slug}: search error ${e.message}`);
+    }
   }
 
   const emptyProducts = await prisma.product.findMany({
