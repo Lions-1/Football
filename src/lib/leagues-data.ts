@@ -341,6 +341,20 @@ export const LEAGUES_DATA = [
   },
 ];
 
+/**
+ * Clubs that feature on the Champions League page.
+ * These teams each live in their domestic league (La Liga, Premier League, etc.),
+ * so the Champions League page renders them as a virtual view over those clubs.
+ */
+export const CHAMPIONS_LEAGUE_CLUBS: string[] = [
+  "real-madrid", "fc-barcelona", "atletico-madrid",
+  "manchester-city", "arsenal", "liverpool", "chelsea",
+  "bayern-munich", "borussia-dortmund", "bayer-leverkusen",
+  "paris-saint-germain",
+  "ac-milan", "inter-milan", "juventus", "napoli",
+  "benfica", "porto", "ajax",
+];
+
 export const CATEGORIES = [
   { name: "Jerseys", slug: "jersey" },
   { name: "Track Suits", slug: "tracksuit" },

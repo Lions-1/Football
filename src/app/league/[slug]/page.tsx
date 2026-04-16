@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
-import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 
 export const dynamic = "force-dynamic";
 
@@ -26,11 +26,24 @@ export default async function LeaguePage({ params }: Props) {
 
   if (!league) notFound();
 
+  // Champions League: teams live in domestic leagues, so load them via the slug list.
+  const isChampionsLeague = slug === "champions-league";
+
+  const displayTeams = isChampionsLeague
+    ? await prisma.team.findMany({
+        where: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
+        orderBy: { name: "asc" },
+        include: { _count: { select: { products: true } } },
+      })
+    : league.teams;
+
   const products = await prisma.product.findMany({
-    where: { team: { leagueId: league.id } },
+    where: isChampionsLeague
+      ? { team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } } }
+      : { team: { leagueId: league.id } },
     include: { team: { include: { league: true } } },
-    orderBy: { createdAt: "desc" },
-    take: 50,
+    orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
+    take: 80,
   });
 
   return (
@@ -46,7 +59,7 @@ export default async function LeaguePage({ params }: Props) {
         </div>
         <div>
           <h1 className="text-2xl font-bold">{league.name}</h1>
-          <p className="text-sm text-gray-500">{league.teams.length} teams</p>
+          <p className="text-sm text-gray-500">{displayTeams.length} teams</p>
         </div>
       </div>
 
@@ -55,7 +68,7 @@ export default async function LeaguePage({ params }: Props) {
         <h2 className="text-lg font-semibold mb-4">Teams</h2>
         {league.slug === "national-teams" ? (
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-            {league.teams.map((team) => {
+            {displayTeams.map((team) => {
               const flag = COUNTRY_FLAGS.find(
                 (c) => c.name.toLowerCase() === team.name.toLowerCase()
               );
@@ -85,7 +98,7 @@ export default async function LeaguePage({ params }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {league.teams.map((team) => (
+            {displayTeams.map((team) => (
               <Link
                 key={team.id}
                 href={`/team/${team.slug}`}

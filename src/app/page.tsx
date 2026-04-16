@@ -2,17 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight } from "lucide-react";
-import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
 import StaggerGrid from "@/components/StaggerGrid";
 
 export const dynamic = "force-dynamic";
-
-const UCL_CLUB_SLUGS = [
-  "real-madrid", "fc-barcelona", "manchester-city", "bayern-munich",
-  "paris-saint-germain", "arsenal", "ac-milan", "inter-milan",
-  "borussia-dortmund", "bayer-leverkusen", "liverpool", "atletico-madrid",
-];
 
 const F1_TEAMS = [
   { name: "Red Bull Racing", slug: "red-bull-racing", color: "#1E41FF", short: "RBR" },
@@ -65,7 +59,7 @@ async function getHomeData() {
     // UCL club products — one per team via distinct
     prisma.product.findMany({
       where: {
-        team: { slug: { in: UCL_CLUB_SLUGS } },
+        team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
         images: { not: "[]" },
         NOT: [
           { name: { contains: "Kids" } },
