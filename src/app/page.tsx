@@ -35,23 +35,23 @@ async function getHomeData() {
     }),
     prisma.product.count(),
     prisma.team.count(),
-    // WC2026 products with real jersey images (Shopify CDN)
+    // WC2026 products — one real jersey per country (Shopify-CDN images only)
     prisma.product.findMany({
       where: {
         team: { league: { slug: "national-teams" } },
-        images: { not: "[]" },
-        name: { contains: "Fan" },
+        images: { contains: "cdn.shopify.com" },
         NOT: [
           { name: { contains: "Kids" } },
           { name: { contains: "Women" } },
           { name: { contains: "Long Sleeve" } },
-          { name: { contains: "Away" } },
           { name: { contains: "GK" } },
+          { name: { contains: "Retro" } },
         ],
       },
+      distinct: ["teamId"],
       include: { team: true },
-      orderBy: { createdAt: "desc" },
-      take: 6,
+      orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
+      take: 12,
     }),
     // Morocco products
     prisma.product.findMany({
