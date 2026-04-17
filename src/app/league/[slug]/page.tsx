@@ -39,7 +39,17 @@ export default async function LeaguePage({ params }: Props) {
 
   const products = await prisma.product.findMany({
     where: isChampionsLeague
-      ? { team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } } }
+      ? {
+          team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
+          // Current season only — older jerseys remain visible on the domestic league pages
+          OR: [
+            { season: { contains: "25/26" } },
+            { season: { contains: "2025-26" } },
+            { name: { contains: "25/26" } },
+            { name: { contains: "2025/26" } },
+            { name: { contains: "25-26" } },
+          ],
+        }
       : { team: { leagueId: league.id } },
     include: { team: { include: { league: true } } },
     orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
