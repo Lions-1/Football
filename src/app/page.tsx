@@ -29,17 +29,20 @@ async function getHomeData() {
     }),
     prisma.product.count(),
     prisma.team.count(),
-    // WC2026 products — one real jersey per country (Shopify-CDN images only)
+    // WC2026 products — one real jersey per country (any real http image)
     prisma.product.findMany({
       where: {
         team: { league: { slug: "national-teams" } },
-        images: { contains: "cdn.shopify.com" },
+        images: { contains: "https://" },
         NOT: [
           { name: { contains: "Kids" } },
           { name: { contains: "Women" } },
           { name: { contains: "Long Sleeve" } },
           { name: { contains: "GK" } },
           { name: { contains: "Retro" } },
+          { name: { contains: "Air Freshener" } },
+          { name: { contains: "Lanyard" } },
+          { name: { contains: "Pin" } },
         ],
       },
       distinct: ["teamId"],
