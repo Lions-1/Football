@@ -1,0 +1,478 @@
+[
+  {
+    "yupooId": "817225",
+    "yupooName": "Sporting Gijón"
+  },
+  {
+    "yupooId": "815941",
+    "yupooName": "Real Oviedo"
+  },
+  {
+    "yupooId": "815938",
+    "yupooName": "Málaga"
+  },
+  {
+    "yupooId": "815943",
+    "yupooName": "Deportivo La Coruña"
+  },
+  {
+    "yupooId": "815945",
+    "yupooName": "Real Valladolid"
+  },
+  {
+    "yupooId": "815946",
+    "yupooName": "Leganés"
+  },
+  {
+    "yupooId": "816941",
+    "yupooName": "St. Pauli"
+  },
+  {
+    "yupooId": "816945",
+    "yupooName": "Hertha BSC"
+  },
+  {
+    "yupooId": "816928",
+    "yupooName": "Hoffenheim"
+  },
+  {
+    "yupooId": "816938",
+    "yupooName": "Mainz 05"
+  },
+  {
+    "yupooId": "816939",
+    "yupooName": "Augsburg"
+  },
+  {
+    "yupooId": "816940",
+    "yupooName": "Hamburger SV"
+  },
+  {
+    "yupooId": "816942",
+    "yupooName": "Köln"
+  },
+  {
+    "yupooId": "816944",
+    "yupooName": "Hannover 96"
+  },
+  {
+    "yupooId": "816946",
+    "yupooName": "Bochum"
+  },
+  {
+    "yupooId": "816947",
+    "yupooName": "Nürnberg"
+  },
+  {
+    "yupooId": "816948",
+    "yupooName": "Fortuna Düsseldorf"
+  },
+  {
+    "yupooId": "816457",
+    "yupooName": "AZ Alkmaar"
+  },
+  {
+    "yupooId": "816451",
+    "yupooName": "Celtic"
+  },
+  {
+    "yupooId": "816452",
+    "yupooName": "Rangers"
+  },
+  {
+    "yupooId": "816431",
+    "yupooName": "Colo-colo"
+  },
+  {
+    "yupooId": "816435",
+    "yupooName": "Universidad de Chile"
+  },
+  {
+    "yupooId": "816447",
+    "yupooName": "Universidad Católica"
+  },
+  {
+    "yupooId": "816438",
+    "yupooName": "Olimpia"
+  },
+  {
+    "yupooId": "816439",
+    "yupooName": "Cerro Porteño"
+  },
+  {
+    "yupooId": "816440",
+    "yupooName": "Libertad"
+  },
+  {
+    "yupooId": "816779",
+    "yupooName": "Inter"
+  },
+  {
+    "yupooId": "816802",
+    "yupooName": "Roma"
+  },
+  {
+    "yupooId": "816962",
+    "yupooName": "Bari"
+  },
+  {
+    "yupooId": "816901",
+    "yupooName": "Palermo"
+  },
+  {
+    "yupooId": "816844",
+    "yupooName": "Udinese"
+  },
+  {
+    "yupooId": "816845",
+    "yupooName": "Sassuolo"
+  },
+  {
+    "yupooId": "816860",
+    "yupooName": "Lecce"
+  },
+  {
+    "yupooId": "816862",
+    "yupooName": "Verona"
+  },
+  {
+    "yupooId": "816894",
+    "yupooName": "Monza"
+  },
+  {
+    "yupooId": "816949",
+    "yupooName": "PSG"
+  },
+  {
+    "yupooId": "816969",
+    "yupooName": "Metz"
+  },
+  {
+    "yupooId": "816970",
+    "yupooName": "Nantes"
+  },
+  {
+    "yupooId": "816971",
+    "yupooName": "Paris FC"
+  },
+  {
+    "yupooId": "816975",
+    "yupooName": "Angers"
+  },
+  {
+    "yupooId": "816976",
+    "yupooName": "Lorient"
+  },
+  {
+    "yupooId": "816483",
+    "yupooName": "Orlando City"
+  },
+  {
+    "yupooId": "816490",
+    "yupooName": "Charlotte"
+  },
+  {
+    "yupooId": "816482",
+    "yupooName": "Philadelphia Union"
+  },
+  {
+    "yupooId": "816500",
+    "yupooName": "Portland Timbers"
+  },
+  {
+    "yupooId": "816485",
+    "yupooName": "Chicago Fire"
+  },
+  {
+    "yupooId": "816488",
+    "yupooName": "Nashville"
+  },
+  {
+    "yupooId": "816491",
+    "yupooName": "DC United"
+  },
+  {
+    "yupooId": "816492",
+    "yupooName": "FC Dallas"
+  },
+  {
+    "yupooId": "816494",
+    "yupooName": "Toronto"
+  },
+  {
+    "yupooId": "816480",
+    "yupooName": "Vancouver Whitecaps"
+  },
+  {
+    "yupooId": "816512",
+    "yupooName": "Houston Dynamo"
+  },
+  {
+    "yupooId": "816499",
+    "yupooName": "Cincinnati"
+  },
+  {
+    "yupooId": "816496",
+    "yupooName": "St.Louis City"
+  },
+  {
+    "yupooId": "816498",
+    "yupooName": "Montréal"
+  },
+  {
+    "yupooId": "816501",
+    "yupooName": "Minnesota United"
+  },
+  {
+    "yupooId": "816505",
+    "yupooName": "Kansas City"
+  },
+  {
+    "yupooId": "816513",
+    "yupooName": "Colorado Rapids"
+  },
+  {
+    "yupooId": "816514",
+    "yupooName": "Real Salt Lake"
+  },
+  {
+    "yupooId": "816521",
+    "yupooName": "San Jose"
+  },
+  {
+    "yupooId": "816528",
+    "yupooName": "San Diego FC"
+  },
+  {
+    "yupooId": "798836",
+    "yupooName": "Sport Club Recife"
+  },
+  {
+    "yupooId": "798833",
+    "yupooName": "Vitória"
+  },
+  {
+    "yupooId": "798831",
+    "yupooName": "Paysandu"
+  },
+  {
+    "yupooId": "798832",
+    "yupooName": "Remo"
+  },
+  {
+    "yupooId": "798834",
+    "yupooName": "Santa Cruz"
+  },
+  {
+    "yupooId": "798872",
+    "yupooName": "Fortaleza"
+  },
+  {
+    "yupooId": "798610",
+    "yupooName": "Athlético Paranaense"
+  },
+  {
+    "yupooId": "798837",
+    "yupooName": "Ceará"
+  },
+  {
+    "yupooId": "798829",
+    "yupooName": "Volta Redonda"
+  },
+  {
+    "yupooId": "798830",
+    "yupooName": "Juventude"
+  },
+  {
+    "yupooId": "798839",
+    "yupooName": "Náutico"
+  },
+  {
+    "yupooId": "798851",
+    "yupooName": "RB Bragantino"
+  },
+  {
+    "yupooId": "798852",
+    "yupooName": "Chapecoense"
+  },
+  {
+    "yupooId": "798855",
+    "yupooName": "Confiança"
+  },
+  {
+    "yupooId": "798859",
+    "yupooName": "Coritiba"
+  },
+  {
+    "yupooId": "798858",
+    "yupooName": "Portuguesa"
+  },
+  {
+    "yupooId": "798862",
+    "yupooName": "Figueirense"
+  },
+  {
+    "yupooId": "798863",
+    "yupooName": "Cuiabá"
+  },
+  {
+    "yupooId": "799398",
+    "yupooName": "Ponte Preta"
+  },
+  {
+    "yupooId": "816612",
+    "yupooName": "Al-Ettifaq"
+  },
+  {
+    "yupooId": "816626",
+    "yupooName": "Al-Shabab"
+  },
+  {
+    "yupooId": "816467",
+    "yupooName": "Sporting"
+  },
+  {
+    "yupooId": "816472",
+    "yupooName": "Gil Vicente"
+  },
+  {
+    "yupooId": "816473",
+    "yupooName": "Famalicão"
+  },
+  {
+    "yupooId": "816474",
+    "yupooName": "Rio Ave"
+  },
+  {
+    "yupooId": "816475",
+    "yupooName": "Estoril"
+  },
+  {
+    "yupooId": "816476",
+    "yupooName": "FC Arouca"
+  },
+  {
+    "yupooId": "816427",
+    "yupooName": "Galatasaray"
+  },
+  {
+    "yupooId": "816430",
+    "yupooName": "Fenerbahçe"
+  },
+  {
+    "yupooId": "816429",
+    "yupooName": "Beşiktaş JK"
+  },
+  {
+    "yupooId": "816441",
+    "yupooName": "Atlético Nacional"
+  },
+  {
+    "yupooId": "816442",
+    "yupooName": "Millonarios"
+  },
+  {
+    "yupooId": "816443",
+    "yupooName": "Once Caldas"
+  },
+  {
+    "yupooId": "816445",
+    "yupooName": "Junior Barranquilla"
+  },
+  {
+    "yupooId": "815911",
+    "yupooName": "Wrexham AFC"
+  },
+  {
+    "yupooId": "815890",
+    "yupooName": "Sunderland"
+  },
+  {
+    "yupooId": "815905",
+    "yupooName": "Middlesbrough"
+  },
+  {
+    "yupooId": "815909",
+    "yupooName": "Southampton"
+  },
+  {
+    "yupooId": "815910",
+    "yupooName": "Watford"
+  },
+  {
+    "yupooId": "815915",
+    "yupooName": "Sheffield Wednesday"
+  },
+  {
+    "yupooId": "815916",
+    "yupooName": "Sheffield United"
+  },
+  {
+    "yupooId": "815917",
+    "yupooName": "Blackburn Rovers"
+  },
+  {
+    "yupooId": "816714",
+    "yupooName": "Newell's Old Boys"
+  },
+  {
+    "yupooId": "816634",
+    "yupooName": "Vélez Sarsfield"
+  },
+  {
+    "yupooId": "816666",
+    "yupooName": "CA Lanús"
+  },
+  {
+    "yupooId": "816734",
+    "yupooName": "Rosario Central"
+  },
+  {
+    "yupooId": "816646",
+    "yupooName": "Estudiantes de La Plata"
+  },
+  {
+    "yupooId": "816653",
+    "yupooName": "Defensa y Justicia"
+  },
+  {
+    "yupooId": "816686",
+    "yupooName": "CA Talleres"
+  },
+  {
+    "yupooId": "816725",
+    "yupooName": "Platense"
+  },
+  {
+    "yupooId": "816754",
+    "yupooName": "Argentino Jrs."
+  },
+  {
+    "yupooId": "816464",
+    "yupooName": "Pumas"
+  },
+  {
+    "yupooId": "816460",
+    "yupooName": "Toluca"
+  },
+  {
+    "yupooId": "816465",
+    "yupooName": "Pachuca"
+  },
+  {
+    "yupooId": "816436",
+    "yupooName": "Nacional"
+  },
+  {
+    "yupooId": "816437",
+    "yupooName": "Peñarol"
+  },
+  {
+    "yupooId": "816449",
+    "yupooName": "Independiente del Valle"
+  },
+  {
+    "yupooId": "816450",
+    "yupooName": "LDU"
+  }
+]

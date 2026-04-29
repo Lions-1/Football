@@ -1,0 +1,1055 @@
+[
+  {
+    "yupooId": "815924",
+    "yupooName": "Real Madrid",
+    "slug": "real-madrid",
+    "dbName": "Real Madrid",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815925",
+    "yupooName": "Barcelona",
+    "slug": "fc-barcelona",
+    "dbName": "FC Barcelona",
+    "league": "la-liga",
+    "via": "fuzzy",
+    "score": 35
+  },
+  {
+    "yupooId": "815926",
+    "yupooName": "Atlético de Madrid",
+    "slug": "atletico-madrid",
+    "dbName": "Atletico Madrid",
+    "league": "la-liga",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "815928",
+    "yupooName": "Real Betis",
+    "slug": "real-betis",
+    "dbName": "Real Betis",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815935",
+    "yupooName": "Valencia",
+    "slug": "valencia",
+    "dbName": "Valencia",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815927",
+    "yupooName": "Villarreal",
+    "slug": "villarreal",
+    "dbName": "Villarreal",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815929",
+    "yupooName": "Real Sociedad",
+    "slug": "real-sociedad",
+    "dbName": "Real Sociedad",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815930",
+    "yupooName": "Celta de Vigo",
+    "slug": "celta-vigo",
+    "dbName": "Celta Vigo",
+    "league": "la-liga",
+    "via": "fuzzy",
+    "score": 45
+  },
+  {
+    "yupooId": "815932",
+    "yupooName": "Girona",
+    "slug": "girona",
+    "dbName": "Girona",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815937",
+    "yupooName": "Sevilla",
+    "slug": "sevilla",
+    "dbName": "Sevilla",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815931",
+    "yupooName": "Espanyol",
+    "slug": "espanyol",
+    "dbName": "Espanyol",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815934",
+    "yupooName": "Osasuna",
+    "slug": "osasuna",
+    "dbName": "Osasuna",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815936",
+    "yupooName": "Rayo Vallecano",
+    "slug": "rayo-vallecano",
+    "dbName": "Rayo Vallecano",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815939",
+    "yupooName": "Deportivo Alavés",
+    "slug": "deportivo-alaves",
+    "dbName": "Deportivo Alaves",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815944",
+    "yupooName": "Granada",
+    "slug": "granada",
+    "dbName": "Granada",
+    "league": "la-liga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816914",
+    "yupooName": "Bayern München",
+    "slug": "bayern-munich",
+    "dbName": "Bayern Munich",
+    "league": "bundesliga",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816921",
+    "yupooName": "Borussia Dortmund",
+    "slug": "borussia-dortmund",
+    "dbName": "Borussia Dortmund",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816930",
+    "yupooName": "Bayer 04 Leverkusen",
+    "slug": "bayer-leverkusen",
+    "dbName": "Bayer Leverkusen",
+    "league": "bundesliga",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816929",
+    "yupooName": "RB Leipzig",
+    "slug": "rb-leipzig",
+    "dbName": "RB Leipzig",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816932",
+    "yupooName": "Eintracht Frankfurt",
+    "slug": "eintracht-frankfurt",
+    "dbName": "Eintracht Frankfurt",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816937",
+    "yupooName": "Borussia M'gladbach",
+    "slug": "borussia-monchengladbach",
+    "dbName": "Borussia Monchengladbach",
+    "league": "bundesliga",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816943",
+    "yupooName": "Schalke 04",
+    "slug": "schalke-04",
+    "dbName": "Schalke 04",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816934",
+    "yupooName": "Freiburg",
+    "slug": "freiburg",
+    "dbName": "Freiburg",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816933",
+    "yupooName": "Union Berlin",
+    "slug": "union-berlin",
+    "dbName": "Union Berlin",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816936",
+    "yupooName": "Werder Bremen",
+    "slug": "werder-bremen",
+    "dbName": "Werder Bremen",
+    "league": "bundesliga",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816935",
+    "yupooName": "Wolfsburg",
+    "slug": "wolfsburg",
+    "dbName": "Wolfsburg",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816931",
+    "yupooName": "Stuttgart",
+    "slug": "stuttgart",
+    "dbName": "Stuttgart",
+    "league": "bundesliga",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816453",
+    "yupooName": "Ajax",
+    "slug": "ajax",
+    "dbName": "Ajax",
+    "league": "eredivisie",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816454",
+    "yupooName": "PSV Eindhoven",
+    "slug": "psv-eindhoven",
+    "dbName": "PSV Eindhoven",
+    "league": "eredivisie",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816456",
+    "yupooName": "Feyenoord",
+    "slug": "feyenoord",
+    "dbName": "Feyenoord",
+    "league": "eredivisie",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816786",
+    "yupooName": "Milan",
+    "slug": "ac-milan",
+    "dbName": "AC Milan",
+    "league": "serie-a",
+    "via": "fuzzy",
+    "score": 35
+  },
+  {
+    "yupooId": "816793",
+    "yupooName": "Napoli",
+    "slug": "napoli",
+    "dbName": "Napoli",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816798",
+    "yupooName": "Como",
+    "slug": "como",
+    "dbName": "Como",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816801",
+    "yupooName": "Juventus",
+    "slug": "juventus",
+    "dbName": "Juventus",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816868",
+    "yupooName": "Lazio",
+    "slug": "lazio",
+    "dbName": "Lazio",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816841",
+    "yupooName": "Fiorentina",
+    "slug": "fiorentina",
+    "dbName": "Fiorentina",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816803",
+    "yupooName": "Atalanta",
+    "slug": "atalanta",
+    "dbName": "Atalanta",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816829",
+    "yupooName": "Parma",
+    "slug": "parma",
+    "dbName": "Parma",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816836",
+    "yupooName": "Torino",
+    "slug": "torino",
+    "dbName": "Torino",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816893",
+    "yupooName": "Venezia",
+    "slug": "venezia",
+    "dbName": "Venezia",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816824",
+    "yupooName": "Bologna",
+    "slug": "bologna",
+    "dbName": "Bologna",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816852",
+    "yupooName": "Genoa",
+    "slug": "genoa",
+    "dbName": "Genoa",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816853",
+    "yupooName": "Cagliari",
+    "slug": "cagliari",
+    "dbName": "Cagliari",
+    "league": "serie-a",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816963",
+    "yupooName": "Lyon",
+    "slug": "lyon",
+    "dbName": "Lyon",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816964",
+    "yupooName": "Olympique de Marseille",
+    "slug": "olympique-marseille",
+    "dbName": "Olympique Marseille",
+    "league": "ligue-1",
+    "via": "fuzzy",
+    "score": 45
+  },
+  {
+    "yupooId": "816965",
+    "yupooName": "Lens",
+    "slug": "lens",
+    "dbName": "Lens",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816966",
+    "yupooName": "Lille",
+    "slug": "lille",
+    "dbName": "Lille",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816967",
+    "yupooName": "AS Monaco",
+    "slug": "as-monaco",
+    "dbName": "AS Monaco",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816968",
+    "yupooName": "Strasbourg",
+    "slug": "strasbourg",
+    "dbName": "Strasbourg",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816972",
+    "yupooName": "Toulouse",
+    "slug": "toulouse",
+    "dbName": "Toulouse",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816973",
+    "yupooName": "Brest",
+    "slug": "brest",
+    "dbName": "Brest",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816974",
+    "yupooName": "Rennes",
+    "slug": "rennes",
+    "dbName": "Rennes",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816977",
+    "yupooName": "Nice",
+    "slug": "nice",
+    "dbName": "Nice",
+    "league": "ligue-1",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816478",
+    "yupooName": "Inter Miami",
+    "slug": "inter-miami",
+    "dbName": "Inter Miami",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816487",
+    "yupooName": "Los Angeles FC",
+    "slug": "los-angeles-fc",
+    "dbName": "Los Angeles FC",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816481",
+    "yupooName": "LA Galaxy",
+    "slug": "la-galaxy",
+    "dbName": "LA Galaxy",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816486",
+    "yupooName": "New York City",
+    "slug": "new-york-city-fc",
+    "dbName": "New York City FC",
+    "league": "mls",
+    "via": "fuzzy",
+    "score": 45
+  },
+  {
+    "yupooId": "816489",
+    "yupooName": "New York Red Bulls",
+    "slug": "new-york-city-fc",
+    "dbName": "New York City FC",
+    "league": "mls",
+    "via": "fuzzy",
+    "score": 45
+  },
+  {
+    "yupooId": "816484",
+    "yupooName": "Atlanta United",
+    "slug": "atlanta-united",
+    "dbName": "Atlanta United",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816479",
+    "yupooName": "Seattle Sounders",
+    "slug": "seattle-sounders",
+    "dbName": "Seattle Sounders",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816493",
+    "yupooName": "Austin",
+    "slug": "austin-fc",
+    "dbName": "Austin FC",
+    "league": "mls",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816495",
+    "yupooName": "Columbus Crew",
+    "slug": "columbus-crew",
+    "dbName": "Columbus Crew",
+    "league": "mls",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816497",
+    "yupooName": "New England",
+    "slug": "england",
+    "dbName": "England",
+    "league": "national-teams",
+    "via": "fuzzy",
+    "score": 35
+  },
+  {
+    "yupooId": "798910",
+    "yupooName": "Brazil",
+    "slug": "brazil",
+    "dbName": "Brazil",
+    "league": "national-teams",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798612",
+    "yupooName": "Flamengo",
+    "slug": "flamengo",
+    "dbName": "Flamengo",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798669",
+    "yupooName": "Corinthians",
+    "slug": "corinthians",
+    "dbName": "Corinthians",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798671",
+    "yupooName": "Palmeiras",
+    "slug": "palmeiras",
+    "dbName": "Palmeiras",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798672",
+    "yupooName": "São Paulo",
+    "slug": "sao-paulo",
+    "dbName": "Sao Paulo",
+    "league": "brasileirao",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "798876",
+    "yupooName": "Santos",
+    "slug": "santos",
+    "dbName": "Santos",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798670",
+    "yupooName": "Fluminense",
+    "slug": "fluminense",
+    "dbName": "Fluminense",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798877",
+    "yupooName": "Vasco da Gama",
+    "slug": "vasco-da-gama",
+    "dbName": "Vasco da Gama",
+    "league": "brasileirao",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "798860",
+    "yupooName": "Botafogo",
+    "slug": "botafogo",
+    "dbName": "Botafogo",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798909",
+    "yupooName": "Bahia",
+    "slug": "bahia",
+    "dbName": "Bahia",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798905",
+    "yupooName": "Atlético Mineiro",
+    "slug": "atletico-mineiro",
+    "dbName": "Atletico Mineiro",
+    "league": "brasileirao",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "798875",
+    "yupooName": "Cruzeiro",
+    "slug": "cruzeiro",
+    "dbName": "Cruzeiro",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798873",
+    "yupooName": "Grêmio",
+    "slug": "gremio",
+    "dbName": "Gremio",
+    "league": "brasileirao",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "798874",
+    "yupooName": "SC Internacional",
+    "slug": "internacional",
+    "dbName": "Internacional",
+    "league": "brasileirao",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "798853",
+    "yupooName": "Atlético Juventus",
+    "slug": "juventus",
+    "dbName": "Juventus",
+    "league": "serie-a",
+    "via": "fuzzy",
+    "score": 35
+  },
+  {
+    "yupooId": "798861",
+    "yupooName": "Botafogo SP",
+    "slug": "botafogo",
+    "dbName": "Botafogo",
+    "league": "brasileirao",
+    "via": "fuzzy",
+    "score": 35
+  },
+  {
+    "yupooId": "816559",
+    "yupooName": "Al-Nassr",
+    "slug": "al-nassr",
+    "dbName": "Al Nassr",
+    "league": "saudi-pro-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816578",
+    "yupooName": "Al-Hilal",
+    "slug": "al-hilal",
+    "dbName": "Al-Hilal",
+    "league": "saudi-pro-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816592",
+    "yupooName": "Al-Ittihad",
+    "slug": "al-ittihad",
+    "dbName": "Al Ittihad",
+    "league": "saudi-pro-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816599",
+    "yupooName": "Al-Ahli",
+    "slug": "al-ahli",
+    "dbName": "Al Ahli",
+    "league": "saudi-pro-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816469",
+    "yupooName": "Benfica",
+    "slug": "benfica",
+    "dbName": "Benfica",
+    "league": "liga-portugal",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816470",
+    "yupooName": "Porto",
+    "slug": "porto",
+    "dbName": "Porto",
+    "league": "liga-portugal",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816471",
+    "yupooName": "Braga",
+    "slug": "braga",
+    "dbName": "Braga",
+    "league": "liga-portugal",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "814530",
+    "yupooName": "Manchester United",
+    "slug": "manchester-united",
+    "dbName": "Manchester United",
+    "league": "premier-league",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "814537",
+    "yupooName": "Manchester City",
+    "slug": "manchester-city",
+    "dbName": "Manchester City",
+    "league": "premier-league",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "814536",
+    "yupooName": "Arsenal",
+    "slug": "arsenal",
+    "dbName": "Arsenal",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "814539",
+    "yupooName": "Chelsea",
+    "slug": "chelsea",
+    "dbName": "Chelsea",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815883",
+    "yupooName": "Liverpool",
+    "slug": "liverpool",
+    "dbName": "Liverpool",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "814538",
+    "yupooName": "Newcastle United",
+    "slug": "newcastle-united",
+    "dbName": "Newcastle United",
+    "league": "premier-league",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "814540",
+    "yupooName": "Tottenham Hotspur",
+    "slug": "tottenham",
+    "dbName": "Tottenham",
+    "league": "premier-league",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "815884",
+    "yupooName": "Aston Villa",
+    "slug": "aston-villa",
+    "dbName": "Aston Villa",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815885",
+    "yupooName": "Bournemouth",
+    "slug": "bournemouth",
+    "dbName": "Bournemouth",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815886",
+    "yupooName": "Brentford",
+    "slug": "brentford",
+    "dbName": "Brentford",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815887",
+    "yupooName": "Everton",
+    "slug": "everton",
+    "dbName": "Everton",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815888",
+    "yupooName": "Fulham",
+    "slug": "fulham",
+    "dbName": "Fulham",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815889",
+    "yupooName": "Nottingham Forest",
+    "slug": "nottingham-forest",
+    "dbName": "Nottingham Forest",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815891",
+    "yupooName": "Brighton",
+    "slug": "brighton",
+    "dbName": "Brighton",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815893",
+    "yupooName": "Crystal Palace",
+    "slug": "crystal-palace",
+    "dbName": "Crystal Palace",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815894",
+    "yupooName": "Leeds United",
+    "slug": "leeds-united",
+    "dbName": "Leeds United",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815895",
+    "yupooName": "West Ham",
+    "slug": "west-ham",
+    "dbName": "West Ham",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815896",
+    "yupooName": "Burnley",
+    "slug": "burnley",
+    "dbName": "Burnley",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815913",
+    "yupooName": "Leicester City",
+    "slug": "leicester-city",
+    "dbName": "Leicester City",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "815897",
+    "yupooName": "Wolverhampton",
+    "slug": "wolverhampton",
+    "dbName": "Wolverhampton",
+    "league": "premier-league",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816667",
+    "yupooName": "Boca Juniors",
+    "slug": "boca-juniors",
+    "dbName": "Boca Juniors",
+    "league": "liga-profesional",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816674",
+    "yupooName": "River Plate",
+    "slug": "river-plate",
+    "dbName": "River Plate",
+    "league": "liga-profesional",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816741",
+    "yupooName": "Racing",
+    "slug": "racing",
+    "dbName": "Racing",
+    "league": "liga-profesional",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816694",
+    "yupooName": "Independiente",
+    "slug": "independiente",
+    "dbName": "Independiente",
+    "league": "liga-profesional",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816707",
+    "yupooName": "San Lorenzo",
+    "slug": "san-lorenzo",
+    "dbName": "San Lorenzo",
+    "league": "liga-profesional",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816459",
+    "yupooName": "Club América",
+    "slug": "club-america",
+    "dbName": "Club America",
+    "league": "liga-mx",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816466",
+    "yupooName": "Chivas Guadalajara",
+    "slug": "chivas-guadalajara",
+    "dbName": "Chivas Guadalajara",
+    "league": "liga-mx",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816463",
+    "yupooName": "CF Monterrey",
+    "slug": "cf-monterrey",
+    "dbName": "CF Monterrey",
+    "league": "liga-mx",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816461",
+    "yupooName": "Cruz Azul",
+    "slug": "cruz-azul",
+    "dbName": "Cruz Azul",
+    "league": "liga-mx",
+    "via": "alias",
+    "score": 100
+  },
+  {
+    "yupooId": "816462",
+    "yupooName": "Tigres",
+    "slug": "tigres",
+    "dbName": "Tigres",
+    "league": "liga-mx",
+    "via": "direct",
+    "score": 95
+  },
+  {
+    "yupooId": "816448",
+    "yupooName": "Barcelona SC Guayaquil",
+    "slug": "fc-barcelona",
+    "dbName": "FC Barcelona",
+    "league": "la-liga",
+    "via": "fuzzy",
+    "score": 35
+  }
+]

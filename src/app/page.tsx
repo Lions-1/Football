@@ -21,8 +21,16 @@ const F1_TEAMS = [
   { name: "Haas",            slug: "haas-f1",          color: "#B6BABD", short: "HAA" },
 ];
 
+// Hero jersey showcase — picked from our DB to highlight 4 best 2026/27 home jerseys
+const HERO_JERSEYS = [
+  { team: "Real Madrid",       img: "https://photo.yupoo.com/wanfing/f7037446/big.jpg", color: "from-white/20 to-white/0" },
+  { team: "FC Barcelona",     img: "https://photo.yupoo.com/wanfing/ae617188/big.jpg", color: "from-blue-500/20 to-red-500/0" },
+  { team: "Manchester United", img: "https://photo.yupoo.com/wanfing/0a4ff8af/big.jpg", color: "from-red-500/20 to-red-500/0" },
+  { team: "Brazil",            img: "https://photo.yupoo.com/wanfing/edac4847/big.jpg", color: "from-yellow-400/20 to-green-500/0" },
+];
+
 async function getHomeData() {
-  const [leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts] = await Promise.all([
+  const [leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts] = await Promise.all([
     prisma.league.findMany({
       orderBy: { order: "asc" },
       include: { _count: { select: { teams: true } } },
@@ -76,50 +84,67 @@ async function getHomeData() {
       orderBy: { bestSeller: "desc" },
       take: 6,
     }),
+    // NBA jerseys — newly seeded league
+    prisma.product.findMany({
+      where: {
+        team: { league: { slug: "nba" } },
+        images: { contains: "https://" },
+      },
+      include: { team: true },
+      orderBy: { createdAt: "desc" },
+      take: 6,
+    }),
   ]);
 
-  return { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts };
+  return { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts };
 }
 
 export default async function Home() {
-  const { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts } = await getHomeData();
+  const { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts } = await getHomeData();
 
   return (
     <div>
-      {/* Hero with grass field / stadium */}
-      <section className="hero-section relative overflow-hidden min-h-[420px] md:min-h-[560px] flex items-center">
-        <Image
-          src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=1400&q=85"
-          alt=""
-          fill
-          className="object-cover hero-img"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/25" />
+      {/* ═══ HERO — jersey showcase with dramatic gradient ═══ */}
+      <section className="hero-section relative overflow-hidden min-h-[560px] md:min-h-[640px] flex items-center bg-gradient-to-br from-[#0a0a14] via-[#0d1224] to-[#1a0d24]">
+        {/* Animated radial gradient orbs */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/30 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -bottom-40 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/3 left-1/2 w-72 h-72 bg-purple-500/15 rounded-full blur-[100px]" />
 
-        <div className="mx-auto max-w-7xl px-4 py-16 md:py-24 relative z-10 w-full">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 bg-orange-500 rounded-full px-4 py-1.5 text-sm text-white font-semibold mb-6">
-              New Season 2025/26 Available
+        {/* Subtle grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        <div className="mx-auto max-w-7xl px-4 py-12 md:py-16 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left: copy */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-orange-500/15 backdrop-blur-sm border border-orange-500/40 rounded-full px-4 py-1.5 text-sm text-orange-300 font-semibold mb-6">
+              <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
+              New Season 2026/27 — In Stock
             </div>
-            <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white uppercase">
-              Premium Football
+            <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight text-white uppercase">
+              Wear the
               <br />
-              <span className="text-orange-400">Jerseys & Kits</span>
+              <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-amber-400 bg-clip-text text-transparent">Beautiful Game</span>
             </h1>
-            <p className="mt-4 text-lg text-white/70 max-w-lg">
-              Discover the latest football jerseys from top leagues worldwide. Player versions, retro classics, and custom orders available.
+            <p className="mt-5 text-base md:text-lg text-white/65 max-w-lg leading-relaxed">
+              {productCount}+ authentic jerseys from every major league worldwide — Premier League, La Liga, Serie A, Bundesliga, Brasileirão, NBA, F1 and more.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold px-6 py-3.5 rounded-xl transition shadow-lg shadow-orange-500/25"
               >
-                Browse All Products <ArrowRight className="w-4 h-4" />
+                Shop the Collection <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/league/national-teams"
-                className="inline-flex items-center gap-2 border border-white/30 hover:border-orange-400 text-white px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-orange-400 text-white px-6 py-3.5 rounded-xl transition"
               >
                 World Cup 2026
               </Link>
@@ -127,11 +152,74 @@ export default async function Home() {
                 href="https://wa.me/21261614253"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-white/30 hover:border-white text-white font-bold px-6 py-3 rounded-lg transition"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white text-white font-bold px-6 py-3.5 rounded-xl transition"
               >
-                Order Now
+                Order on WhatsApp
               </a>
             </div>
+          </div>
+
+          {/* Right: 4-jersey rotating showcase */}
+          <div className="hidden lg:block relative h-[480px]">
+            {HERO_JERSEYS.map((j, i) => {
+              const positions = [
+                "top-0 left-8 rotate-[-8deg]",
+                "top-12 right-0 rotate-[6deg]",
+                "bottom-12 left-0 rotate-[5deg]",
+                "bottom-0 right-12 rotate-[-4deg]",
+              ];
+              return (
+                <div
+                  key={j.team}
+                  className={`absolute w-56 h-72 rounded-2xl overflow-hidden border border-white/15 shadow-2xl ${positions[i]} hover:scale-105 hover:rotate-0 transition-all duration-500`}
+                  style={{ zIndex: 10 - i }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${j.color} z-10 mix-blend-overlay`} />
+                  <Image
+                    src={j.img}
+                    alt={j.team}
+                    fill
+                    className="object-cover"
+                    sizes="224px"
+                    unoptimized
+                    priority={i < 2}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-3 z-20">
+                    <p className="text-white text-xs font-semibold tracking-wide">{j.team}</p>
+                    <p className="text-orange-400 text-[10px] font-bold uppercase">2026/27 Home</p>
+                  </div>
+                </div>
+              );
+            })}
+            {/* Floating accent badge */}
+            <div className="absolute -top-4 right-1/2 translate-x-1/2 lg:top-1/2 lg:right-auto lg:left-1/2 lg:-translate-y-1/2 lg:-translate-x-1/2 z-30 pointer-events-none">
+              <div className="text-[140px] font-heading font-black text-white/[0.03] uppercase leading-none whitespace-nowrap select-none">
+                26/27
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: simpler 2×2 jersey grid */}
+          <div className="lg:hidden grid grid-cols-2 gap-3">
+            {HERO_JERSEYS.map((j) => (
+              <div
+                key={j.team}
+                className="relative aspect-[3/4] rounded-xl overflow-hidden border border-white/15 shadow-xl"
+              >
+                <Image
+                  src={j.img}
+                  alt={j.team}
+                  fill
+                  className="object-cover"
+                  sizes="50vw"
+                  unoptimized
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-2 py-2">
+                  <p className="text-white text-[11px] font-semibold">{j.team}</p>
+                  <p className="text-orange-400 text-[9px] font-bold uppercase">26/27</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -444,6 +532,70 @@ export default async function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ═══════════ NBA ═══════════ */}
+      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#1d2951] via-[#0a0e1f] to-[#1d2951]">
+        <div className="relative w-full min-h-[320px] sm:min-h-[420px] md:min-h-[500px]">
+          <Image
+            src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1400&q=85"
+            alt="NBA Basketball"
+            fill
+            className="object-cover opacity-30"
+            sizes="100vw"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e1f]/70 via-[#0a0e1f]/40 to-[#0a0e1f]/85" />
+          {/* Diagonal accent stripe */}
+          <div className="absolute -bottom-20 -right-20 w-[600px] h-32 bg-gradient-to-r from-transparent via-[#c9082a]/30 to-transparent rotate-[-12deg] blur-2xl" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+            <div className="inline-flex items-center gap-2 bg-[#c9082a]/15 backdrop-blur-sm border border-[#c9082a]/40 rounded-full px-4 py-1.5 text-xs text-[#ff6b7a] font-bold uppercase tracking-wider mb-4">
+              Hardwood Heroes
+            </div>
+            <h2 className="font-heading text-6xl sm:text-8xl md:text-[130px] font-bold tracking-tight leading-[0.85] uppercase text-white text-center drop-shadow-lg">
+              <span className="text-[#c9082a]">N</span>B<span className="text-[#1d428a]">A</span>
+            </h2>
+            <p className="mt-4 text-white/70 text-sm sm:text-base max-w-md text-center">
+              Authentic NBA jerseys — Lakers, Celtics, Mavericks, Warriors and 16 more teams.
+            </p>
+            <Link
+              href="/league/nba"
+              className="mt-6 inline-flex items-center gap-2 bg-[#c9082a] hover:bg-[#a30622] text-white font-bold px-8 py-3 rounded-lg transition text-sm shadow-lg shadow-[#c9082a]/30"
+            >
+              SHOP NBA JERSEYS <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+        {nbaProducts.length > 0 && (
+          <div className="bg-[#0a0e1f] mx-auto max-w-7xl px-4 py-12">
+            <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
+              {nbaProducts.map((product) => {
+                const imgs = JSON.parse(product.images) as string[];
+                return (
+                  <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
+                    <div className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group-hover:border-[#c9082a] transition relative">
+                      {imgs[0] && (
+                        <img src={imgs[0]} alt={product.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      )}
+                    </div>
+                    <div className="mt-2.5 px-0.5">
+                      <p className="text-xs text-white/40 font-medium truncate">{product.team.name}</p>
+                      <p className="text-sm text-white font-semibold truncate mt-0.5 group-hover:text-[#ff6b7a] transition">
+                        {product.name.replace(/NBA\s*|Jersey\s*|S-?XXL?L?L?L?/gi, "").replace(/\s+/g, " ").trim()}
+                      </p>
+                      <p className="text-sm text-[#ff6b7a] font-bold mt-1">${product.price}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </StaggerGrid>
+            <div className="mt-8 text-center">
+              <Link href="/league/nba" className="inline-flex items-center gap-2 bg-[#c9082a] hover:bg-[#a30622] text-white font-bold px-8 py-3 rounded-lg transition text-sm">
+                SEE ALL NBA JERSEYS <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Mebutik Sports branding banner */}
