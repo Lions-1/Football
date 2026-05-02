@@ -280,9 +280,17 @@ const PHOTO_DATA_SRC_RX =
 const PHOTO_REGULAR_RX =
   /https:\/\/photo\.yupoo\.com\/wanfing\/[a-z0-9]+\/[a-z0-9]+\.(?:jpg|jpeg|png|webp)/gi;
 
+// Convert https://photo.yupoo.com/<path> → /api/img/<path> so the Referer-based
+// hotlink protection is bypassed by our Next.js API proxy.
+function toProxiedUrl(u) {
+  if (typeof u !== "string") return u;
+  const p = "https://photo.yupoo.com/";
+  return u.startsWith(p) ? "/api/img/" + u.slice(p.length) : u;
+}
+
 async function extractAlbumPhotos(albumId, fallbackCover) {
   const html = await fetchHtml(`https://wanfing.x.yupoo.com/albums/${albumId}?uid=1`);
-  if (!html) return [fallbackCover];
+  if (!html) return [toProxiedUrl(fallbackCover)];
   const seen = new Set();
   const out = [];
   let m;
@@ -296,13 +304,12 @@ async function extractAlbumPhotos(albumId, fallbackCover) {
     PHOTO_REGULAR_RX.lastIndex = 0;
     const matches = [...html.matchAll(PHOTO_REGULAR_RX)].map(x => x[0]);
     for (const u of matches) {
-      // Skip logo / icons / thumbnails-only
       if (/icons|logo/i.test(u)) continue;
       if (!seen.has(u)) { seen.add(u); out.push(u); }
     }
   }
-  // Always upgrade to big.jpg if we got smaller variants
-  return out.length ? out : [fallbackCover];
+  const final = out.length ? out : [fallbackCover];
+  return final.map(toProxiedUrl);
 }
 
 // ───── per-team scrape ────────────────────────────────────────────────

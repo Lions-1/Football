@@ -22,11 +22,12 @@ const F1_TEAMS = [
 ];
 
 // Hero jersey showcase — picked from our DB to highlight 4 best 2026/27 home jerseys
+// Images are served via /api/img/* proxy which sets the Referer header Yupoo requires.
 const HERO_JERSEYS = [
-  { team: "Real Madrid",       img: "https://photo.yupoo.com/wanfing/f7037446/big.jpg", color: "from-white/20 to-white/0" },
-  { team: "FC Barcelona",     img: "https://photo.yupoo.com/wanfing/ae617188/big.jpg", color: "from-blue-500/20 to-red-500/0" },
-  { team: "Manchester United", img: "https://photo.yupoo.com/wanfing/0a4ff8af/big.jpg", color: "from-red-500/20 to-red-500/0" },
-  { team: "Brazil",            img: "https://photo.yupoo.com/wanfing/edac4847/big.jpg", color: "from-yellow-400/20 to-green-500/0" },
+  { team: "Real Madrid",       img: "/api/img/wanfing/f7037446/big.jpg", color: "from-white/20 to-white/0" },
+  { team: "FC Barcelona",      img: "/api/img/wanfing/ae617188/big.jpg", color: "from-blue-500/20 to-red-500/0" },
+  { team: "Manchester United", img: "/api/img/wanfing/0a4ff8af/big.jpg", color: "from-red-500/20 to-red-500/0" },
+  { team: "Brazil",            img: "/api/img/wanfing/edac4847/big.jpg", color: "from-yellow-400/20 to-green-500/0" },
 ];
 
 async function getHomeData() {
