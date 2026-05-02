@@ -41,13 +41,18 @@ export default async function LeaguePage({ params }: Props) {
     where: isChampionsLeague
       ? {
           team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
-          // Current season only — older jerseys remain visible on the domestic league pages
+          // Current + next season jerseys; older kits stay on the domestic pages
           OR: [
             { season: { contains: "25/26" } },
             { season: { contains: "2025-26" } },
+            { season: { contains: "26/27" } },
+            { season: { contains: "2026-27" } },
             { name: { contains: "25/26" } },
             { name: { contains: "2025/26" } },
+            { name: { contains: "26/27" } },
+            { name: { contains: "2026/27" } },
             { name: { contains: "25-26" } },
+            { name: { contains: "26-27" } },
           ],
         }
       : { team: { leagueId: league.id } },
