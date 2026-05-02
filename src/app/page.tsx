@@ -2,11 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight } from "lucide-react";
-import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
 import StaggerGrid from "@/components/StaggerGrid";
 
 export const dynamic = "force-dynamic";
+
+// F1 teams — used in the homepage F1 marquee
+const F1_TEAMS = [
+  { name: "Red Bull Racing", slug: "red-bull-racing", color: "#1E41FF", short: "RBR" },
+  { name: "Ferrari",         slug: "ferrari",          color: "#DC0000", short: "FER" },
+  { name: "Mercedes",        slug: "mercedes-amg-f1",  color: "#00D2BE", short: "MER" },
+  { name: "McLaren",         slug: "mclaren-f1",       color: "#FF8000", short: "MCL" },
+  { name: "Alpine",          slug: "alpine-f1",        color: "#0090FF", short: "ALP" },
+  { name: "Aston Martin",    slug: "aston-martin-f1",  color: "#006F62", short: "AMF" },
+  { name: "Williams",        slug: "williams-f1",      color: "#005AFF", short: "WIL" },
+  { name: "RB",              slug: "rb-f1",            color: "#6692FF", short: "RB"  },
+  { name: "Kick Sauber",     slug: "kick-sauber",      color: "#52E252", short: "KS"  },
+  { name: "Haas",            slug: "haas-f1",          color: "#B6BABD", short: "HAA" },
+];
 
 // Hero jersey showcase — picked from our DB to highlight 4 best 2026/27 home jerseys.
 // Using the first inside-album photo (typically front-facing) instead of the cover.
@@ -27,7 +41,7 @@ const HERO_NBA_JERSEYS = [
 ];
 
 async function getHomeData() {
-  const [leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts] = await Promise.all([
+  const [leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts, f1Products] = await Promise.all([
     prisma.league.findMany({
       orderBy: { order: "asc" },
       include: { _count: { select: { teams: true } } },
@@ -91,18 +105,43 @@ async function getHomeData() {
       orderBy: { createdAt: "desc" },
       take: 6,
     }),
+    // F1 racing wear — jackets / suits / hoodies for all 10 teams
+    prisma.product.findMany({
+      where: {
+        team: { league: { slug: "f1" } },
+        images: { contains: "https://" },
+      },
+      include: { team: true },
+      orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
+      take: 6,
+    }),
   ]);
 
-  return { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts };
+  return { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts, f1Products };
 }
 
 export default async function Home() {
-  const { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts } = await getHomeData();
+  const { leagues, productCount, teamCount, wcProducts, moroccoProducts, uclProducts, nbaProducts, f1Products } = await getHomeData();
 
   return (
     <div>
-      {/* ═══ HERO — jersey showcase with dramatic gradient ═══ */}
-      <section className="hero-section relative overflow-hidden min-h-[560px] md:min-h-[640px] flex items-center bg-gradient-to-br from-[#0a0a14] via-[#0d1224] to-[#1a0d24]">
+      {/* ═══ HERO — dark stadium photo + gradient overlays + jersey showcase ═══ */}
+      <section className="hero-section relative overflow-hidden min-h-[560px] md:min-h-[640px] flex items-center bg-[#0a0a14]">
+        {/* Atmospheric stadium background image */}
+        <Image
+          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1800&q=85"
+          alt=""
+          aria-hidden
+          fill
+          priority
+          unoptimized
+          className="object-cover opacity-50"
+          sizes="100vw"
+        />
+        {/* Dark gradient overlays so text + jersey cards stay legible */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a14]/85 via-[#0d1224]/75 to-[#1a0d24]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a14] via-transparent to-[#0a0a14]/40" />
+
         {/* Animated radial gradient orbs */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-orange-500/30 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute -bottom-40 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: "1s" }} />
@@ -466,6 +505,99 @@ export default async function Home() {
             <div className="mt-8 text-center">
               <Link href="/league/champions-league" className="inline-flex items-center gap-2 bg-[#c8a84b] hover:bg-[#b8943b] text-black font-bold px-8 py-3 rounded-lg transition text-sm">
                 SEE ALL UCL JERSEYS <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* ═══ F1 — racing wear with Ferrari red / silver vibe ═══ */}
+      <section className="relative w-full overflow-hidden bg-[#0e0e0e]">
+        <div className="relative w-full min-h-[320px] sm:min-h-[420px] md:min-h-[500px]">
+          <Image
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=85"
+            alt="Formula 1"
+            fill
+            className="object-cover opacity-50"
+            sizes="100vw"
+            unoptimized
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/85" />
+          {/* Diagonal red accent stripe */}
+          <div className="absolute -bottom-20 -right-20 w-[600px] h-32 bg-gradient-to-r from-transparent via-red-600/40 to-transparent rotate-[-12deg] blur-2xl" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+            <div className="inline-flex items-center gap-2 bg-red-600/15 backdrop-blur-sm border border-red-600/40 rounded-full px-4 py-1.5 text-xs text-red-300 font-bold uppercase tracking-wider mb-4">
+              Lights Out
+            </div>
+            <h2 className="font-heading text-6xl sm:text-8xl md:text-[130px] font-bold tracking-tight leading-[0.85] uppercase text-white text-center drop-shadow-lg">
+              Formula <span className="text-red-500">1</span>
+            </h2>
+            <p className="mt-4 text-white/70 text-sm sm:text-base max-w-md text-center">
+              Official team racing suits, jackets & fan wear for all 10 F1 teams. 2025 season.
+            </p>
+            <Link
+              href="/league/f1"
+              className="mt-6 inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-3 rounded-lg transition text-sm shadow-lg shadow-red-600/30"
+            >
+              SHOP F1 GEAR <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          {/* F1 teams marquee */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 pt-6 bg-gradient-to-t from-black/70 to-transparent">
+            <div className="flex animate-marquee items-center gap-6 w-max">
+              {[...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS, ...F1_TEAMS].map((team, i) => (
+                <Link
+                  key={`${team.slug}-${i}`}
+                  href={`/team/${team.slug}`}
+                  className="flex-shrink-0 group flex flex-col items-center gap-1.5"
+                >
+                  <div className="w-28 sm:w-32 h-14 sm:h-16 rounded-lg bg-white/95 group-hover:bg-white flex items-center justify-center transition shadow-md border border-white/20 group-hover:border-red-400 px-3 py-2">
+                    {CLUB_LOGOS[team.slug] ? (
+                      <img
+                        src={CLUB_LOGOS[team.slug]}
+                        alt={team.name}
+                        className="max-w-full max-h-full object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="font-black text-sm" style={{ color: team.color }}>{team.short}</span>
+                    )}
+                  </div>
+                  <span className="text-[10px] text-white/70 group-hover:text-red-400 transition font-medium text-center truncate max-w-[8rem]">
+                    {team.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* F1 product grid */}
+        {f1Products.length > 0 && (
+          <div className="bg-[#0e0e0e] mx-auto max-w-7xl px-4 py-12">
+            <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
+              {f1Products.map((product) => {
+                const imgs = JSON.parse(product.images) as string[];
+                return (
+                  <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
+                    <div className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group-hover:border-red-500 transition relative">
+                      {imgs[0] && (
+                        <img src={imgs[0]} alt={product.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      )}
+                    </div>
+                    <div className="mt-2.5 px-0.5">
+                      <p className="text-xs text-white/40 font-medium truncate">{product.team.name}</p>
+                      <p className="text-sm text-white font-semibold truncate mt-0.5 group-hover:text-red-400 transition">
+                        {product.name.replace(/\s+/g, " ").trim()}
+                      </p>
+                      <p className="text-sm text-red-400 font-bold mt-1">${product.price}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </StaggerGrid>
+            <div className="mt-8 text-center">
+              <Link href="/league/f1" className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-3 rounded-lg transition text-sm">
+                SEE ALL F1 GEAR <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

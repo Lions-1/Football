@@ -12,8 +12,9 @@ export const LEAGUE_LOGOS: Record<string, string> = {
   "eredivisie": "/logos/leagues/eredivisie.png",
   "liga-mx": "/logos/leagues/liga-mx.png",
   "liga-portugal": "/logos/leagues/liga-portugal.png",
-  "champions-league": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/UEFA_Champions_League_logo_2.svg/150px-UEFA_Champions_League_logo_2.svg.png",
-  "f1": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/200px-F1.svg.png",
+  "champions-league": "/logos/leagues/champions-league.png",
+  "f1": "/logos/leagues/f1.svg",
+  "nba": "/logos/leagues/nba.svg",
 };
 
 export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
