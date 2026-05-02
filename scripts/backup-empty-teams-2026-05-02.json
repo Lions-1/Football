@@ -1,0 +1,1146 @@
+[
+  {
+    "id": "cmnqmm22u0002fqnnlwzavk8z",
+    "name": "Morocco",
+    "slug": "morocco",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm27r0004fqnnezka1ney",
+    "name": "Argentina",
+    "slug": "argentina",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2ec0008fqnnsuaq2z4x",
+    "name": "France",
+    "slug": "france",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2hl000afqnn42xz6yj4",
+    "name": "Germany",
+    "slug": "germany",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2kv000cfqnnzmb2rib7",
+    "name": "Spain",
+    "slug": "spain",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2o4000efqnnbju51qml",
+    "name": "England",
+    "slug": "england",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2rf000gfqnn7rlvjiur",
+    "name": "Portugal",
+    "slug": "portugal",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2ur000ifqnnozibjl9r",
+    "name": "Italy",
+    "slug": "italy",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm2y0000kfqnnts4b2wg4",
+    "name": "Netherlands",
+    "slug": "netherlands",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm31b000mfqnngdm1wj0s",
+    "name": "Belgium",
+    "slug": "belgium",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm34j000ofqnn461pcj8w",
+    "name": "Japan",
+    "slug": "japan",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm37t000qfqnn1wycy14e",
+    "name": "Croatia",
+    "slug": "croatia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3b3000sfqnnjdijn9q5",
+    "name": "Uruguay",
+    "slug": "uruguay",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3eg000ufqnnusqu8o0n",
+    "name": "Colombia",
+    "slug": "colombia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3ho000wfqnnsu3kiisl",
+    "name": "Mexico",
+    "slug": "mexico",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3kx000yfqnnktn5c6xu",
+    "name": "USA",
+    "slug": "usa",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3o50010fqnn4lu4rrqb",
+    "name": "Senegal",
+    "slug": "senegal",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3re0012fqnnd7asatot",
+    "name": "Nigeria",
+    "slug": "nigeria",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3um0014fqnnb7yxdffs",
+    "name": "Egypt",
+    "slug": "egypt",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm3xv0016fqnnf4j2bi2z",
+    "name": "Algeria",
+    "slug": "algeria",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4160018fqnn33asfm7b",
+    "name": "Scotland",
+    "slug": "scotland",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm44f001afqnnj2ov56rp",
+    "name": "Wales",
+    "slug": "wales",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm47n001cfqnnjwxhmf8d",
+    "name": "Serbia",
+    "slug": "serbia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4au001efqnn547opyxe",
+    "name": "Switzerland",
+    "slug": "switzerland",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4ea001gfqnnl7ykygol",
+    "name": "Denmark",
+    "slug": "denmark",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4hh001ifqnnxip76vlc",
+    "name": "Poland",
+    "slug": "poland",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4kp001kfqnn2mv5ixkd",
+    "name": "Cameroon",
+    "slug": "cameroon",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4nw001mfqnnvdqzp7kr",
+    "name": "Ghana",
+    "slug": "ghana",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4r5001ofqnnr6gv6bo4",
+    "name": "South Korea",
+    "slug": "south-korea",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4uc001qfqnnvnlvxbt1",
+    "name": "Canada",
+    "slug": "canada",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm4xl001sfqnn1az7yxi7",
+    "name": "Australia",
+    "slug": "australia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm50t001ufqnnna4vqe40",
+    "name": "Saudi Arabia",
+    "slug": "saudi-arabia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm540001wfqnn7hoxrzy6",
+    "name": "Tunisia",
+    "slug": "tunisia",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm578001yfqnnittdl2wk",
+    "name": "Ecuador",
+    "slug": "ecuador",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm5ah0020fqnndd9ij1v2",
+    "name": "Turkey",
+    "slug": "turkey",
+    "logo": null,
+    "leagueId": "cmnqmm1w30000fqnn3vsb9000",
+    "league": {
+      "id": "cmnqmm1w30000fqnn3vsb9000",
+      "name": "World Cup 2026",
+      "slug": "national-teams",
+      "order": 0
+    }
+  },
+  {
+    "id": "cmnqmm9ua004pfqnnq2gmy1xd",
+    "name": "Como",
+    "slug": "como",
+    "logo": null,
+    "leagueId": "cmnqmm8qn0041fqnn6jgrdc3s",
+    "league": {
+      "id": "cmnqmm8qn0041fqnn6jgrdc3s",
+      "name": "Serie A",
+      "slug": "serie-a",
+      "order": 3
+    }
+  },
+  {
+    "id": "cmnqmmaqg0058fqnnqkp4k5q5",
+    "name": "Wolfsburg",
+    "slug": "wolfsburg",
+    "logo": null,
+    "leagueId": "cmnqmma77004wfqnn0ozece1q",
+    "league": {
+      "id": "cmnqmma77004wfqnn0ozece1q",
+      "name": "Bundesliga",
+      "slug": "bundesliga",
+      "order": 4
+    }
+  },
+  {
+    "id": "cmnqmmatp005afqnn5r6ywfsc",
+    "name": "Stuttgart",
+    "slug": "stuttgart",
+    "logo": null,
+    "leagueId": "cmnqmma77004wfqnn0ozece1q",
+    "league": {
+      "id": "cmnqmma77004wfqnn0ozece1q",
+      "name": "Bundesliga",
+      "slug": "bundesliga",
+      "order": 4
+    }
+  },
+  {
+    "id": "cmnqmmaww005cfqnnbg0ux12q",
+    "name": "Borussia Monchengladbach",
+    "slug": "borussia-monchengladbach",
+    "logo": null,
+    "leagueId": "cmnqmma77004wfqnn0ozece1q",
+    "league": {
+      "id": "cmnqmma77004wfqnn0ozece1q",
+      "name": "Bundesliga",
+      "slug": "bundesliga",
+      "order": 4
+    }
+  },
+  {
+    "id": "cmnqmmb3b005gfqnnqpbt47k7",
+    "name": "Union Berlin",
+    "slug": "union-berlin",
+    "logo": null,
+    "leagueId": "cmnqmma77004wfqnn0ozece1q",
+    "league": {
+      "id": "cmnqmma77004wfqnn0ozece1q",
+      "name": "Bundesliga",
+      "slug": "bundesliga",
+      "order": 4
+    }
+  },
+  {
+    "id": "cmnqmmb6j005ifqnni33lxf9h",
+    "name": "Schalke 04",
+    "slug": "schalke-04",
+    "logo": null,
+    "leagueId": "cmnqmma77004wfqnn0ozece1q",
+    "league": {
+      "id": "cmnqmma77004wfqnn0ozece1q",
+      "name": "Bundesliga",
+      "slug": "bundesliga",
+      "order": 4
+    }
+  },
+  {
+    "id": "cmnqmmbq4005tfqnntcbgt86i",
+    "name": "Lille",
+    "slug": "lille",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmmc00005zfqnntcvrlvk1",
+    "name": "Nice",
+    "slug": "nice",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmmc380061fqnnwczktely",
+    "name": "Rennes",
+    "slug": "rennes",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmmc6l0063fqnntqpg2mq4",
+    "name": "Strasbourg",
+    "slug": "strasbourg",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmmc9v0065fqnnkityjqiv",
+    "name": "Toulouse",
+    "slug": "toulouse",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmmcd60067fqnn49yvoc7k",
+    "name": "Brest",
+    "slug": "brest",
+    "logo": null,
+    "leagueId": "cmnqmmbd0005lfqnnjufj4nom",
+    "league": {
+      "id": "cmnqmmbd0005lfqnnjufj4nom",
+      "name": "Ligue 1",
+      "slug": "ligue-1",
+      "order": 5
+    }
+  },
+  {
+    "id": "cmnqmme170075fqnnzaw9tqz2",
+    "name": "Racing",
+    "slug": "racing",
+    "logo": null,
+    "leagueId": "cmnqmmdrh006zfqnnro1oxa0p",
+    "league": {
+      "id": "cmnqmmdrh006zfqnnro1oxa0p",
+      "name": "Liga Profesional",
+      "slug": "liga-profesional",
+      "order": 7
+    }
+  },
+  {
+    "id": "cmnqmme4g0077fqnn2w1fzle2",
+    "name": "Independiente",
+    "slug": "independiente",
+    "logo": null,
+    "leagueId": "cmnqmmdrh006zfqnnro1oxa0p",
+    "league": {
+      "id": "cmnqmmdrh006zfqnnro1oxa0p",
+      "name": "Liga Profesional",
+      "slug": "liga-profesional",
+      "order": 7
+    }
+  },
+  {
+    "id": "cmnqmme7n0079fqnnrp7tvh14",
+    "name": "San Lorenzo",
+    "slug": "san-lorenzo",
+    "logo": null,
+    "leagueId": "cmnqmmdrh006zfqnnro1oxa0p",
+    "league": {
+      "id": "cmnqmmdrh006zfqnnro1oxa0p",
+      "name": "Liga Profesional",
+      "slug": "liga-profesional",
+      "order": 7
+    }
+  },
+  {
+    "id": "cmnqmmeu9007mfqnndtqer1b7",
+    "name": "Seattle Sounders",
+    "slug": "seattle-sounders",
+    "logo": null,
+    "leagueId": "cmnqmmeau007afqnn3f9pl7wa",
+    "league": {
+      "id": "cmnqmmeau007afqnn3f9pl7wa",
+      "name": "MLS",
+      "slug": "mls",
+      "order": 8
+    }
+  },
+  {
+    "id": "cmnqmmexh007ofqnnjdx7mge8",
+    "name": "Austin FC",
+    "slug": "austin-fc",
+    "logo": null,
+    "leagueId": "cmnqmmeau007afqnn3f9pl7wa",
+    "league": {
+      "id": "cmnqmmeau007afqnn3f9pl7wa",
+      "name": "MLS",
+      "slug": "mls",
+      "order": 8
+    }
+  },
+  {
+    "id": "cmnqmmf0p007qfqnnmrospz2c",
+    "name": "Columbus Crew",
+    "slug": "columbus-crew",
+    "logo": null,
+    "leagueId": "cmnqmmeau007afqnn3f9pl7wa",
+    "league": {
+      "id": "cmnqmmeau007afqnn3f9pl7wa",
+      "name": "MLS",
+      "slug": "mls",
+      "order": 8
+    }
+  },
+  {
+    "id": "cmnqmmfqe0084fqnn11m5dje8",
+    "name": "PSV Eindhoven",
+    "slug": "psv-eindhoven",
+    "logo": null,
+    "leagueId": "cmnqmmfjz0080fqnn3nfs0kjv",
+    "league": {
+      "id": "cmnqmmfjz0080fqnn3nfs0kjv",
+      "name": "Eredivisie",
+      "slug": "eredivisie",
+      "order": 10
+    }
+  },
+  {
+    "id": "cmnqmmftm0086fqnna8lzbk3x",
+    "name": "Feyenoord",
+    "slug": "feyenoord",
+    "logo": null,
+    "leagueId": "cmnqmmfjz0080fqnn3nfs0kjv",
+    "league": {
+      "id": "cmnqmmfjz0080fqnn3nfs0kjv",
+      "name": "Eredivisie",
+      "slug": "eredivisie",
+      "order": 10
+    }
+  },
+  {
+    "id": "cmnqmmg6j008dfqnnlmsgp6iy",
+    "name": "Cruz Azul",
+    "slug": "cruz-azul",
+    "logo": null,
+    "leagueId": "cmnqmmfwx0087fqnn25zjf7ri",
+    "league": {
+      "id": "cmnqmmfwx0087fqnn25zjf7ri",
+      "name": "Liga MX",
+      "slug": "liga-mx",
+      "order": 11
+    }
+  },
+  {
+    "id": "cmnqmmg9t008ffqnnchbe0quo",
+    "name": "Tigres",
+    "slug": "tigres",
+    "logo": null,
+    "leagueId": "cmnqmmfwx0087fqnn25zjf7ri",
+    "league": {
+      "id": "cmnqmmfwx0087fqnn25zjf7ri",
+      "name": "Liga MX",
+      "slug": "liga-mx",
+      "order": 11
+    }
+  },
+  {
+    "id": "cmnqmmgd0008hfqnnvnc5xloj",
+    "name": "CF Monterrey",
+    "slug": "cf-monterrey",
+    "logo": null,
+    "leagueId": "cmnqmmfwx0087fqnn25zjf7ri",
+    "league": {
+      "id": "cmnqmmfwx0087fqnn25zjf7ri",
+      "name": "Liga MX",
+      "slug": "liga-mx",
+      "order": 11
+    }
+  },
+  {
+    "id": "cmnqmmgpw008ofqnnn86fzuow",
+    "name": "Sporting CP",
+    "slug": "sporting-cp",
+    "logo": null,
+    "leagueId": "cmnqmmgg8008ifqnnl3qkexne",
+    "league": {
+      "id": "cmnqmmgg8008ifqnnl3qkexne",
+      "name": "Liga Portugal",
+      "slug": "liga-portugal",
+      "order": 12
+    }
+  },
+  {
+    "id": "cmnz6oao1000912zq9beo5j6v",
+    "name": "McLaren F1",
+    "slug": "mclaren-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/McLaren_F1_logo.svg/500px-McLaren_F1_logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oats000d12zqc0hvmhom",
+    "name": "Aston Martin F1",
+    "slug": "aston-martin-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Aston_Martin_Aramco_2024_logo.png/500px-Aston_Martin_Aramco_2024_logo.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oadz000312zq3koir8tv",
+    "name": "Red Bull Racing",
+    "slug": "red-bull-racing",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Red_Bull_Racing_-_2021_Logo.svg/500px-Red_Bull_Racing_-_2021_Logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oaic000512zq4ab8iu3f",
+    "name": "Ferrari",
+    "slug": "ferrari",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Scuderia_Ferrari_HP_logo_24.svg/500px-Scuderia_Ferrari_HP_logo_24.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oal7000712zqs8au1vtx",
+    "name": "Mercedes AMG F1",
+    "slug": "mercedes-amg-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/500px-Mercedes_AMG_Petronas_F1_Logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oaqw000b12zqgkewfp4c",
+    "name": "Alpine F1",
+    "slug": "alpine-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Alpine_F1_Team_Logo.svg/500px-Alpine_F1_Team_Logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oawn000f12zq2kshejgb",
+    "name": "Williams F1",
+    "slug": "williams-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Atlassian_Williams_F1_Team_logo.svg/500px-Atlassian_Williams_F1_Team_logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6oazi000h12zq226vb0do",
+    "name": "RB F1",
+    "slug": "rb-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/VCARB_F1_logo.svg/500px-VCARB_F1_logo.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6ob2c000j12zqv12uicws",
+    "name": "Kick Sauber",
+    "slug": "kick-sauber",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/9/94/Logo_sauber_2023.jpg",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmnz6ob57000l12zq3bgcaxa0",
+    "name": "Haas F1",
+    "slug": "haas-f1",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/TGR_Haas_F1_Team_Logo_%282026%29.svg/500px-TGR_Haas_F1_Team_Logo_%282026%29.svg.png",
+    "leagueId": "cmnz6oa9h000112zqcpl90ufk",
+    "league": {
+      "id": "cmnz6oa9h000112zqcpl90ufk",
+      "name": "F1 2025",
+      "slug": "f1",
+      "order": 99
+    }
+  },
+  {
+    "id": "cmojdg6ey0002qjydfvf9l0hb",
+    "name": "Boston Celtics",
+    "slug": "boston-celtics",
+    "logo": "https://logo.clearbit.com/celtics.com",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg6jt0004qjydeeej0wvu",
+    "name": "Brooklyn Nets",
+    "slug": "brooklyn-nets",
+    "logo": "https://logo.clearbit.com/nba.com/nets",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg6mx0006qjydzuhwh9mo",
+    "name": "New York Knicks",
+    "slug": "new-york-knicks",
+    "logo": "https://logo.clearbit.com/nba.com/knicks",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg6q20008qjyduljcjn42",
+    "name": "Philadelphia 76ers",
+    "slug": "philadelphia-76ers",
+    "logo": "https://logo.clearbit.com/nba.com/sixers",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg6u2000aqjyds8cebbbh",
+    "name": "Toronto Raptors",
+    "slug": "toronto-raptors",
+    "logo": "https://logo.clearbit.com/nba.com/raptors",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg6x7000cqjydyg3nd6to",
+    "name": "Chicago Bulls",
+    "slug": "chicago-bulls",
+    "logo": "https://logo.clearbit.com/nba.com/bulls",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg70b000eqjydkbduxcau",
+    "name": "Cleveland Cavaliers",
+    "slug": "cleveland-cavaliers",
+    "logo": "https://logo.clearbit.com/nba.com/cavaliers",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg73g000gqjydlcv3qcxw",
+    "name": "Milwaukee Bucks",
+    "slug": "milwaukee-bucks",
+    "logo": "https://logo.clearbit.com/nba.com/bucks",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg76k000iqjydqaa1ofx3",
+    "name": "Miami Heat",
+    "slug": "miami-heat",
+    "logo": "https://logo.clearbit.com/nba.com/heat",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg79n000kqjydeaqrgy3v",
+    "name": "Atlanta Hawks",
+    "slug": "atlanta-hawks",
+    "logo": "https://logo.clearbit.com/nba.com/hawks",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7ft000oqjyd5z6tnrmh",
+    "name": "Golden State Warriors",
+    "slug": "golden-state-warriors",
+    "logo": "https://logo.clearbit.com/nba.com/warriors",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7iv000qqjydoktk2zpc",
+    "name": "Los Angeles Clippers",
+    "slug": "los-angeles-clippers",
+    "logo": "https://logo.clearbit.com/nba.com/clippers",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7lz000sqjydlzu0wryd",
+    "name": "Dallas Mavericks",
+    "slug": "dallas-mavericks",
+    "logo": "https://logo.clearbit.com/nba.com/mavericks",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7p4000uqjydduj3wuxz",
+    "name": "Denver Nuggets",
+    "slug": "denver-nuggets",
+    "logo": "https://logo.clearbit.com/nba.com/nuggets",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7s8000wqjydsmavna2o",
+    "name": "Phoenix Suns",
+    "slug": "phoenix-suns",
+    "logo": "https://logo.clearbit.com/nba.com/suns",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7vb000yqjydd5wek9h9",
+    "name": "Memphis Grizzlies",
+    "slug": "memphis-grizzlies",
+    "logo": "https://logo.clearbit.com/nba.com/grizzlies",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg7yg0010qjydvpaybkgc",
+    "name": "Oklahoma City Thunder",
+    "slug": "oklahoma-city-thunder",
+    "logo": "https://logo.clearbit.com/nba.com/thunder",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg81j0012qjydgkh2brs5",
+    "name": "Houston Rockets",
+    "slug": "houston-rockets",
+    "logo": "https://logo.clearbit.com/nba.com/rockets",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  },
+  {
+    "id": "cmojdg84m0014qjyd7xjdx519",
+    "name": "San Antonio Spurs",
+    "slug": "san-antonio-spurs",
+    "logo": "https://logo.clearbit.com/nba.com/spurs",
+    "leagueId": "cmojdg68a0000qjyd4kvjh7ii",
+    "league": {
+      "id": "cmojdg68a0000qjyd4kvjh7ii",
+      "name": "NBA",
+      "slug": "nba",
+      "order": 100
+    }
+  }
+]
