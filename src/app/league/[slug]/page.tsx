@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
-import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, NBA_TEAM_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 
 export const dynamic = "force-dynamic";
 
@@ -108,22 +108,25 @@ export default async function LeaguePage({ params }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {displayTeams.map((team) => (
-              <Link
-                key={team.id}
-                href={`/team/${team.slug}`}
-                className="group bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-xl p-4 text-center transition-all shadow-sm flex flex-col items-center gap-2"
-              >
-                {CLUB_LOGOS[team.slug] ? (
-                  <div className="w-12 h-12 relative">
-                    <img src={CLUB_LOGOS[team.slug]} alt={team.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                ) : (
-                  <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 font-black text-lg">{team.name.charAt(0)}</div>
-                )}
-                <p className="text-xs font-semibold text-center leading-tight">{team.name}</p>
-              </Link>
-            ))}
+            {displayTeams.map((team) => {
+              const logo = CLUB_LOGOS[team.slug] || NBA_TEAM_LOGOS[team.slug];
+              return (
+                <Link
+                  key={team.id}
+                  href={`/team/${team.slug}`}
+                  className="group bg-white hover:bg-orange-50 border border-gray-200 hover:border-orange-300 rounded-xl p-4 text-center transition-all shadow-sm flex flex-col items-center gap-2"
+                >
+                  {logo ? (
+                    <div className="w-12 h-12 relative">
+                      <img src={logo} alt={team.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 font-black text-lg">{team.name.charAt(0)}</div>
+                  )}
+                  <p className="text-xs font-semibold text-center leading-tight">{team.name}</p>
+                </Link>
+              );
+            })}
           </div>
         )}
       </section>

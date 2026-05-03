@@ -14,6 +14,28 @@ interface League {
   teams: { id: string; name: string; slug: string }[];
 }
 
+// League logo lookup for the mega-menu cards. Mirrors src/lib/leagues-data.ts
+// but kept inline here to avoid importing server data into a client component.
+const LEAGUE_LOGO_LOOKUP: Record<string, string> = {
+  "national-teams": "/logos/leagues/national-teams.png",
+  "premier-league": "/logos/leagues/premier-league.png",
+  "la-liga": "/logos/leagues/la-liga.png",
+  "serie-a": "/logos/leagues/serie-a.png",
+  "bundesliga": "/logos/leagues/bundesliga.png",
+  "ligue-1": "/logos/leagues/ligue-1.png",
+  "brasileirao": "/logos/leagues/brasileirao.png",
+  "liga-profesional": "/logos/leagues/liga-profesional.png",
+  "mls": "/logos/leagues/mls.png",
+  "saudi-pro-league": "/logos/leagues/saudi-pro-league.png",
+  "eredivisie": "/logos/leagues/eredivisie.png",
+  "liga-mx": "/logos/leagues/liga-mx.png",
+  "liga-portugal": "/logos/leagues/liga-portugal.png",
+  "botola-pro": "/logos/leagues/botola-pro.png",
+  "champions-league": "/logos/leagues/champions-league.png",
+  "f1": "/logos/leagues/f1.svg",
+  "nba": "/logos/leagues/nba.svg",
+};
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
@@ -89,39 +111,52 @@ export default function Navbar() {
               LEAGUES <ChevronDown className="w-3.5 h-3.5" />
             </button>
             {megaOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[700px] bg-white border border-gray-200 rounded-xl shadow-2xl p-6 grid grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto">
-                {leagues.map((league) => (
-                  <div key={league.id}>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[720px] bg-white border border-gray-200 rounded-2xl shadow-2xl p-5 max-h-[75vh] overflow-y-auto">
+                <div className="flex items-center justify-between px-1 mb-4">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-gray-400 font-bold">Browse by League</p>
+                  <Link
+                    href="/products"
+                    onClick={() => setMegaOpen(false)}
+                    className="text-xs text-orange-500 font-semibold hover:underline"
+                  >
+                    All products →
+                  </Link>
+                </div>
+                <div className="grid grid-cols-3 gap-2.5">
+                  {leagues.map((league) => (
                     <Link
+                      key={league.id}
                       href={`/league/${league.slug}`}
-                      className="text-orange-500 font-semibold text-xs uppercase tracking-wider block mb-2 hover:underline"
                       onClick={() => setMegaOpen(false)}
+                      className="group flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-orange-400 hover:bg-orange-50 transition-all"
                     >
-                      {league.name}
+                      <div className="w-10 h-10 relative shrink-0">
+                        {LEAGUE_LOGO_LOOKUP[league.slug] ? (
+                          <Image
+                            src={LEAGUE_LOGO_LOOKUP[league.slug]}
+                            alt={league.name}
+                            fill
+                            className="object-contain group-hover:scale-110 transition-transform"
+                            sizes="40px"
+                            unoptimized
+                          />
+                        ) : (
+                          <div className="w-full h-full rounded-full bg-orange-100 flex items-center justify-center text-orange-500 font-black text-sm">
+                            {league.name.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-gray-900 truncate group-hover:text-orange-600 transition">
+                          {league.name}
+                        </p>
+                        <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+                          {league.teams.length} teams
+                        </p>
+                      </div>
                     </Link>
-                    <div className="space-y-1">
-                      {league.teams.slice(0, 6).map((team) => (
-                        <Link
-                          key={team.id}
-                          href={`/team/${team.slug}`}
-                          className="block text-xs text-gray-500 hover:text-gray-900 transition"
-                          onClick={() => setMegaOpen(false)}
-                        >
-                          {team.name}
-                        </Link>
-                      ))}
-                      {league.teams.length > 6 && (
-                        <Link
-                          href={`/league/${league.slug}`}
-                          className="block text-xs text-orange-500 hover:underline"
-                          onClick={() => setMegaOpen(false)}
-                        >
-                          View all →
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             )}
           </div>

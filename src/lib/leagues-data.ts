@@ -17,6 +17,30 @@ export const LEAGUE_LOGOS: Record<string, string> = {
   "nba": "/logos/leagues/nba.svg",
 };
 
+// NBA team crests — saved locally from ESPN's CDN (see scripts/download-nba-logos.mjs)
+export const NBA_TEAM_LOGOS: Record<string, string> = {
+  "atlanta-hawks": "/logos/nba/atlanta-hawks.png",
+  "boston-celtics": "/logos/nba/boston-celtics.png",
+  "brooklyn-nets": "/logos/nba/brooklyn-nets.png",
+  "chicago-bulls": "/logos/nba/chicago-bulls.png",
+  "cleveland-cavaliers": "/logos/nba/cleveland-cavaliers.png",
+  "dallas-mavericks": "/logos/nba/dallas-mavericks.png",
+  "denver-nuggets": "/logos/nba/denver-nuggets.png",
+  "golden-state-warriors": "/logos/nba/golden-state-warriors.png",
+  "houston-rockets": "/logos/nba/houston-rockets.png",
+  "los-angeles-clippers": "/logos/nba/los-angeles-clippers.png",
+  "los-angeles-lakers": "/logos/nba/los-angeles-lakers.png",
+  "memphis-grizzlies": "/logos/nba/memphis-grizzlies.png",
+  "miami-heat": "/logos/nba/miami-heat.png",
+  "milwaukee-bucks": "/logos/nba/milwaukee-bucks.png",
+  "new-york-knicks": "/logos/nba/new-york-knicks.png",
+  "oklahoma-city-thunder": "/logos/nba/oklahoma-city-thunder.png",
+  "philadelphia-76ers": "/logos/nba/philadelphia-76ers.png",
+  "phoenix-suns": "/logos/nba/phoenix-suns.png",
+  "san-antonio-spurs": "/logos/nba/san-antonio-spurs.png",
+  "toronto-raptors": "/logos/nba/toronto-raptors.png",
+};
+
 export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
   "morocco": "/logos/national-teams/morocco.png",
   "argentina": "/logos/national-teams/argentina.png",

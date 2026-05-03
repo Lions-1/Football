@@ -159,10 +159,6 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 py-12 md:py-16 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: copy */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-orange-500/15 backdrop-blur-sm border border-orange-500/40 rounded-full px-4 py-1.5 text-sm text-orange-300 font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
-              New Season 2026/27 — In Stock
-            </div>
             <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-black leading-[0.95] tracking-tight text-white uppercase">
               Wear the
               <br />
@@ -623,10 +619,6 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl px-4 py-12 md:py-16 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: copy */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-[#c9082a]/15 backdrop-blur-sm border border-[#c9082a]/40 rounded-full px-4 py-1.5 text-sm text-[#ff6b7a] font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#c9082a] animate-pulse" />
-              Hardwood Heroes
-            </div>
             <h2 className="font-heading text-6xl sm:text-7xl md:text-[110px] font-black leading-[0.9] tracking-tight uppercase text-white">
               <span className="text-[#c9082a]">N</span>B<span className="text-[#1d428a]">A</span>
               <br />
