@@ -180,37 +180,10 @@
     "score": 95
   },
   {
-    "yupooId": "816937",
-    "yupooName": "Borussia M'gladbach",
-    "slug": "borussia-monchengladbach",
-    "dbName": "Borussia Monchengladbach",
-    "league": "bundesliga",
-    "via": "alias",
-    "score": 100
-  },
-  {
-    "yupooId": "816943",
-    "yupooName": "Schalke 04",
-    "slug": "schalke-04",
-    "dbName": "Schalke 04",
-    "league": "bundesliga",
-    "via": "direct",
-    "score": 95
-  },
-  {
     "yupooId": "816934",
     "yupooName": "Freiburg",
     "slug": "freiburg",
     "dbName": "Freiburg",
-    "league": "bundesliga",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816933",
-    "yupooName": "Union Berlin",
-    "slug": "union-berlin",
-    "dbName": "Union Berlin",
     "league": "bundesliga",
     "via": "direct",
     "score": 95
@@ -225,46 +198,10 @@
     "score": 100
   },
   {
-    "yupooId": "816935",
-    "yupooName": "Wolfsburg",
-    "slug": "wolfsburg",
-    "dbName": "Wolfsburg",
-    "league": "bundesliga",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816931",
-    "yupooName": "Stuttgart",
-    "slug": "stuttgart",
-    "dbName": "Stuttgart",
-    "league": "bundesliga",
-    "via": "direct",
-    "score": 95
-  },
-  {
     "yupooId": "816453",
     "yupooName": "Ajax",
     "slug": "ajax",
     "dbName": "Ajax",
-    "league": "eredivisie",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816454",
-    "yupooName": "PSV Eindhoven",
-    "slug": "psv-eindhoven",
-    "dbName": "PSV Eindhoven",
-    "league": "eredivisie",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816456",
-    "yupooName": "Feyenoord",
-    "slug": "feyenoord",
-    "dbName": "Feyenoord",
     "league": "eredivisie",
     "via": "direct",
     "score": 95
@@ -283,15 +220,6 @@
     "yupooName": "Napoli",
     "slug": "napoli",
     "dbName": "Napoli",
-    "league": "serie-a",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816798",
-    "yupooName": "Como",
-    "slug": "como",
-    "dbName": "Como",
     "league": "serie-a",
     "via": "direct",
     "score": 95
@@ -414,64 +342,10 @@
     "score": 95
   },
   {
-    "yupooId": "816966",
-    "yupooName": "Lille",
-    "slug": "lille",
-    "dbName": "Lille",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
     "yupooId": "816967",
     "yupooName": "AS Monaco",
     "slug": "as-monaco",
     "dbName": "AS Monaco",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816968",
-    "yupooName": "Strasbourg",
-    "slug": "strasbourg",
-    "dbName": "Strasbourg",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816972",
-    "yupooName": "Toulouse",
-    "slug": "toulouse",
-    "dbName": "Toulouse",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816973",
-    "yupooName": "Brest",
-    "slug": "brest",
-    "dbName": "Brest",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816974",
-    "yupooName": "Rennes",
-    "slug": "rennes",
-    "dbName": "Rennes",
-    "league": "ligue-1",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816977",
-    "yupooName": "Nice",
-    "slug": "nice",
-    "dbName": "Nice",
     "league": "ligue-1",
     "via": "direct",
     "score": 95
@@ -526,33 +400,6 @@
     "yupooName": "Atlanta United",
     "slug": "atlanta-united",
     "dbName": "Atlanta United",
-    "league": "mls",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816479",
-    "yupooName": "Seattle Sounders",
-    "slug": "seattle-sounders",
-    "dbName": "Seattle Sounders",
-    "league": "mls",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816493",
-    "yupooName": "Austin",
-    "slug": "austin-fc",
-    "dbName": "Austin FC",
-    "league": "mls",
-    "via": "alias",
-    "score": 100
-  },
-  {
-    "yupooId": "816495",
-    "yupooName": "Columbus Crew",
-    "slug": "columbus-crew",
-    "dbName": "Columbus Crew",
     "league": "mls",
     "via": "direct",
     "score": 95
@@ -972,33 +819,6 @@
     "score": 95
   },
   {
-    "yupooId": "816741",
-    "yupooName": "Racing",
-    "slug": "racing",
-    "dbName": "Racing",
-    "league": "liga-profesional",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816694",
-    "yupooName": "Independiente",
-    "slug": "independiente",
-    "dbName": "Independiente",
-    "league": "liga-profesional",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816707",
-    "yupooName": "San Lorenzo",
-    "slug": "san-lorenzo",
-    "dbName": "San Lorenzo",
-    "league": "liga-profesional",
-    "via": "direct",
-    "score": 95
-  },
-  {
     "yupooId": "816459",
     "yupooName": "Club América",
     "slug": "club-america",
@@ -1012,33 +832,6 @@
     "yupooName": "Chivas Guadalajara",
     "slug": "chivas-guadalajara",
     "dbName": "Chivas Guadalajara",
-    "league": "liga-mx",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816463",
-    "yupooName": "CF Monterrey",
-    "slug": "cf-monterrey",
-    "dbName": "CF Monterrey",
-    "league": "liga-mx",
-    "via": "direct",
-    "score": 95
-  },
-  {
-    "yupooId": "816461",
-    "yupooName": "Cruz Azul",
-    "slug": "cruz-azul",
-    "dbName": "Cruz Azul",
-    "league": "liga-mx",
-    "via": "alias",
-    "score": 100
-  },
-  {
-    "yupooId": "816462",
-    "yupooName": "Tigres",
-    "slug": "tigres",
-    "dbName": "Tigres",
     "league": "liga-mx",
     "via": "direct",
     "score": 95

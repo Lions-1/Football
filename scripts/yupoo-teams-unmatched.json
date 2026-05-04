@@ -28,12 +28,32 @@
     "yupooName": "St. Pauli"
   },
   {
+    "yupooId": "816937",
+    "yupooName": "Borussia M'gladbach"
+  },
+  {
+    "yupooId": "816943",
+    "yupooName": "Schalke 04"
+  },
+  {
+    "yupooId": "816933",
+    "yupooName": "Union Berlin"
+  },
+  {
     "yupooId": "816945",
     "yupooName": "Hertha BSC"
   },
   {
     "yupooId": "816928",
     "yupooName": "Hoffenheim"
+  },
+  {
+    "yupooId": "816935",
+    "yupooName": "Wolfsburg"
+  },
+  {
+    "yupooId": "816931",
+    "yupooName": "Stuttgart"
   },
   {
     "yupooId": "816938",
@@ -66,6 +86,14 @@
   {
     "yupooId": "816948",
     "yupooName": "Fortuna Düsseldorf"
+  },
+  {
+    "yupooId": "816454",
+    "yupooName": "PSV Eindhoven"
+  },
+  {
+    "yupooId": "816456",
+    "yupooName": "Feyenoord"
   },
   {
     "yupooId": "816457",
@@ -108,6 +136,10 @@
     "yupooName": "Inter"
   },
   {
+    "yupooId": "816798",
+    "yupooName": "Como"
+  },
+  {
     "yupooId": "816802",
     "yupooName": "Roma"
   },
@@ -144,8 +176,16 @@
     "yupooName": "PSG"
   },
   {
+    "yupooId": "816966",
+    "yupooName": "Lille"
+  },
+  {
     "yupooId": "816969",
     "yupooName": "Metz"
+  },
+  {
+    "yupooId": "816968",
+    "yupooName": "Strasbourg"
   },
   {
     "yupooId": "816970",
@@ -156,6 +196,18 @@
     "yupooName": "Paris FC"
   },
   {
+    "yupooId": "816972",
+    "yupooName": "Toulouse"
+  },
+  {
+    "yupooId": "816973",
+    "yupooName": "Brest"
+  },
+  {
+    "yupooId": "816974",
+    "yupooName": "Rennes"
+  },
+  {
     "yupooId": "816975",
     "yupooName": "Angers"
   },
@@ -164,12 +216,20 @@
     "yupooName": "Lorient"
   },
   {
+    "yupooId": "816977",
+    "yupooName": "Nice"
+  },
+  {
     "yupooId": "816483",
     "yupooName": "Orlando City"
   },
   {
     "yupooId": "816490",
     "yupooName": "Charlotte"
+  },
+  {
+    "yupooId": "816479",
+    "yupooName": "Seattle Sounders"
   },
   {
     "yupooId": "816482",
@@ -200,12 +260,20 @@
     "yupooName": "Toronto"
   },
   {
+    "yupooId": "816493",
+    "yupooName": "Austin"
+  },
+  {
     "yupooId": "816480",
     "yupooName": "Vancouver Whitecaps"
   },
   {
     "yupooId": "816512",
     "yupooName": "Houston Dynamo"
+  },
+  {
+    "yupooId": "816495",
+    "yupooName": "Columbus Crew"
   },
   {
     "yupooId": "816499",
@@ -420,6 +488,10 @@
     "yupooName": "Vélez Sarsfield"
   },
   {
+    "yupooId": "816741",
+    "yupooName": "Racing"
+  },
+  {
     "yupooId": "816666",
     "yupooName": "CA Lanús"
   },
@@ -430,6 +502,14 @@
   {
     "yupooId": "816646",
     "yupooName": "Estudiantes de La Plata"
+  },
+  {
+    "yupooId": "816694",
+    "yupooName": "Independiente"
+  },
+  {
+    "yupooId": "816707",
+    "yupooName": "San Lorenzo"
   },
   {
     "yupooId": "816653",
@@ -452,8 +532,20 @@
     "yupooName": "Pumas"
   },
   {
+    "yupooId": "816463",
+    "yupooName": "CF Monterrey"
+  },
+  {
     "yupooId": "816460",
     "yupooName": "Toluca"
+  },
+  {
+    "yupooId": "816461",
+    "yupooName": "Cruz Azul"
+  },
+  {
+    "yupooId": "816462",
+    "yupooName": "Tigres"
   },
   {
     "yupooId": "816465",
