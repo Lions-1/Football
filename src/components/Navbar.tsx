@@ -115,11 +115,11 @@ export default function Navbar() {
                 <div className="flex items-center justify-between px-1 mb-4">
                   <p className="text-[11px] uppercase tracking-[0.18em] text-gray-400 font-bold">Browse by League</p>
                   <Link
-                    href="/products"
+                    href="/leagues"
                     onClick={() => setMegaOpen(false)}
                     className="text-xs text-orange-500 font-semibold hover:underline"
                   >
-                    All products →
+                    View all leagues →
                   </Link>
                 </div>
                 <div className="grid grid-cols-3 gap-2.5">

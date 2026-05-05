@@ -52,7 +52,7 @@ export default async function ProductsPage({ searchParams }: Props) {
     return `/products?${parts.join("&")}`;
   }
 
-  const [products, total, leagues] = await Promise.all([
+  const [products, total, leagues, categoryCounts] = await Promise.all([
     prisma.product.findMany({
       where,
       include: { team: { include: { league: true } } },
@@ -62,9 +62,22 @@ export default async function ProductsPage({ searchParams }: Props) {
     }),
     prisma.product.count({ where }),
     prisma.league.findMany({ orderBy: { order: "asc" } }),
+    prisma.product.groupBy({
+      by: ["category"],
+      _count: { _all: true },
+    }),
   ]);
 
   const totalPages = Math.ceil(total / limit);
+
+  // Only surface categories with at least one product so the sidebar
+  // doesn't advertise empty filters.
+  const categoryHasProducts = new Map(
+    categoryCounts.map((c) => [c.category || "", c._count._all]),
+  );
+  const visibleCategories = CATEGORIES.filter(
+    (c) => (categoryHasProducts.get(c.slug) ?? 0) > 0,
+  );
 
   const title =
     searchQuery ? `Search: "${searchQuery}"` :
@@ -123,19 +136,26 @@ export default async function ProductsPage({ searchParams }: Props) {
             </Link>
           </div>
 
-          {/* Categories */}
-          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Categories</h3>
-          <div className="space-y-1 mb-6">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/products?category=${cat.slug}`}
-                className={sidebarClass(category === cat.slug)}
-              >
-                {cat.name}
-              </Link>
-            ))}
-          </div>
+          {/* Categories — only show ones with products */}
+          {visibleCategories.length > 0 && (
+            <>
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Categories</h3>
+              <div className="space-y-1 mb-6">
+                {visibleCategories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/products?category=${cat.slug}`}
+                    className={sidebarClass(category === cat.slug)}
+                  >
+                    {cat.name}
+                    <span className="ml-1.5 text-[10px] text-gray-400">
+                      {categoryHasProducts.get(cat.slug)}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Leagues */}
           <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Leagues</h3>
