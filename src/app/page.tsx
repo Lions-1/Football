@@ -521,7 +521,7 @@ export default async function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/85" />
           {/* Diagonal red accent stripe */}
           <div className="absolute -bottom-20 -right-20 w-[600px] h-32 bg-gradient-to-r from-transparent via-red-600/40 to-transparent rotate-[-12deg] blur-2xl" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 pb-28 sm:pb-32">
             <div className="inline-flex items-center gap-2 bg-red-600/15 backdrop-blur-sm border border-red-600/40 rounded-full px-4 py-1.5 text-xs text-red-300 font-bold uppercase tracking-wider mb-4">
               Lights Out
             </div>

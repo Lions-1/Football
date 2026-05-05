@@ -76,18 +76,6 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
-      {/* Top bar */}
-      <div className="bg-gray-900 text-white text-xs">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-1.5">
-          <span className="hidden sm:block text-gray-300">Free delivery on orders over $500</span>
-          <div className="flex items-center gap-4">
-            <a href="https://wa.me/21261614253" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition">WhatsApp</a>
-            <Link href="/contact" className="text-gray-300 hover:text-white transition">Contact</Link>
-            <Link href="/faq" className="text-gray-300 hover:text-white transition">FAQ</Link>
-          </div>
-        </div>
-      </div>
-
       {/* Main nav */}
       <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-3">
         {/* Logo */}
