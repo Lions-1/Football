@@ -709,18 +709,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Mebutik Sports branding banner */}
-      <section className="hidden md:block w-full">
-        <Image
-          src="/hero-brand.png"
-          alt="Mebutik Sports — Premium Football Jerseys"
-          width={1400}
-          height={400}
-          className="w-full h-auto"
-          sizes="100vw"
-        />
-      </section>
-
       {/* Browse by League — Top 5 only, bigger icons */}
       {leagues.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-14">

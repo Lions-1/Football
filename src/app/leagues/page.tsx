@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Trophy } from "lucide-react";
-import { LEAGUE_LOGOS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 
 export const dynamic = "force-dynamic";
 
@@ -23,13 +23,23 @@ export default async function AllLeaguesPage() {
     },
   });
 
+  // Champions League is virtual — its teams live in domestic leagues.
+  // Count them separately so the card doesn't say "0 teams".
+  const clProductCount = await prisma.product.count({
+    where: { team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } } },
+  });
+
   // Compute total product count per league
   const enriched = leagues.map((l) => ({
     id: l.id,
     name: l.name,
     slug: l.slug,
-    teamCount: l._count.teams,
-    productCount: l.teams.reduce((acc, t) => acc + t._count.products, 0),
+    teamCount:
+      l.slug === "champions-league" ? CHAMPIONS_LEAGUE_CLUBS.length : l._count.teams,
+    productCount:
+      l.slug === "champions-league"
+        ? clProductCount
+        : l.teams.reduce((acc, t) => acc + t._count.products, 0),
   }));
 
   // Sort: leagues with products first, then alphabetically
