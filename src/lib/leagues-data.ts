@@ -39,6 +39,16 @@ export const NBA_TEAM_LOGOS: Record<string, string> = {
   "phoenix-suns": "/logos/nba/phoenix-suns.png",
   "san-antonio-spurs": "/logos/nba/san-antonio-spurs.png",
   "toronto-raptors": "/logos/nba/toronto-raptors.png",
+  "charlotte-hornets": "/logos/nba/charlotte-hornets.png",
+  "detroit-pistons": "/logos/nba/detroit-pistons.png",
+  "indiana-pacers": "/logos/nba/indiana-pacers.png",
+  "minnesota-timberwolves": "/logos/nba/minnesota-timberwolves.png",
+  "new-orleans-pelicans": "/logos/nba/new-orleans-pelicans.png",
+  "orlando-magic": "/logos/nba/orlando-magic.png",
+  "portland-trail-blazers": "/logos/nba/portland-trail-blazers.png",
+  "sacramento-kings": "/logos/nba/sacramento-kings.png",
+  "utah-jazz": "/logos/nba/utah-jazz.png",
+  "washington-wizards": "/logos/nba/washington-wizards.png",
 };
 
 export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
