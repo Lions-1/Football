@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
+import { parseProductImages, firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,7 @@ export default async function ProductPage({ params }: Props) {
     <ProductDetail
       product={{
         ...product,
-        images: JSON.parse(product.images) as string[],
+        images: parseProductImages(product.images),
         sizes: JSON.parse(product.sizes) as string[],
         teamName: product.team.name,
         leagueName: product.team.league.name,
@@ -41,7 +42,7 @@ export default async function ProductPage({ params }: Props) {
         name: p.name,
         slug: p.slug,
         price: p.price,
-        image: (JSON.parse(p.images) as string[])[0] || "",
+        image: firstProductImage(p.images),
         teamName: p.team.name,
         teamSlug: p.team.slug,
         surCommande: p.surCommande,

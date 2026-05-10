@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Heart, ArrowRight } from "lucide-react";
 import { useWishlistStore } from "@/lib/store";
 import ProductCard from "@/components/ProductCard";
+import { firstProductImage } from "@/lib/product-images";
 
 interface WishProduct {
   id: string;
@@ -79,7 +80,7 @@ export default function WishlistPage() {
             name={p.name}
             slug={p.slug}
             price={p.price}
-            image={(JSON.parse(p.images) as string[])[0] || ""}
+            image={firstProductImage(p.images)}
             teamName={p.team.name}
             surCommande={p.surCommande}
             category={p.category}

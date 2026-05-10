@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import ProductSearch from "@/components/ProductSearch";
 import FilterSidebar from "@/components/FilterSidebar";
+import { firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -185,7 +186,7 @@ export default async function ProductsPage({ searchParams }: Props) {
               name: p.name,
               slug: p.slug,
               price: p.price,
-              image: (JSON.parse(p.images) as string[])[0] || "",
+              image: firstProductImage(p.images),
               teamName: p.team.name,
               teamSlug: p.team.slug,
               surCommande: p.surCommande,

@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { LEAGUE_LOGOS, NATIONAL_TEAM_CRESTS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
 import StaggerGrid from "@/components/StaggerGrid";
+import { parseProductImages } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -341,7 +342,7 @@ export default async function Home() {
           <div className="mx-auto max-w-7xl px-4 py-14">
             <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
               {wcProducts.map((product) => {
-                const images = JSON.parse(product.images) as string[];
+                const images = parseProductImages(product.images);
                 return (
                   <Link
                     key={product.id}
@@ -415,7 +416,7 @@ export default async function Home() {
         ) : (
           <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
             {moroccoProducts.map((product) => {
-              const imgs = JSON.parse(product.images) as string[];
+              const imgs = parseProductImages(product.images);
               return (
                 <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                   <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-green-400 transition relative">
@@ -479,7 +480,7 @@ export default async function Home() {
           <div className="bg-[#0a0f2e] mx-auto max-w-7xl px-4 py-12">
             <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
               {uclProducts.map((product) => {
-                const imgs = JSON.parse(product.images) as string[];
+                const imgs = parseProductImages(product.images);
                 return (
                   <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                     <div className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group-hover:border-[#c8a84b] transition relative">
@@ -572,7 +573,7 @@ export default async function Home() {
           <div className="bg-[#0e0e0e] mx-auto max-w-7xl px-4 py-12">
             <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" delay={65}>
               {f1Products.map((product) => {
-                const imgs = JSON.parse(product.images) as string[];
+                const imgs = parseProductImages(product.images);
                 return (
                   <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                     <div className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 group-hover:border-red-500 transition relative">

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Search } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
+import { firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -56,7 +57,7 @@ export default async function SearchPage({ searchParams }: Props) {
             name: p.name,
             slug: p.slug,
             price: p.price,
-            image: (JSON.parse(p.images) as string[])[0] || "",
+            image: firstProductImage(p.images),
             teamName: p.team.name,
             surCommande: p.surCommande,
             category: p.category,

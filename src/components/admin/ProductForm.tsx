@@ -201,13 +201,13 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">{isEdit ? "Edit Product" : "Add New Product"}</h2>
-        <button type="button" onClick={onCancel} className="text-sm text-gray-400 hover:text-white transition">
+        <button type="button" onClick={onCancel} className="text-sm text-gray-500 hover:text-gray-900 transition">
           Cancel
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm rounded-lg px-4 py-2">
+        <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-2">
           {error}
         </div>
       )}
@@ -253,22 +253,22 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
         </div>
 
         {showNewLeague && (
-          <div className="flex gap-2 mb-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             <input
               type="text"
               value={newLeagueName}
               onChange={(e) => setNewLeagueName(e.target.value)}
               placeholder="New league name"
-              className="flex-1 bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-orange-500"
+              className="flex-1 min-w-[160px] bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-orange-500"
             />
-            <button type="button" onClick={createLeague} className="px-3 py-2 bg-orange-500 text-white text-sm font-bold rounded-lg">
+            <button type="button" onClick={createLeague} className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-lg">
               Add
             </button>
           </div>
         )}
 
         {showNewTeam && (
-          <div className="flex gap-2 mb-2">
+          <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] gap-2 mb-2">
             <select
               value={newTeamLeagueId}
               onChange={(e) => setNewTeamLeagueId(e.target.value)}
@@ -285,9 +285,9 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
               value={newTeamName}
               onChange={(e) => setNewTeamName(e.target.value)}
               placeholder="New team name"
-              className="flex-1 bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-orange-500"
+              className="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:border-orange-500"
             />
-            <button type="button" onClick={createTeam} className="px-3 py-2 bg-orange-500 text-white text-sm font-bold rounded-lg">
+            <button type="button" onClick={createTeam} className="px-4 py-2 bg-orange-500 text-white text-sm font-bold rounded-lg">
               Add
             </button>
           </div>
@@ -397,7 +397,7 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
 
         {/* Image previews */}
         {images.length > 0 && (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {images.map((url, i) => (
               <div key={i} className="relative group rounded-lg overflow-hidden border border-gray-200 aspect-square bg-gray-50">
                 <img src={url} alt="" className="w-full h-full object-cover" />
@@ -439,7 +439,7 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
             onChange={(e) => setSurCommande(e.target.checked)}
             className="accent-orange-500"
           />
-          <span className="text-amber-400 font-medium">Sur Commande</span>
+          <span className="text-orange-600 font-medium">Pre-order</span>
         </label>
         <label className="flex items-center gap-2 text-sm cursor-pointer">
           <input

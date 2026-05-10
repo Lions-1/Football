@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { parseProductImages } from "@/lib/product-images";
 
 export async function GET(request: NextRequest) {
   const tab = new URL(request.url).searchParams.get("tab") || "new";
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
       name: p.name,
       slug: p.slug,
       price: p.price,
-      images: JSON.parse(p.images) as string[],
+      images: parseProductImages(p.images),
       teamName: p.team.name,
       teamSlug: p.team.slug,
       surCommande: p.surCommande,

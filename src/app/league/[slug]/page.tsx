@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
 import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, NBA_TEAM_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
+import { firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -140,7 +141,7 @@ export default async function LeaguePage({ params }: Props) {
             name: p.name,
             slug: p.slug,
             price: p.price,
-            image: (JSON.parse(p.images) as string[])[0] || "",
+            image: firstProductImage(p.images),
             teamName: p.team.name,
             teamSlug: p.team.slug,
             surCommande: p.surCommande,

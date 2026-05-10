@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, MessageCircle, ArrowLeft } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
 import { CLUB_LOGOS, NBA_TEAM_LOGOS, COUNTRY_FLAGS } from "@/lib/leagues-data";
+import { firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -91,7 +92,7 @@ export default async function TeamPage({ params }: Props) {
             name: p.name,
             slug: p.slug,
             price: p.price,
-            image: (JSON.parse(p.images) as string[])[0] || "",
+            image: firstProductImage(p.images),
             teamName: p.team.name,
             teamSlug: p.team.slug,
             surCommande: p.surCommande,
