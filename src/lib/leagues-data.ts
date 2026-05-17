@@ -316,7 +316,14 @@ export const LEAGUES_DATA = [
   {
     name: "National Teams",
     slug: "national-teams",
-    teams: ["Morocco"],
+    teams: [
+      "Morocco", "Argentina", "Brazil", "France", "Germany", "Spain",
+      "England", "Portugal", "Italy", "Netherlands", "Belgium", "Japan",
+      "Croatia", "Uruguay", "Colombia", "Mexico", "USA", "Senegal",
+      "Nigeria", "Egypt", "Algeria", "Turkey", "Denmark", "Poland",
+      "Cameroon", "South Korea", "Saudi Arabia", "Canada", "Australia",
+      "Ghana", "Switzerland", "Scotland", "Wales", "Tunisia", "Ecuador", "Serbia",
+    ],
   },
 ];
 
