@@ -25,7 +25,9 @@ export const MAIN_NAV_BUCKETS = [
   { slug: "ligue-1",           name: "Ligue 1",          short: "Ligue 1",    href: "/league/ligue-1",          logo: "/logos/leagues/ligue-1.png",          tone: "navy"    },
   { slug: "champions-league",  name: "Champions League", short: "Champions",  href: "/league/champions-league", logo: "/logos/leagues/champions-league.png", tone: "gold"    },
   { slug: "morocco",           name: "Morocco",          short: "Morocco",    href: "/team/morocco",            logo: "/logos/national-teams/morocco.png",   tone: "green"   },
+  { slug: "national-teams",    name: "Nations",          short: "Nations",    href: "/league/national-teams",   logo: "/logos/national-teams/brazil.png",    tone: "teal"    },
   { slug: "retro",             name: "Retro",            short: "Retro",      href: "/products?category=retro", logo: null,                                  tone: "vintage" },
+  { slug: "others",            name: "Others",           short: "Others",     href: "/products",                logo: null,                                  tone: "slate"   },
 ] as const;
 
 export type NavBucket = (typeof MAIN_NAV_BUCKETS)[number];

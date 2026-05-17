@@ -21,7 +21,9 @@ const TILE_THEMES: Record<string, { bg: string; accent: string; border: string }
   navy:    { bg: "from-[#081a3a] via-[#0f2a5a] to-[#030b1d]", accent: "text-sky-200",     border: "hover:border-sky-400"    },
   gold:    { bg: "from-[#3a2b0a] via-[#6e4f11] to-[#1f1604]", accent: "text-amber-200",   border: "hover:border-[#c8a84b]"  },
   green:   { bg: "from-[#0a5a2f] via-[#107a3f] to-[#042a17]", accent: "text-emerald-200", border: "hover:border-emerald-400"},
+  teal:    { bg: "from-[#0a3d5a] via-[#0e5a7a] to-[#042a3c]", accent: "text-teal-200",    border: "hover:border-teal-400"   },
   vintage: { bg: "from-[#3a2414] via-[#5a3a20] to-[#1a0f08]", accent: "text-amber-100",   border: "hover:border-amber-300"  },
+  slate:   { bg: "from-[#1e293b] via-[#334155] to-[#0f172a]", accent: "text-slate-200",   border: "hover:border-slate-400"  },
 };
 
 async function getHomeData() {
@@ -220,11 +222,11 @@ export default async function Home() {
             Shop by League
           </h2>
           <p className="mt-3 text-sm text-gray-500 max-w-md mx-auto">
-            Six top-flight leagues, Morocco, and our vintage collection — tap any tile to dive in.
+            Top leagues, national teams, retro classics, and more — tap any tile to dive in.
           </p>
         </div>
 
-        <StaggerGrid className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4" delay={60}>
+        <StaggerGrid className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4" delay={60}>
           {MAIN_NAV_BUCKETS.map((bucket) => {
             const theme = TILE_THEMES[bucket.tone] || TILE_THEMES.navy;
             return (
@@ -259,14 +261,17 @@ export default async function Home() {
                         unoptimized
                       />
                     </div>
-                  ) : (
-                    // Retro bucket — no logo, use serif typography on its own
+                  ) : bucket.slug === "retro" ? (
                     <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mb-3 sm:mb-4 flex items-center justify-center border-2 border-amber-200/30 rounded-full group-hover:scale-110 transition-transform duration-500">
                       <span className="text-3xl sm:text-4xl md:text-5xl font-serif italic text-amber-100">R</span>
                     </div>
+                  ) : (
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mb-3 sm:mb-4 flex items-center justify-center border-2 border-slate-300/30 rounded-full group-hover:scale-110 transition-transform duration-500">
+                      <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-100">+</span>
+                    </div>
                   )}
                   <p className={`text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase ${theme.accent} mb-1`}>
-                    {bucket.slug === "retro" ? "Vintage Classics" : "Explore"}
+                    {bucket.slug === "retro" ? "Vintage Classics" : bucket.slug === "others" ? "All Products" : "Explore"}
                   </p>
                   <p className="text-base sm:text-lg md:text-xl font-black text-white text-center leading-tight">
                     {bucket.name}
