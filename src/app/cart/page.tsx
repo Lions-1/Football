@@ -119,7 +119,7 @@ export default function CartPage() {
                   </button>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="font-bold">${(item.price * item.quantity).toFixed(0)}</span>
+                  <span className="font-bold">{(item.price * item.quantity).toFixed(0)} MAD</span>
                   <button
                     onClick={() => cart.removeItem(item.productId, item.size)}
                     className="text-red-400 hover:text-red-300 transition"
@@ -137,7 +137,7 @@ export default function CartPage() {
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6">
         <div className="flex items-center justify-between text-lg font-bold">
           <span>Total</span>
-          <span>${cart.total().toFixed(0)}</span>
+          <span>{cart.total().toFixed(0)} MAD</span>
         </div>
       </div>
 
@@ -203,7 +203,7 @@ export default function CartPage() {
             disabled={submitting}
             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
           >
-            {submitting ? "Placing Order..." : `Place Order — $${cart.total().toFixed(0)}`}
+            {submitting ? "Placing Order..." : `Place Order — ${cart.total().toFixed(0)} MAD`}
           </button>
         </form>
       )}

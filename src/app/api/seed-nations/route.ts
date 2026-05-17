@@ -3,11 +3,7 @@ import { NextResponse } from "next/server";
 import { LEAGUES_DATA } from "@/lib/leagues-data";
 
 export async function DELETE() {
-  const league = await prisma.league.findUnique({ where: { slug: "national-teams" } });
-  if (!league) return NextResponse.json({ deleted: 0 });
-  const teams = await prisma.team.findMany({ where: { leagueId: league.id }, select: { id: true } });
-  const teamIds = teams.map((t) => t.id);
-  const { count } = await prisma.product.deleteMany({ where: { teamId: { in: teamIds } } });
+  const { count } = await prisma.product.deleteMany({});
   return NextResponse.json({ success: true, deleted: count });
 }
 

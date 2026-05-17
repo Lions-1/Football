@@ -236,7 +236,7 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
 
       {/* Price */}
       <div>
-        <label className="text-xs text-gray-400 block mb-1">Price (USD) *</label>
+        <label className="text-xs text-gray-400 block mb-1">Price (MAD) *</label>
         <input
           type="number"
           value={price}

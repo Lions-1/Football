@@ -142,7 +142,7 @@ export default function ProductDetail({
             <p className="text-sm text-gray-500 mb-3">Season: {product.season}</p>
           )}
           <p className="text-3xl font-black mb-6">
-            ${product.price.toFixed(0)} <span className="text-base text-gray-400 font-normal">USD</span>
+            {product.price.toFixed(0)} <span className="text-base text-gray-400 font-normal">MAD</span>
           </p>
 
           {product.description && (
@@ -240,8 +240,8 @@ export default function ProductDetail({
 
           {/* WhatsApp Order Button */}
           <a
-            href={`https://wa.me/21261614253?text=${encodeURIComponent(
-              `Hi, I'd like to order:\n*${product.name}*${selectedSize ? `\nSize: ${selectedSize}` : ""}\nPrice: $${product.price} USD\n\nPlease confirm availability.`
+            href={`https://wa.me/212628552405?text=${encodeURIComponent(
+              `Hi, I'd like to order:\n*${product.name}*${selectedSize ? `\nSize: ${selectedSize}` : ""}\nPrice: ${product.price} MAD\n\nPlease confirm availability.`
             )}`}
             target="_blank"
             rel="noopener noreferrer"

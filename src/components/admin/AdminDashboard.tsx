@@ -296,7 +296,7 @@ export default function AdminDashboard() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold truncate">{p.name}</p>
                         <p className="text-xs text-gray-500 truncate">
-                          {p.team.league.name} · {p.team.name} · ${p.price} USD
+                          {p.team.league.name} · {p.team.name} · {p.price} MAD
                         </p>
                       </div>
                     </div>
@@ -428,13 +428,13 @@ export default function AdminDashboard() {
                         <option value="shipped">Shipped</option>
                         <option value="delivered">Delivered</option>
                       </select>
-                      <p className="text-sm font-bold">${order.total} USD</p>
+                      <p className="text-sm font-bold">{order.total} MAD</p>
                     </div>
                   </div>
                   <div className="text-xs text-gray-500 space-y-0.5">
                     {order.items.map((item) => (
                       <p key={item.id}>
-                        {item.quantity}x {item.product.name} (Size: {item.size}) — ${item.price * item.quantity} USD
+                        {item.quantity}x {item.product.name} (Size: {item.size}) — {item.price * item.quantity} MAD
                       </p>
                     ))}
                   </div>

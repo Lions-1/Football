@@ -81,7 +81,7 @@ export default function ProductCard({
             {name}
           </h3>
           <p className="mt-2 text-lg font-bold text-gray-900">
-            ${price.toFixed(0)} <span className="text-xs text-gray-400 font-normal">USD</span>
+            {price.toFixed(0)} <span className="text-xs text-gray-400 font-normal">MAD</span>
           </p>
         </div>
       </div>

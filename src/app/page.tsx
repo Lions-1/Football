@@ -483,7 +483,7 @@ export default async function Home() {
                       <p className="text-sm text-amber-50 font-semibold truncate mt-0.5 group-hover:text-amber-200 transition">
                         {product.name}
                       </p>
-                      <p className="text-sm text-amber-300 font-bold mt-1">${product.price}</p>
+                      <p className="text-sm text-amber-300 font-bold mt-1">{product.price} MAD</p>
                     </div>
                   </Link>
                 );
@@ -536,7 +536,7 @@ export default async function Home() {
                     <p className="text-sm text-gray-900 font-semibold truncate mt-0.5 group-hover:text-orange-500 transition">
                       {product.name}
                     </p>
-                    <p className="text-sm text-orange-500 font-bold mt-1">${product.price}</p>
+                    <p className="text-sm text-orange-500 font-bold mt-1">{product.price} MAD</p>
                   </div>
                 </Link>
               );
