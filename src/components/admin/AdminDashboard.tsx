@@ -46,6 +46,38 @@ interface Order {
 
 type Tab = "products" | "add" | "orders" | "edit" | "stats";
 
+/**
+ * Tiny pill button used in the product list. Click flips the flag.
+ * Filled when active, soft-tinted when idle so the admin can scan a row
+ * and instantly see what's a Best Seller, what's Featured, etc.
+ */
+function FlagToggle({
+  active,
+  onClick,
+  label,
+  activeColor,
+  idleColor,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  activeColor: string;
+  idleColor: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={`Click to ${active ? "remove from" : "add to"} ${label}`}
+      className={`text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-full border transition ${
+        active ? activeColor : idleColor
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [tab, setTab] = useState<Tab>("products");
@@ -108,6 +140,32 @@ export default function AdminDashboard() {
     if (!confirm("Delete this product?")) return;
     await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
     fetchProducts(prodPage, prodSearch);
+  }
+
+  // Toggle a single boolean flag (featured / bestSeller / surCommande / inStock)
+  // straight from the product list. Optimistic UI: flip locally first, revert
+  // if the server rejects the change.
+  type Flag = "featured" | "bestSeller" | "surCommande" | "inStock";
+  async function toggleFlag(productId: string, flag: Flag) {
+    const target = products.find((p) => p.id === productId);
+    if (!target) return;
+    const next = !target[flag];
+    setProducts((prev) =>
+      prev.map((p) => (p.id === productId ? { ...p, [flag]: next } : p)),
+    );
+    try {
+      const res = await fetch(`/api/admin/products/${productId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [flag]: next }),
+      });
+      if (!res.ok) throw new Error("save failed");
+    } catch {
+      // Revert on failure
+      setProducts((prev) =>
+        prev.map((p) => (p.id === productId ? { ...p, [flag]: !next } : p)),
+      );
+    }
   }
 
   async function handleLogout() {
@@ -222,31 +280,61 @@ export default function AdminDashboard() {
               {products.map((p) => {
                 const thumb = getThumb(p);
                 return (
-                  <div key={p.id} className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg px-4 py-3 hover:border-orange-200 transition">
-                    {/* Thumbnail */}
-                    <div className="w-12 h-12 rounded-lg bg-gray-50 overflow-hidden shrink-0">
-                      {thumb ? (
-                        <img src={thumb} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-300">
-                          <Package className="w-5 h-5" />
-                        </div>
-                      )}
-                    </div>
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold truncate">{p.name}</p>
-                      <p className="text-xs text-gray-500 truncate">
-                        {p.team.league.name} · {p.team.name} · ${p.price} USD
-                      </p>
-                      <div className="flex gap-1.5 mt-1">
-                        {p.surCommande && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-orange-50 text-orange-500">PRE-ORDER</span>}
-                        {p.featured && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-500">FEATURED</span>}
-                        {p.bestSeller && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-green-50 text-green-500">BEST SELLER</span>}
+                  <div key={p.id} className="flex flex-col sm:flex-row sm:items-center gap-3 bg-white border border-gray-200 rounded-xl p-3 sm:px-4 sm:py-3 hover:border-orange-200 transition">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      {/* Thumbnail */}
+                      <div className="w-14 h-14 rounded-lg bg-gray-50 overflow-hidden shrink-0">
+                        {thumb ? (
+                          <img src={thumb} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-300">
+                            <Package className="w-5 h-5" />
+                          </div>
+                        )}
+                      </div>
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold truncate">{p.name}</p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {p.team.league.name} · {p.team.name} · ${p.price} USD
+                        </p>
                       </div>
                     </div>
+
+                    {/* Quick toggles — click to flip the flag without entering the form */}
+                    <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                      <FlagToggle
+                        active={p.featured}
+                        onClick={() => toggleFlag(p.id, "featured")}
+                        label="Featured"
+                        activeColor="bg-blue-500 text-white border-blue-500"
+                        idleColor="bg-blue-50 text-blue-500 border-blue-100 hover:border-blue-300"
+                      />
+                      <FlagToggle
+                        active={p.bestSeller}
+                        onClick={() => toggleFlag(p.id, "bestSeller")}
+                        label="Best Seller"
+                        activeColor="bg-green-600 text-white border-green-600"
+                        idleColor="bg-green-50 text-green-600 border-green-100 hover:border-green-300"
+                      />
+                      <FlagToggle
+                        active={p.surCommande}
+                        onClick={() => toggleFlag(p.id, "surCommande")}
+                        label="Pre-Order"
+                        activeColor="bg-orange-500 text-white border-orange-500"
+                        idleColor="bg-orange-50 text-orange-500 border-orange-100 hover:border-orange-300"
+                      />
+                      <FlagToggle
+                        active={p.inStock}
+                        onClick={() => toggleFlag(p.id, "inStock")}
+                        label={p.inStock ? "In Stock" : "Out"}
+                        activeColor="bg-gray-900 text-white border-gray-900"
+                        idleColor="bg-red-50 text-red-500 border-red-100 hover:border-red-300"
+                      />
+                    </div>
+
                     {/* Actions */}
-                    <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="flex items-center gap-1 shrink-0 self-end sm:self-auto border-l border-gray-100 sm:pl-2 pt-2 sm:pt-0">
                       <a
                         href={`/product/${p.slug}`}
                         target="_blank"

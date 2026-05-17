@@ -3,17 +3,25 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, MessageCircle, ArrowLeft } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
-import { CLUB_LOGOS, NBA_TEAM_LOGOS, COUNTRY_FLAGS } from "@/lib/leagues-data";
+import { CLUB_LOGOS, COUNTRY_FLAGS, SIZES } from "@/lib/leagues-data";
+import { Prisma } from "@prisma/client";
 import { firstProductImage } from "@/lib/product-images";
+import SizeFilterPills from "@/components/SizeFilterPills";
 
 export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ sizes?: string }>;
 }
 
-export default async function TeamPage({ params }: Props) {
+export default async function TeamPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { sizes: sizesParam } = await searchParams;
+  const selectedSizes = (sizesParam || "")
+    .split(",")
+    .map((s) => s.trim().toUpperCase())
+    .filter((s) => SIZES.includes(s));
 
   const team = await prisma.team.findUnique({
     where: { slug },
@@ -22,17 +30,28 @@ export default async function TeamPage({ params }: Props) {
 
   if (!team) notFound();
 
+  const where: Prisma.ProductWhereInput =
+    selectedSizes.length > 0
+      ? {
+          teamId: team.id,
+          OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })),
+        }
+      : { teamId: team.id };
+
   const products = await prisma.product.findMany({
-    where: { teamId: team.id },
+    where,
     include: { team: { include: { league: true } } },
     orderBy: { createdAt: "desc" },
   });
+
+  const basePath = `/team/${team.slug}`;
+  const buildSizeHref = (next: string[]) =>
+    next.length > 0 ? `${basePath}?sizes=${next.join(",")}` : basePath;
 
   // Resolve a crest from whichever lookup applies to this team
   const flag = COUNTRY_FLAGS.find((c) => c.slug === team.slug);
   const crest =
     CLUB_LOGOS[team.slug] ||
-    NBA_TEAM_LOGOS[team.slug] ||
     (flag ? `https://flagcdn.com/w160/${flag.code}.png` : null);
 
   return (
@@ -60,12 +79,29 @@ export default async function TeamPage({ params }: Props) {
         </div>
       </div>
 
+      {/* Size filter — always visible above the grid so customers can narrow
+          down by size without leaving the team page. */}
+      {(products.length > 0 || selectedSizes.length > 0) && (
+        <SizeFilterPills
+          selectedSizes={selectedSizes}
+          buildHref={buildSizeHref}
+          clearHref={basePath}
+          className="mb-6"
+        />
+      )}
+
       {products.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-gray-50 px-6 py-14 text-center">
           <div className="max-w-md mx-auto">
-            <h2 className="text-xl font-bold text-gray-900">More {team.name} pieces coming soon</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              {selectedSizes.length > 0
+                ? `No ${team.name} kits in size ${selectedSizes.join(", ")}`
+                : `More ${team.name} pieces coming soon`}
+            </h2>
             <p className="mt-2 text-sm text-gray-500">
-              We’re restocking this team. Message us on WhatsApp to reserve your size or request a specific kit — we’ll source it for you.
+              {selectedSizes.length > 0
+                ? "Try a different size, or WhatsApp us — we'll source it for you."
+                : "We're restocking this team. Message us on WhatsApp to reserve your size or request a specific kit — we'll source it for you."}
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <a

@@ -3,17 +3,25 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
-import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, NBA_TEAM_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
+import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS, SIZES } from "@/lib/leagues-data";
+import { Prisma } from "@prisma/client";
 import { firstProductImage } from "@/lib/product-images";
+import SizeFilterPills from "@/components/SizeFilterPills";
 
 export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ sizes?: string }>;
 }
 
-export default async function LeaguePage({ params }: Props) {
+export default async function LeaguePage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { sizes: sizesParam } = await searchParams;
+  const selectedSizes = (sizesParam || "")
+    .split(",")
+    .map((s) => s.trim().toUpperCase())
+    .filter((s) => SIZES.includes(s));
 
   const league = await prisma.league.findUnique({
     where: { slug },
@@ -38,24 +46,42 @@ export default async function LeaguePage({ params }: Props) {
       })
     : league.teams;
 
-  const products = await prisma.product.findMany({
-    where: isChampionsLeague
+  const baseWhere: Prisma.ProductWhereInput = isChampionsLeague
+    ? {
+        team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
+        // Current season only — older kits remain on the domestic league pages
+        OR: [
+          { season: { contains: "26/27" } },
+          { season: { contains: "2026-27" } },
+          { name: { contains: "26/27" } },
+          { name: { contains: "2026/27" } },
+          { name: { contains: "26-27" } },
+        ],
+      }
+    : { team: { leagueId: league.id } };
+
+  // Apply size filter on top of the base where via AND so we don't clobber the
+  // CL OR-clause above.
+  const where: Prisma.ProductWhereInput =
+    selectedSizes.length > 0
       ? {
-          team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
-          // Current season only — older kits remain on the domestic league pages
-          OR: [
-            { season: { contains: "26/27" } },
-            { season: { contains: "2026-27" } },
-            { name: { contains: "26/27" } },
-            { name: { contains: "2026/27" } },
-            { name: { contains: "26-27" } },
+          AND: [
+            baseWhere,
+            { OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })) },
           ],
         }
-      : { team: { leagueId: league.id } },
+      : baseWhere;
+
+  const products = await prisma.product.findMany({
+    where,
     include: { team: { include: { league: true } } },
     orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
     take: 80,
   });
+
+  const basePath = `/league/${league.slug}`;
+  const buildSizeHref = (next: string[]) =>
+    next.length > 0 ? `${basePath}?sizes=${next.join(",")}` : basePath;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -110,7 +136,7 @@ export default async function LeaguePage({ params }: Props) {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {displayTeams.map((team) => {
-              const logo = CLUB_LOGOS[team.slug] || NBA_TEAM_LOGOS[team.slug];
+              const logo = CLUB_LOGOS[team.slug];
               return (
                 <Link
                   key={team.id}
@@ -134,7 +160,22 @@ export default async function LeaguePage({ params }: Props) {
 
       {/* Products */}
       <section>
-        <h2 className="text-lg font-semibold mb-4">All Products</h2>
+        <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
+          <h2 className="text-lg font-semibold">
+            All Products
+            {selectedSizes.length > 0 && (
+              <span className="ml-2 text-xs text-gray-400 font-normal">
+                · Size {selectedSizes.join(", ")}
+              </span>
+            )}
+          </h2>
+        </div>
+        <SizeFilterPills
+          selectedSizes={selectedSizes}
+          buildHref={buildSizeHref}
+          clearHref={basePath}
+          className="mb-5"
+        />
         <ProductGrid
           products={products.map((p) => ({
             id: p.id,

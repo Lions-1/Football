@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { ArrowRight, Truck, MessageCircle, ShieldCheck } from "lucide-react";
-import { MAIN_NAV_BUCKETS } from "@/lib/leagues-data";
+import { ArrowRight, Truck, MessageCircle, ShieldCheck, Star } from "lucide-react";
+import { MAIN_NAV_BUCKETS, PREMIER_LEAGUE_MARQUEE, CLUB_LOGOS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
 import StaggerGrid from "@/components/StaggerGrid";
 import { parseProductImages } from "@/lib/product-images";
@@ -205,8 +205,148 @@ export default async function Home() {
         </StaggerGrid>
       </section>
 
+      {/* ═══ PREMIER LEAGUE ROULETTE — auto-scrolling crest marquee ═══ */}
+      <section className="relative bg-gradient-to-br from-[#1a0533] via-[#360b4a] to-[#1a0533] py-12 overflow-hidden border-y border-purple-900/40">
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-purple-500/15 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 mb-7 flex items-end justify-between gap-4 flex-wrap">
+          <div>
+            <p className="text-purple-300 text-xs font-bold tracking-[0.3em] uppercase mb-1.5">
+              All 20 Clubs · The Best League in the World
+            </p>
+            <h2 className="font-heading text-3xl md:text-4xl font-black text-white tracking-tight uppercase">
+              Premier League <span className="text-purple-300 italic font-serif font-normal">Roulette</span>
+            </h2>
+          </div>
+          <Link
+            href="/league/premier-league"
+            className="inline-flex items-center gap-2 bg-white text-[#360b4a] hover:bg-purple-100 font-bold px-5 py-2.5 rounded-lg transition text-sm shadow-lg"
+          >
+            Browse all <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#1a0533] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#1a0533] to-transparent z-10 pointer-events-none" />
+          <div className="flex animate-marquee w-max items-center gap-3 sm:gap-5 px-6">
+            {[...PREMIER_LEAGUE_MARQUEE, ...PREMIER_LEAGUE_MARQUEE].map((club, i) => {
+              const logo = CLUB_LOGOS[club.slug];
+              return (
+                <Link
+                  key={`${club.slug}-${i}`}
+                  href={`/team/${club.slug}`}
+                  className="group flex flex-col items-center gap-2 shrink-0 w-20 sm:w-24"
+                >
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center p-2 group-hover:bg-white group-hover:border-white transition">
+                    {logo ? (
+                      <img
+                        src={logo}
+                        alt={club.name}
+                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                      />
+                    ) : (
+                      <span className="text-purple-200 text-xs font-bold">{club.name.charAt(0)}</span>
+                    )}
+                  </div>
+                  <span className="text-[10px] sm:text-[11px] text-purple-100 font-medium text-center leading-tight truncate w-full">
+                    {club.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ PRODUCT SECTIONS — tabbed (New / Featured / Best Sellers) ═══ */}
       <HomeProducts />
+
+      {/* ═══ MOROCCO SHOWCASE — Atlas Lions tribute, replaces the old WC banner ═══ */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#c1272d] via-[#9e1f2c] to-[#0a3d2a]" />
+        {/* Atmospheric stadium backdrop — same hero photo, different treatment */}
+        <Image
+          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1800&q=85"
+          alt=""
+          aria-hidden
+          fill
+          unoptimized
+          className="object-cover opacity-30 mix-blend-overlay"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30" />
+        {/* Decorative geometric pattern (zellige-inspired diamonds) */}
+        <div
+          className="absolute inset-0 opacity-[0.07] pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(45deg, rgba(255,255,255,0.5) 0 1px, transparent 1px 22px), repeating-linear-gradient(-45deg, rgba(255,255,255,0.5) 0 1px, transparent 1px 22px)",
+          }}
+        />
+        <div className="absolute -top-32 -right-32 w-[480px] h-[480px] bg-[#f6c700]/20 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-[420px] h-[420px] bg-[#0a3d2a]/40 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          {/* Text */}
+          <div className="order-2 md:order-1">
+            <p className="inline-flex items-center gap-2 text-[#f6c700] text-xs font-bold tracking-[0.3em] uppercase mb-4">
+              <Star className="w-3.5 h-3.5 fill-[#f6c700]" />
+              Morocco · Atlas Lions
+              <Star className="w-3.5 h-3.5 fill-[#f6c700]" />
+            </p>
+            <h2 className="font-heading text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-[0.92] tracking-tight">
+              Wear the
+              <br />
+              <span className="italic font-serif font-normal text-[#f6c700]">pride</span>
+              <br />
+              of a nation.
+            </h2>
+            <p className="mt-6 text-base md:text-lg text-white/80 max-w-md leading-relaxed">
+              Home, away, and player-version kits of the Atlas Lions — the team that lit up Qatar 2022 and made history for an entire continent.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/team/morocco"
+                className="inline-flex items-center gap-2 bg-white text-[#c1272d] hover:bg-amber-100 font-bold px-6 py-3.5 rounded-xl transition shadow-xl"
+              >
+                Shop Morocco kits <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="https://wa.me/21261614253?text=Hi!%20I'm%20looking%20for%20Morocco%20kits."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white/20 hover:border-white text-white font-bold px-6 py-3.5 rounded-xl transition"
+              >
+                <MessageCircle className="w-4 h-4" /> WhatsApp us
+              </a>
+            </div>
+          </div>
+
+          {/* Crest */}
+          <div className="order-1 md:order-2 relative aspect-square max-w-[280px] sm:max-w-sm md:max-w-md mx-auto w-full">
+            <div className="absolute inset-8 bg-[#f6c700]/30 blur-[80px] rounded-full" />
+            <div className="absolute inset-0 border-2 border-white/15 rounded-full animate-pulse" style={{ animationDuration: "3s" }} />
+            <div className="absolute inset-6 border border-white/10 rounded-full" />
+            <Image
+              src="/logos/national-teams/morocco.png"
+              alt="Morocco crest"
+              fill
+              unoptimized
+              className="object-contain drop-shadow-2xl relative z-10 p-10"
+              sizes="(max-width: 768px) 280px, 480px"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* ═══ RETRO EDIT — only shown if there are retro products ═══ */}
       {retroProducts.length > 0 && (

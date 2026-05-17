@@ -30,40 +30,6 @@ export const MAIN_NAV_BUCKETS = [
 
 export type NavBucket = (typeof MAIN_NAV_BUCKETS)[number];
 
-// NBA team crests — saved locally from ESPN's CDN (see scripts/download-nba-logos.mjs)
-export const NBA_TEAM_LOGOS: Record<string, string> = {
-  "atlanta-hawks": "/logos/nba/atlanta-hawks.png",
-  "boston-celtics": "/logos/nba/boston-celtics.png",
-  "brooklyn-nets": "/logos/nba/brooklyn-nets.png",
-  "chicago-bulls": "/logos/nba/chicago-bulls.png",
-  "cleveland-cavaliers": "/logos/nba/cleveland-cavaliers.png",
-  "dallas-mavericks": "/logos/nba/dallas-mavericks.png",
-  "denver-nuggets": "/logos/nba/denver-nuggets.png",
-  "golden-state-warriors": "/logos/nba/golden-state-warriors.png",
-  "houston-rockets": "/logos/nba/houston-rockets.png",
-  "los-angeles-clippers": "/logos/nba/los-angeles-clippers.png",
-  "los-angeles-lakers": "/logos/nba/los-angeles-lakers.png",
-  "memphis-grizzlies": "/logos/nba/memphis-grizzlies.png",
-  "miami-heat": "/logos/nba/miami-heat.png",
-  "milwaukee-bucks": "/logos/nba/milwaukee-bucks.png",
-  "new-york-knicks": "/logos/nba/new-york-knicks.png",
-  "oklahoma-city-thunder": "/logos/nba/oklahoma-city-thunder.png",
-  "philadelphia-76ers": "/logos/nba/philadelphia-76ers.png",
-  "phoenix-suns": "/logos/nba/phoenix-suns.png",
-  "san-antonio-spurs": "/logos/nba/san-antonio-spurs.png",
-  "toronto-raptors": "/logos/nba/toronto-raptors.png",
-  "charlotte-hornets": "/logos/nba/charlotte-hornets.png",
-  "detroit-pistons": "/logos/nba/detroit-pistons.png",
-  "indiana-pacers": "/logos/nba/indiana-pacers.png",
-  "minnesota-timberwolves": "/logos/nba/minnesota-timberwolves.png",
-  "new-orleans-pelicans": "/logos/nba/new-orleans-pelicans.png",
-  "orlando-magic": "/logos/nba/orlando-magic.png",
-  "portland-trail-blazers": "/logos/nba/portland-trail-blazers.png",
-  "sacramento-kings": "/logos/nba/sacramento-kings.png",
-  "utah-jazz": "/logos/nba/utah-jazz.png",
-  "washington-wizards": "/logos/nba/washington-wizards.png",
-};
-
 export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
   "morocco": "/logos/national-teams/morocco.png",
   "argentina": "/logos/national-teams/argentina.png",
@@ -241,18 +207,32 @@ export const CLUB_LOGOS: Record<string, string> = {
   // Saudi Pro League
   "al-hilal":          "https://crests.football-data.org/1920.png",
   "al-nassr":          "https://crests.football-data.org/1919.png",
-  // F1 Teams (verified Wikipedia thumbnails)
-  "red-bull-racing":   "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Red_Bull_Racing_-_2021_Logo.svg/250px-Red_Bull_Racing_-_2021_Logo.svg.png",
-  "ferrari":           "https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Scuderia_Ferrari_HP_logo_24.svg/250px-Scuderia_Ferrari_HP_logo_24.svg.png",
-  "mercedes-amg-f1":   "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Mercedes_AMG_Petronas_F1_Logo.svg/250px-Mercedes_AMG_Petronas_F1_Logo.svg.png",
-  "mclaren-f1":        "https://upload.wikimedia.org/wikipedia/en/thumb/e/e5/McLaren_F1_logo.svg/250px-McLaren_F1_logo.svg.png",
-  "alpine-f1":         "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Alpine_F1_Team_Logo.svg/250px-Alpine_F1_Team_Logo.svg.png",
-  "aston-martin-f1":   "https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Aston_Martin_Aramco_2024_logo.png/250px-Aston_Martin_Aramco_2024_logo.png",
-  "williams-f1":       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Atlassian_Williams_F1_Team_logo.svg/250px-Atlassian_Williams_F1_Team_logo.svg.png",
-  "rb-f1":             "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/VCARB_F1_logo.svg/250px-VCARB_F1_logo.svg.png",
-  "kick-sauber":       "https://upload.wikimedia.org/wikipedia/commons/9/94/Logo_sauber_2023.jpg",
-  "haas-f1":           "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/TGR_Haas_F1_Team_Logo_%282026%29.svg/250px-TGR_Haas_F1_Team_Logo_%282026%29.svg.png",
 };
+
+// Premier League marquee — the 20 PL clubs we feature in the homepage
+// roulette. Slugs match `CLUB_LOGOS` keys above.
+export const PREMIER_LEAGUE_MARQUEE: { slug: string; name: string }[] = [
+  { slug: "manchester-united",      name: "Manchester United"    },
+  { slug: "manchester-city",        name: "Manchester City"      },
+  { slug: "arsenal",                name: "Arsenal"              },
+  { slug: "chelsea",                name: "Chelsea"              },
+  { slug: "liverpool",              name: "Liverpool"            },
+  { slug: "tottenham-hotspur",      name: "Tottenham"            },
+  { slug: "newcastle-united",       name: "Newcastle United"     },
+  { slug: "aston-villa",            name: "Aston Villa"          },
+  { slug: "brighton-hove-albion",   name: "Brighton"             },
+  { slug: "west-ham-united",        name: "West Ham"             },
+  { slug: "fulham",                 name: "Fulham"               },
+  { slug: "crystal-palace",         name: "Crystal Palace"       },
+  { slug: "everton",                name: "Everton"              },
+  { slug: "brentford",              name: "Brentford"            },
+  { slug: "nottingham-forest",      name: "Nottingham Forest"    },
+  { slug: "bournemouth",            name: "Bournemouth"          },
+  { slug: "wolverhampton-wanderers",name: "Wolves"               },
+  { slug: "leicester-city",         name: "Leicester City"       },
+  { slug: "leeds-united",           name: "Leeds United"         },
+  { slug: "burnley",                name: "Burnley"              },
+];
 
 export const BRAND_LOGOS = [
   { name: "Nike", logo: "/logos/brands/nike.svg" },

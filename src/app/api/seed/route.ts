@@ -113,9 +113,9 @@ export async function POST() {
       const brands = ["Adidas", "Nike", "Puma"];
       const brand = brands[Math.floor(Math.random() * brands.length)];
       const variants: { name: string; price: number; category: string; season: string }[] = [
-        { name: `${team.name} X ${brand} 2026 Home Kit Player Version`, price: 280, category: "jersey", season: "2025/26" },
-        { name: `${team.name} X ${brand} 2026 Away Kit Player Version`, price: 280, category: "jersey", season: "2025/26" },
-        { name: `${team.name} X ${brand} World Cup 2026 New Kit`, price: 300, category: "jersey", season: "2025/26" },
+        { name: `${team.name} X ${brand} 2025/26 Home Kit Player Version`, price: 280, category: "jersey", season: "2025/26" },
+        { name: `${team.name} X ${brand} 2025/26 Away Kit Player Version`, price: 280, category: "jersey", season: "2025/26" },
+        { name: `${team.name} X ${brand} 2025/26 Third Kit Player Version`, price: 300, category: "jersey", season: "2025/26" },
       ];
       if (Math.random() > 0.5) {
         variants.push({ name: `${team.name} X ${brand} 2026 Training Kit`, price: 250, category: "training", season: "2025/26" });
