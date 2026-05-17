@@ -4,6 +4,15 @@ import { useState } from "react";
 import { Plus, X, Save, Upload } from "lucide-react";
 import { CATEGORIES, SIZES } from "@/lib/leagues-data";
 
+// Admin quick-presets so the most common size combinations are a single tap
+// away when filling out a new product.
+const SIZE_PRESETS: { label: string; sizes: string[] }[] = [
+  { label: "Adult",     sizes: ["S", "M", "L", "XL", "XXL"] },
+  { label: "Adult + XXXL", sizes: ["S", "M", "L", "XL", "XXL", "XXXL"] },
+  { label: "All",       sizes: [...SIZES] },
+  { label: "Clear",     sizes: [] },
+];
+
 interface Team {
   id: string;
   name: string;
@@ -338,7 +347,21 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
 
       {/* Sizes */}
       <div>
-        <label className="text-xs text-gray-400 block mb-1">Sizes</label>
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs text-gray-400">Sizes</label>
+          <div className="flex flex-wrap gap-1.5">
+            {SIZE_PRESETS.map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => setSelectedSizes(preset.sizes)}
+                className="text-[10px] font-semibold uppercase tracking-wide text-orange-500 hover:text-orange-600 hover:underline"
+              >
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="flex flex-wrap gap-2">
           {SIZES.map((size) => (
             <button
@@ -348,7 +371,7 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
                 selectedSizes.includes(size)
                   ? "bg-orange-500 text-white border-orange-500"
-                  : "bg-white border-gray-200 text-gray-500"
+                  : "bg-white border-gray-200 text-gray-500 hover:border-orange-300"
               }`}
             >
               {size}
@@ -461,15 +484,24 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
         </label>
       </div>
 
-      {/* Submit */}
-      <button
-        type="submit"
-        disabled={saving}
-        className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-lg transition disabled:opacity-50"
-      >
-        <Save className="w-4 h-4" />
-        {saving ? "Saving..." : isEdit ? "Update Product" : "Create Product"}
-      </button>
+      {/* Sticky bottom save bar — always reachable on long forms, especially on mobile */}
+      <div className="sticky bottom-0 -mx-4 sm:-mx-0 px-4 sm:px-0 pt-4 pb-4 bg-gradient-to-t from-white via-white to-white/90 backdrop-blur-sm border-t border-gray-100 flex items-center gap-3">
+        <button
+          type="submit"
+          disabled={saving}
+          className="flex-1 sm:flex-initial flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-3 rounded-lg transition disabled:opacity-50"
+        >
+          <Save className="w-4 h-4" />
+          {saving ? "Saving..." : isEdit ? "Update Product" : "Create Product"}
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="hidden sm:block text-sm text-gray-500 hover:text-gray-900 px-4 py-3"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   );
 }

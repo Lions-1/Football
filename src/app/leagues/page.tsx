@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "All Leagues — Mebutik Sports",
   description:
-    "Browse every football, NBA and F1 league we stock. Tap any league to see its teams and current-season jerseys.",
+    "Browse every football league we stock — Premier League, La Liga, Serie A, Bundesliga, Ligue 1 and the Champions League. Tap any league to see its teams and current-season jerseys.",
 };
 
 export default async function AllLeaguesPage() {
@@ -66,8 +66,8 @@ export default async function AllLeaguesPage() {
             All Leagues
           </h1>
           <p className="text-gray-500 text-sm sm:text-base mt-3 max-w-2xl">
-            Every competition we stock — from the Premier League and La Liga
-            to the NBA, F1 and the World Cup 2026 national-team kits.
+            Every competition we stock — Europe's top 5 leagues and the
+            Champions League. Tap any tile to see its teams and current-season kits.
           </p>
         </div>
         <div className="flex gap-6 text-sm">

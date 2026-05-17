@@ -1,21 +1,34 @@
 export const LEAGUE_LOGOS: Record<string, string> = {
-  "national-teams": "/logos/leagues/national-teams.png",
   "premier-league": "/logos/leagues/premier-league.png",
   "la-liga": "/logos/leagues/la-liga.png",
   "serie-a": "/logos/leagues/serie-a.png",
   "bundesliga": "/logos/leagues/bundesliga.png",
   "ligue-1": "/logos/leagues/ligue-1.png",
-  "brasileirao": "/logos/leagues/brasileirao.png",
-  "liga-profesional": "/logos/leagues/liga-profesional.png",
-  "mls": "/logos/leagues/mls.png",
-  "saudi-pro-league": "/logos/leagues/saudi-pro-league.png",
-  "eredivisie": "/logos/leagues/eredivisie.png",
-  "liga-mx": "/logos/leagues/liga-mx.png",
-  "liga-portugal": "/logos/leagues/liga-portugal.png",
   "champions-league": "/logos/leagues/champions-league.png",
-  "f1": "/logos/leagues/f1.svg",
-  "nba": "/logos/leagues/nba.svg",
+  "national-teams": "/logos/leagues/national-teams.png",
 };
+
+/**
+ * The 8 top-level "buckets" the site is built around. Used by the navbar,
+ * the homepage tile grid, and the products-page filter sidebar so they all
+ * stay in sync. `slug` is the URL-safe id, `href` is the destination link.
+ *
+ *   - Six football leagues live under /league/:slug
+ *   - "Morocco" is a single team — its destination is /team/morocco
+ *   - "Retro" is a category filter on the catalogue
+ */
+export const MAIN_NAV_BUCKETS = [
+  { slug: "premier-league",    name: "Premier League",   short: "Premier",    href: "/league/premier-league",   logo: "/logos/leagues/premier-league.png",   tone: "purple"  },
+  { slug: "la-liga",           name: "La Liga",          short: "La Liga",    href: "/league/la-liga",          logo: "/logos/leagues/la-liga.png",          tone: "red"     },
+  { slug: "serie-a",           name: "Serie A",          short: "Serie A",    href: "/league/serie-a",          logo: "/logos/leagues/serie-a.png",          tone: "blue"    },
+  { slug: "bundesliga",        name: "Bundesliga",       short: "Bundesliga", href: "/league/bundesliga",       logo: "/logos/leagues/bundesliga.png",       tone: "rose"    },
+  { slug: "ligue-1",           name: "Ligue 1",          short: "Ligue 1",    href: "/league/ligue-1",          logo: "/logos/leagues/ligue-1.png",          tone: "navy"    },
+  { slug: "champions-league",  name: "Champions League", short: "Champions",  href: "/league/champions-league", logo: "/logos/leagues/champions-league.png", tone: "gold"    },
+  { slug: "morocco",           name: "Morocco",          short: "Morocco",    href: "/team/morocco",            logo: "/logos/national-teams/morocco.png",   tone: "green"   },
+  { slug: "retro",             name: "Retro",            short: "Retro",      href: "/products?category=retro", logo: null,                                  tone: "vintage" },
+] as const;
+
+export type NavBucket = (typeof MAIN_NAV_BUCKETS)[number];
 
 // NBA team crests — saved locally from ESPN's CDN (see scripts/download-nba-logos.mjs)
 export const NBA_TEAM_LOGOS: Record<string, string> = {
@@ -253,19 +266,16 @@ export const BRAND_LOGOS = [
   { name: "Le Coq Sportif", logo: "/logos/brands/le-coq-sportif.svg" },
 ];
 
+/**
+ * The seven leagues we host in the database after the Nov-2026 refactor.
+ * "National Teams" is a tiny league that only carries Morocco — used as the
+ * parent for the Morocco team so /team/morocco can resolve via Prisma.
+ *
+ * The team lists below are seed defaults: the database refactor script uses
+ * them to (re-)create the team rows for each league, and the admin-panel
+ * "+ Team" button can add more on the fly.
+ */
 export const LEAGUES_DATA = [
-  {
-    name: "World Cup 2026",
-    slug: "national-teams",
-    teams: [
-      "Morocco", "Argentina", "Brazil", "France", "Germany", "Spain",
-      "England", "Portugal", "Italy", "Netherlands", "Belgium", "Japan",
-      "Croatia", "Uruguay", "Colombia", "Mexico", "USA", "Senegal",
-      "Nigeria", "Egypt", "Algeria", "Scotland", "Wales", "Serbia",
-      "Switzerland", "Denmark", "Poland", "Cameroon", "Ghana", "South Korea",
-      "Canada", "Australia", "Saudi Arabia", "Tunisia", "Ecuador", "Turkey",
-    ],
-  },
   {
     name: "Premier League",
     slug: "premier-league",
@@ -312,50 +322,6 @@ export const LEAGUES_DATA = [
     ],
   },
   {
-    name: "Brasileirao",
-    slug: "brasileirao",
-    teams: [
-      "Flamengo", "Corinthians", "Palmeiras", "Sao Paulo", "Santos",
-      "Fluminense", "Botafogo", "Vasco da Gama", "Gremio", "Internacional",
-      "Cruzeiro", "Atletico Mineiro", "Bahia",
-    ],
-  },
-  {
-    name: "Liga Profesional",
-    slug: "liga-profesional",
-    teams: [
-      "Boca Juniors", "River Plate", "Racing", "Independiente", "San Lorenzo",
-    ],
-  },
-  {
-    name: "MLS",
-    slug: "mls",
-    teams: [
-      "Inter Miami", "LA Galaxy", "Los Angeles FC", "New York City FC",
-      "Atlanta United", "Seattle Sounders", "Austin FC", "Columbus Crew",
-    ],
-  },
-  {
-    name: "Saudi Pro League",
-    slug: "saudi-pro-league",
-    teams: ["Al Nassr", "Al-Hilal", "Al Ittihad", "Al Ahli"],
-  },
-  {
-    name: "Eredivisie",
-    slug: "eredivisie",
-    teams: ["Ajax", "PSV Eindhoven", "Feyenoord"],
-  },
-  {
-    name: "Liga MX",
-    slug: "liga-mx",
-    teams: ["Club America", "Chivas Guadalajara", "Cruz Azul", "Tigres", "CF Monterrey"],
-  },
-  {
-    name: "Liga Portugal",
-    slug: "liga-portugal",
-    teams: ["Benfica", "Porto", "Sporting CP", "Braga"],
-  },
-  {
     name: "Champions League",
     slug: "champions-league",
     teams: [
@@ -366,13 +332,9 @@ export const LEAGUES_DATA = [
     ],
   },
   {
-    name: "F1 2025",
-    slug: "f1",
-    teams: [
-      "Red Bull Racing", "Ferrari", "Mercedes AMG F1", "McLaren F1",
-      "Alpine F1", "Aston Martin F1", "Williams F1", "RB F1",
-      "Kick Sauber", "Haas F1",
-    ],
+    name: "National Teams",
+    slug: "national-teams",
+    teams: ["Morocco"],
   },
 ];
 

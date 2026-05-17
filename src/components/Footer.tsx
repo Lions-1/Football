@@ -59,23 +59,22 @@ export default function Footer() {
           <div className="space-y-2 text-sm">
             <Link href="/products" className="block hover:text-orange-500 transition">All Products</Link>
             <Link href="/products?category=jersey" className="block hover:text-orange-500 transition">Jerseys</Link>
-            <Link href="/products?category=retro" className="block hover:text-orange-500 transition">Retro Shirts</Link>
+            <Link href="/products?category=retro" className="block hover:text-orange-500 transition">Retro Classics</Link>
             <Link href="/products?category=tracksuit" className="block hover:text-orange-500 transition">Track Suits</Link>
-            <Link href="/products?surCommande=true" className="block hover:text-orange-500 transition">Sur Commande</Link>
+            <Link href="/products?surCommande=true" className="block hover:text-orange-500 transition">Pre-Order</Link>
           </div>
         </div>
 
         <div>
           <h4 className="text-gray-900 font-semibold text-sm mb-3">LEAGUES</h4>
           <div className="space-y-2 text-sm">
-            <Link href="/league/national-teams" className="block hover:text-orange-500 transition">World Cup 2026</Link>
             <Link href="/league/premier-league" className="block hover:text-orange-500 transition">Premier League</Link>
             <Link href="/league/la-liga" className="block hover:text-orange-500 transition">La Liga</Link>
-            <Link href="/league/bundesliga" className="block hover:text-orange-500 transition">Bundesliga</Link>
             <Link href="/league/serie-a" className="block hover:text-orange-500 transition">Serie A</Link>
+            <Link href="/league/bundesliga" className="block hover:text-orange-500 transition">Bundesliga</Link>
             <Link href="/league/ligue-1" className="block hover:text-orange-500 transition">Ligue 1</Link>
             <Link href="/league/champions-league" className="block hover:text-orange-500 transition">Champions League</Link>
-            <Link href="/league/f1" className="block hover:text-orange-500 transition">F1 2025</Link>
+            <Link href="/team/morocco" className="block hover:text-orange-500 transition">Morocco</Link>
           </div>
         </div>
 
