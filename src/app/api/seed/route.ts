@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { LEAGUES_DATA } from "@/lib/leagues-data";
+import { LEAGUES_DATA, COUNTRY_FLAGS } from "@/lib/leagues-data";
 
 const Y = (h: string) => `/api/img/wanfing/${h}/small.jpg`;
 
@@ -179,9 +179,10 @@ export async function POST() {
     for (const p of allProducts) {
       const h = fnv32(p.slug);
       const isNational = p.team.league.slug === "national-teams";
-      // National teams → correct crest; clubs → empty so placeholder shows (no wrong jersey)
-      const images = isNational
-        ? [`/logos/national-teams/${p.team.slug}.png`]
+      // National teams → flag from flagcdn; clubs → empty so placeholder shows (no wrong jersey)
+      const flag = COUNTRY_FLAGS.find((c) => c.slug === p.team.slug);
+      const images = isNational && flag
+        ? [`https://flagcdn.com/w320/${flag.code}.png`]
         : [];
       await prisma.product.update({
         where: { id: p.id },

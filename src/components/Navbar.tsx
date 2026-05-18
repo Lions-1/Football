@@ -164,7 +164,7 @@ export default function Navbar() {
                 See all products →
               </Link>
               <a
-                href="https://wa.me/21261614253"
+                href="https://wa.me/212628552405"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileOpen(false)}

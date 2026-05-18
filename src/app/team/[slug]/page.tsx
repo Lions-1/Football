@@ -105,7 +105,7 @@ export default async function TeamPage({ params, searchParams }: Props) {
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <a
-                href={`https://wa.me/21261614253?text=${encodeURIComponent(`Hi! I'm looking for ${team.name} jerseys.`)}`}
+                href={`https://wa.me/212628552405?text=${encodeURIComponent(`Hi! I'm looking for ${team.name} jerseys.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2.5 rounded-lg transition text-sm"

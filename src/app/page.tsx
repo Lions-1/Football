@@ -203,11 +203,11 @@ export default async function Home() {
             <div className="absolute inset-0 border-2 border-white/15 rounded-full animate-pulse" style={{ animationDuration: "3s" }} />
             <div className="absolute inset-6 border border-white/10 rounded-full" />
             <Image
-              src="/logos/national-teams/morocco.png"
-              alt="Morocco crest"
+              src="https://flagcdn.com/w640/ma.png"
+              alt="Morocco flag"
               fill
               unoptimized
-              className="object-contain drop-shadow-2xl relative z-10 p-10"
+              className="object-contain drop-shadow-2xl relative z-10 p-10 rounded-2xl"
               sizes="(max-width: 768px) 280px, 480px"
             />
           </div>

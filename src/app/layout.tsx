@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald", weight: ["400", "500", "600", "700"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mebutiksports.com"),
   title: "Mebutik Sports - Football Jerseys & Sportswear",
   description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear. mebutiksports.com",
   icons: {

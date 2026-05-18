@@ -24,52 +24,13 @@ export const MAIN_NAV_BUCKETS = [
   { slug: "bundesliga",        name: "Bundesliga",       short: "Bundesliga", href: "/league/bundesliga",       logo: "/logos/leagues/bundesliga.png",       tone: "rose"    },
   { slug: "ligue-1",           name: "Ligue 1",          short: "Ligue 1",    href: "/league/ligue-1",          logo: "/logos/leagues/ligue-1.png",          tone: "navy"    },
   { slug: "champions-league",  name: "Champions League", short: "Champions",  href: "/league/champions-league", logo: "/logos/leagues/champions-league.png", tone: "gold"    },
-  { slug: "morocco",           name: "Morocco",          short: "Morocco",    href: "/team/morocco",            logo: "/logos/national-teams/morocco.png",   tone: "green"   },
-  { slug: "national-teams",    name: "Nations",          short: "Nations",    href: "/league/national-teams",   logo: "/logos/national-teams/brazil.png",    tone: "teal"    },
+  { slug: "morocco",           name: "Morocco",          short: "Morocco",    href: "/team/morocco",            logo: "https://flagcdn.com/w160/ma.png",     tone: "green"   },
+  { slug: "national-teams",    name: "Nations",          short: "Nations",    href: "/league/national-teams",   logo: "https://flagcdn.com/w160/br.png",     tone: "teal"    },
   { slug: "retro",             name: "Retro",            short: "Retro",      href: "/products?category=retro", logo: null,                                  tone: "vintage" },
   { slug: "others",            name: "Others",           short: "Others",     href: "/products",                logo: null,                                  tone: "slate"   },
 ] as const;
 
 export type NavBucket = (typeof MAIN_NAV_BUCKETS)[number];
-
-export const NATIONAL_TEAM_CRESTS: Record<string, string> = {
-  "morocco": "/logos/national-teams/morocco.png",
-  "argentina": "/logos/national-teams/argentina.png",
-  "brazil": "/logos/national-teams/brazil.png",
-  "france": "/logos/national-teams/france.png",
-  "germany": "/logos/national-teams/germany.png",
-  "spain": "/logos/national-teams/spain.png",
-  "england": "/logos/national-teams/england.png",
-  "portugal": "/logos/national-teams/portugal.png",
-  "italy": "/logos/national-teams/italy.png",
-  "netherlands": "/logos/national-teams/netherlands.png",
-  "belgium": "/logos/national-teams/belgium.png",
-  "japan": "/logos/national-teams/japan.png",
-  "croatia": "/logos/national-teams/croatia.png",
-  "uruguay": "/logos/national-teams/uruguay.png",
-  "colombia": "/logos/national-teams/colombia.png",
-  "mexico": "/logos/national-teams/mexico.png",
-  "usa": "/logos/national-teams/usa.png",
-  "senegal": "/logos/national-teams/senegal.png",
-  "nigeria": "/logos/national-teams/nigeria.png",
-  "egypt": "/logos/national-teams/egypt.png",
-  "algeria": "/logos/national-teams/algeria.png",
-  "turkey": "/logos/national-teams/turkey.png",
-  "denmark": "/logos/national-teams/denmark.png",
-  "poland": "/logos/national-teams/poland.png",
-  "cameroon": "/logos/national-teams/cameroon.png",
-  "south-korea": "/logos/national-teams/south-korea.png",
-  "saudi-arabia": "/logos/national-teams/saudi-arabia.png",
-  "canada": "/logos/national-teams/canada.png",
-  "australia": "/logos/national-teams/australia.png",
-  "ghana": "/logos/national-teams/ghana.png",
-  "switzerland": "/logos/national-teams/switzerland.png",
-  "scotland": "/logos/national-teams/scotland.png",
-  "wales": "/logos/national-teams/wales.png",
-  "tunisia": "/logos/national-teams/tunisia.png",
-  "ecuador": "/logos/national-teams/ecuador.png",
-  "serbia": "/logos/national-teams/serbia.png",
-};
 
 export const COUNTRY_FLAGS: { name: string; slug: string; code: string }[] = [
   { name: "Morocco", slug: "morocco", code: "ma" },
@@ -109,6 +70,12 @@ export const COUNTRY_FLAGS: { name: string; slug: string; code: string }[] = [
   { name: "Tunisia", slug: "tunisia", code: "tn" },
   { name: "Ecuador", slug: "ecuador", code: "ec" },
 ];
+
+// Derived from COUNTRY_FLAGS so we never reference missing local files.
+// flagcdn.com is whitelisted in next.config.ts remotePatterns.
+export const NATIONAL_TEAM_CRESTS: Record<string, string> = Object.fromEntries(
+  COUNTRY_FLAGS.map((c) => [c.slug, `https://flagcdn.com/w160/${c.code}.png`])
+);
 
 export const CLUB_LOGOS: Record<string, string> = {
   // Premier League
