@@ -81,6 +81,28 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
     }
   }
 
+  function resizeImage(file: File, maxSize = 800, quality = 0.8): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxSize || height > maxSize) {
+          const ratio = Math.min(maxSize / width, maxSize / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob((blob) => blob ? resolve(blob) : reject("Resize failed"), "image/jpeg", quality);
+      };
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -88,7 +110,8 @@ export default function ProductForm({ teams, product, onSaved, onCancel }: Props
     try {
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
+        const resized = await resizeImage(files[i]);
+        formData.append("files", resized, files[i].name.replace(/\.\w+$/, ".jpg"));
       }
       const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       if (res.ok) {
