@@ -120,7 +120,7 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-4 md:divide-x divide-gray-200">
           {([
             { value: productCount > 0 ? `${productCount}+` : "Fresh", label: "Stock" },
-            { value: `${leagueCount}`,                                 label: "Leagues" },
+            { value: "All",                                            label: "Leagues" },
             { value: teamCount > 0 ? `${teamCount}+` : "Curated",     label: "Teams" },
             { value: "24 / 7",                                         label: "WhatsApp Support" },
           ] as { value: string; label: string }[]).map((stat, i) => (
