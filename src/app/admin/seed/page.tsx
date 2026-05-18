@@ -37,8 +37,6 @@ export default function SeedPage() {
       <h1 className="text-2xl font-bold mb-2">Seed Database</h1>
       <p className="text-gray-400 text-sm mb-8">
         This will create an admin user, all leagues, teams, and sample products.
-        <br />
-        <span className="text-amber-400">Default login: admin / admin123</span>
       </p>
 
       {result && (

@@ -72,7 +72,7 @@ export default async function AllLeaguesPage() {
         </div>
         <div className="flex gap-6 text-sm">
           <div>
-            <p className="text-3xl font-black text-orange-500">{enriched.length}</p>
+            <p className="text-3xl font-black text-orange-500">All</p>
             <p className="text-gray-500 uppercase text-[10px] tracking-wider font-bold">Leagues</p>
           </div>
           <div>
