@@ -22,9 +22,8 @@ interface Props {
   }>;
 }
 
-// Sidebar leagues — the six football leagues the site is built around. We
-// deliberately skip "national-teams" in the league list because Morocco has
-// its own featured link above.
+// Sidebar leagues — the seven competitions we feature. Morocco lives in the
+// "featured" links above; Nations covers every other national team.
 const SIDEBAR_LEAGUE_SLUGS = [
   "premier-league",
   "la-liga",
@@ -32,6 +31,7 @@ const SIDEBAR_LEAGUE_SLUGS = [
   "bundesliga",
   "ligue-1",
   "champions-league",
+  "national-teams",
 ];
 
 export default async function ProductsPage({ searchParams }: Props) {
@@ -238,7 +238,7 @@ export default async function ProductsPage({ searchParams }: Props) {
             </>
           )}
 
-          {/* Leagues — only our six featured ones */}
+          {/* Leagues */}
           {sidebarLeagues.length > 0 && (
             <>
               <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Leagues</h3>
@@ -249,7 +249,7 @@ export default async function ProductsPage({ searchParams }: Props) {
                     href={`/league/${league.slug}`}
                     className="block text-sm px-3 py-1.5 rounded-lg text-gray-500 hover:text-gray-900 transition"
                   >
-                    {league.name}
+                    {league.slug === "national-teams" ? "Nations" : league.name}
                   </Link>
                 ))}
               </div>
