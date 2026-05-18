@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Search } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
+import CantFindCTA from "@/components/CantFindCTA";
 import { firstProductImage } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
@@ -64,6 +65,7 @@ export default async function SearchPage({ searchParams }: Props) {
           }))}
         />
       )}
+      {query && <CantFindCTA context={query} />}
     </div>
   );
 }

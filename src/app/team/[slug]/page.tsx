@@ -7,6 +7,7 @@ import { CLUB_LOGOS, COUNTRY_FLAGS, SIZES } from "@/lib/leagues-data";
 import { Prisma } from "@prisma/client";
 import { firstProductImage } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
+import CantFindCTA from "@/components/CantFindCTA";
 
 export const dynamic = "force-dynamic";
 
@@ -91,6 +92,7 @@ export default async function TeamPage({ params, searchParams }: Props) {
       )}
 
       {products.length === 0 ? (
+        <>
         <div className="rounded-2xl border border-gray-200 bg-gray-50 px-6 py-14 text-center">
           <div className="max-w-md mx-auto">
             <h2 className="text-xl font-bold text-gray-900">
@@ -121,7 +123,10 @@ export default async function TeamPage({ params, searchParams }: Props) {
             </div>
           </div>
         </div>
+        <CantFindCTA context={team.name} />
+        </>
       ) : (
+        <>
         <ProductGrid
           products={products.map((p) => ({
             id: p.id,
@@ -135,6 +140,8 @@ export default async function TeamPage({ params, searchParams }: Props) {
             category: p.category,
           }))}
         />
+        <CantFindCTA context={team.name} />
+        </>
       )}
     </div>
   );

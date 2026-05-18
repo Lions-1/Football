@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import ProductSearch from "@/components/ProductSearch";
+import CantFindCTA from "@/components/CantFindCTA";
 import FilterSidebar from "@/components/FilterSidebar";
 import { firstProductImage } from "@/lib/product-images";
 
@@ -331,6 +332,7 @@ export default async function ProductsPage({ searchParams }: Props) {
               )}
             </div>
           )}
+          <CantFindCTA />
         </div>
       </div>
     </div>

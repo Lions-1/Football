@@ -7,6 +7,7 @@ import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS, SIZES 
 import { Prisma } from "@prisma/client";
 import { firstProductImage } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
+import CantFindCTA from "@/components/CantFindCTA";
 
 export const dynamic = "force-dynamic";
 
@@ -190,6 +191,7 @@ export default async function LeaguePage({ params, searchParams }: Props) {
           }))}
         />
       </section>
+      <CantFindCTA context={league.name} />
     </div>
   );
 }
