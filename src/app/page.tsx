@@ -8,7 +8,9 @@ import HomeProducts from "@/components/HomeProducts";
 import StaggerGrid from "@/components/StaggerGrid";
 import { parseProductImages } from "@/lib/product-images";
 
-export const dynamic = "force-dynamic";
+// Cache the homepage and revalidate every 60s — visitors get a CDN-fast page;
+// admin edits appear within a minute.
+export const revalidate = 60;
 
 /**
  * Colour palette for each Shop-by-Bucket tile. Keys mirror the `tone` field

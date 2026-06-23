@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 import { parseProductImages, firstProductImage } from "@/lib/product-images";
 
-export const dynamic = "force-dynamic";
+// ISR: each product page is cached on first view and revalidated every 60s.
+export const revalidate = 60;
 
 interface Props {
   params: Promise<{ slug: string }>;

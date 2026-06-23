@@ -4,7 +4,8 @@ import Image from "next/image";
 import { ArrowRight, Trophy } from "lucide-react";
 import { LEAGUE_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 
-export const dynamic = "force-dynamic";
+// ISR: cache for 60s. The leagues list rarely changes, so this is near-static.
+export const revalidate = 60;
 
 export const metadata = {
   title: "All Leagues — Mebutik Sports",
