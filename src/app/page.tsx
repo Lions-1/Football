@@ -59,7 +59,7 @@ export default async function Home() {
       {/* ═══ HERO — dark stadium + bold typography ═══ */}
       <section className="hero-section relative overflow-hidden min-h-[520px] md:min-h-[580px] flex items-center bg-[#0a0a14]">
         <Image
-          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1800&q=85"
+          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1280&q=60"
           alt=""
           aria-hidden
           fill
@@ -145,7 +145,7 @@ export default async function Home() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#c1272d] via-[#9e1f2c] to-[#0a3d2a]" />
         <Image
-          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1800&q=85"
+          src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1280&q=60"
           alt=""
           aria-hidden
           fill

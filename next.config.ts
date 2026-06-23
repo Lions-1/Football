@@ -7,9 +7,7 @@ const nextConfig: NextConfig = {
       { pathname: "/api/img/**" },
       { pathname: "/logo.png" },
       { pathname: "/logos/**" },
-      { pathname: "/wc2026-hero.png" },
       { pathname: "/messi-worldcup.jpg" },
-      { pathname: "/hero-brand.png" },
     ],
     remotePatterns: [
       { protocol: "https", hostname: "cdn.shopify.com" },
