@@ -11,11 +11,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mebutiksports.com"),
   title: "Mebutik Sports - Football Jerseys & Sportswear",
   description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear. mebutiksports.com",
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
-    shortcut: "/logo.png",
-  },
   openGraph: {
     title: "Mebutik Sports - Football Jerseys & Sportswear",
     description: "Your destination for authentic football jerseys, retro kits, track suits, and sportswear.",

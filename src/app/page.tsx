@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TapLink from "@/components/TapLink";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { ArrowRight, Truck, MessageCircle, ShieldCheck, Star } from "lucide-react";
@@ -230,10 +231,11 @@ export default async function Home() {
           {MAIN_NAV_BUCKETS.map((bucket) => {
             const theme = TILE_THEMES[bucket.tone] || TILE_THEMES.navy;
             return (
-              <Link
+              <TapLink
                 key={bucket.slug}
                 href={bucket.href}
-                className={`group relative stagger-item aspect-square rounded-2xl overflow-hidden border-2 border-white/5 ${theme.border} transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
+                selectedClassName="ring-2 ring-white !border-white/40 shadow-2xl"
+                className={`group stagger-item aspect-square rounded-2xl overflow-hidden border-2 border-white/5 ${theme.border} transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${theme.bg}`} />
                 {/* Subtle grid overlay */}
@@ -278,7 +280,7 @@ export default async function Home() {
                   </p>
                   <ArrowRight className="w-4 h-4 text-white/40 mt-2 group-hover:text-white group-hover:translate-x-1 transition-all" />
                 </div>
-              </Link>
+              </TapLink>
             );
           })}
         </StaggerGrid>

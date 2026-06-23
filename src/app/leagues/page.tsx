@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/link";
+import TapLink from "@/components/TapLink";
 import Image from "next/image";
 import { ArrowRight, Trophy } from "lucide-react";
 import { LEAGUE_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
@@ -92,9 +92,10 @@ export default async function AllLeaguesPage() {
           const logo = LEAGUE_LOGOS[league.slug];
           const empty = league.productCount === 0;
           return (
-            <Link
+            <TapLink
               key={league.id}
               href={`/league/${league.slug}`}
+              selectedClassName="border-orange-500 ring-2 ring-orange-400 shadow-lg"
               className={`group flex items-center gap-4 bg-white border-2 rounded-2xl p-5 transition-all shadow-sm ${
                 empty
                   ? "border-gray-100 opacity-70 hover:opacity-100 hover:border-gray-300"
@@ -134,7 +135,7 @@ export default async function AllLeaguesPage() {
                 </p>
               </div>
               <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-orange-500 group-hover:translate-x-0.5 transition-all shrink-0" />
-            </Link>
+            </TapLink>
           );
         })}
       </div>
