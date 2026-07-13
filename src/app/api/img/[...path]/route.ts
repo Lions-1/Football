@@ -29,7 +29,7 @@ export async function GET(
       status: 200,
       headers: {
         "Content-Type": res.headers.get("Content-Type") || "image/jpeg",
-        "Cache-Control": "public, max-age=604800, immutable",
+        "Cache-Control": "public, max-age=31536000, s-maxage=31536000, immutable",
       },
     });
   } catch {
