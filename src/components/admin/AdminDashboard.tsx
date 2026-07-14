@@ -4,9 +4,10 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   LogOut, Plus, Trash2, Edit3, Package, ShoppingCart,
-  Search, ChevronLeft, ChevronRight, Eye, BarChart3,
+  Search, ChevronLeft, ChevronRight, Eye, BarChart3, Star,
 } from "lucide-react";
 import ProductForm from "./ProductForm";
+import ReviewsAdmin from "./ReviewsAdmin";
 
 interface Team {
   id: string;
@@ -44,7 +45,7 @@ interface Order {
   items: { id: string; size: string; quantity: number; price: number; product: { name: string } }[];
 }
 
-type Tab = "products" | "add" | "orders" | "edit" | "stats";
+type Tab = "products" | "add" | "orders" | "edit" | "stats" | "reviews";
 
 /**
  * Tiny pill button used in the product list. Click flips the flag.
@@ -225,6 +226,7 @@ export default function AdminDashboard() {
           { key: "products" as Tab, icon: Package, label: `Products (${totalProducts})` },
           { key: "add" as Tab, icon: Plus, label: "Add Product" },
           { key: "orders" as Tab, icon: ShoppingCart, label: "Orders" },
+          { key: "reviews" as Tab, icon: Star, label: "Reviews" },
           { key: "stats" as Tab, icon: BarChart3, label: "Stats" },
         ]).map(({ key, icon: Icon, label }) => (
           <button
@@ -242,6 +244,9 @@ export default function AdminDashboard() {
           </button>
         ))}
       </div>
+
+      {/* Reviews */}
+      {tab === "reviews" && <ReviewsAdmin />}
 
       {/* Products list */}
       {tab === "products" && (

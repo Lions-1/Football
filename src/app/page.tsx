@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { ArrowRight, Truck, MessageCircle, ShieldCheck, Star } from "lucide-react";
 import { MAIN_NAV_BUCKETS, PREMIER_LEAGUE_MARQUEE, CLUB_LOGOS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
+import CustomerReviews from "@/components/CustomerReviews";
 import StaggerGrid from "@/components/StaggerGrid";
 import { parseProductImages } from "@/lib/product-images";
 
@@ -30,7 +31,7 @@ const TILE_THEMES: Record<string, { bg: string; accent: string; border: string }
 };
 
 async function getHomeData() {
-  const [productCount, teamCount, leagueCount, retroProducts, preorderProducts] = await Promise.all([
+  const [productCount, teamCount, leagueCount, retroProducts, preorderProducts, reviews] = await Promise.all([
     prisma.product.count(),
     prisma.team.count(),
     prisma.league.count({ where: { slug: { not: "national-teams" } } }),
@@ -48,13 +49,18 @@ async function getHomeData() {
       orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
       take: 6,
     }),
+    // Customer review photos — section is hidden when empty
+    prisma.review.findMany({
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+      take: 24,
+    }),
   ]);
 
-  return { productCount, teamCount, leagueCount, retroProducts, preorderProducts };
+  return { productCount, teamCount, leagueCount, retroProducts, preorderProducts, reviews };
 }
 
 export default async function Home() {
-  const { productCount, teamCount, leagueCount, retroProducts, preorderProducts } = await getHomeData();
+  const { productCount, teamCount, leagueCount, retroProducts, preorderProducts, reviews } = await getHomeData();
 
   return (
     <div>
@@ -598,6 +604,9 @@ export default async function Home() {
           })}
         </div>
       </section>
+
+      {/* ═══ CUSTOMER REVIEWS — hidden when none uploaded ═══ */}
+      <CustomerReviews images={reviews.map((r) => r.image)} />
     </div>
   );
 }

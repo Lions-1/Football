@@ -90,3 +90,10 @@ model AdminUser {
   username String @unique
   password String
 }
+
+model Review {
+  id        String   @id @default(cuid())
+  image     String   // image URL or base64 data URL
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
