@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, ShoppingCart, ShoppingBag, ChevronRight, Check } from "lucide-react";
 import { useCartStore, useWishlistStore } from "@/lib/store";
+import { usePromoModal } from "./PromoModal";
 import ProductCard from "./ProductCard";
 
 interface ProductProps {
@@ -68,6 +69,8 @@ export default function ProductDetail({
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+    // Surface the volume-promo progress right after adding.
+    usePromoModal.getState().show();
   }
 
   return (
