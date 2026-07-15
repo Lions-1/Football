@@ -24,13 +24,13 @@ export default function CustomerReviews({
       {!preview && (
         <div className="mb-10 text-center">
           <p className="text-orange-500 text-xs font-bold tracking-[0.3em] uppercase mb-2">
-            Ils nous font confiance
+            Loved by our customers
           </p>
           <h2 className="font-heading text-4xl md:text-5xl font-black text-gray-900 tracking-tight uppercase">
-            Avis clients
+            Customer Reviews
           </h2>
           <p className="mt-3 text-sm text-gray-500 max-w-md mx-auto">
-            Nos clients partagent leurs commandes reçues.
+            Real photos from our customers&apos; orders.
           </p>
         </div>
       )}
@@ -46,7 +46,7 @@ export default function CustomerReviews({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src}
-              alt={`Avis client ${i + 1}`}
+              alt={`Customer review ${i + 1}`}
               loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
@@ -65,14 +65,14 @@ export default function CustomerReviews({
           <button
             className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition"
             onClick={() => setActive(null)}
-            aria-label="Fermer"
+            aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={active}
-            alt="Avis client"
+            alt="Customer review"
             className="max-w-full max-h-[90vh] rounded-lg object-contain"
             onClick={(e) => e.stopPropagation()}
           />

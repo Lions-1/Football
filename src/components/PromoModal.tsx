@@ -48,10 +48,10 @@ function TierRow({
         <p className={`text-sm font-bold leading-tight ${reached ? "text-emerald-700" : "text-gray-700"}`}>
           {reward}
         </p>
-        <p className="text-[11px] text-gray-400">Dès {count} articles</p>
+        <p className="text-[11px] text-gray-400">From {count} items</p>
       </div>
       {reached && (
-        <span className="text-[10px] font-bold uppercase tracking-wide text-emerald-600">Actif</span>
+        <span className="text-[10px] font-bold uppercase tracking-wide text-emerald-600">Active</span>
       )}
     </div>
   );
@@ -71,12 +71,12 @@ export default function PromoModal() {
 
   const headline =
     promo.nextReward === "delivery"
-      ? "Livraison OFFERTE dès 2 articles"
+      ? "FREE delivery from 2 items"
       : promo.nextReward === "half"
-      ? "Le 3ème article à −50%"
+      ? "3rd item 50% OFF"
       : promo.nextReward === "free"
-      ? "Le 4ème article OFFERT"
-      : "Félicitations 🎉";
+      ? "4th item FREE"
+      : "Congratulations 🎉";
 
   return (
     <div
@@ -92,7 +92,7 @@ export default function PromoModal() {
         {/* Close */}
         <button
           onClick={hide}
-          aria-label="Fermer"
+          aria-label="Close"
           className="absolute right-3 top-3 z-10 rounded-full bg-white/25 p-1.5 text-white backdrop-blur transition hover:bg-white/40"
         >
           <X className="h-4 w-4" />
@@ -111,7 +111,7 @@ export default function PromoModal() {
           <div className="relative">
             <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
               {unlocked ? <Check className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
-              {unlocked ? "Offres débloquées" : "Offre à débloquer"}
+              {unlocked ? "Offers unlocked" : "Unlock your offer"}
             </span>
 
             {/* Medallion */}
@@ -124,11 +124,11 @@ export default function PromoModal() {
             <h3 className="font-heading text-2xl font-black leading-tight text-white">{headline}</h3>
             {unlocked ? (
               <p className="mt-1.5 text-sm text-white/90">
-                4ème article <b className="font-extrabold">OFFERT</b> + livraison gratuite
+                4th item <b className="font-extrabold">FREE</b> + free delivery
               </p>
             ) : (
               <p className="mt-1.5 text-sm text-white/90">
-                Plus que <b className="font-extrabold">{promo.itemsToNext}</b> article{plural} pour en profiter
+                Just <b className="font-extrabold">{promo.itemsToNext}</b> more item{plural} to unlock it
               </p>
             )}
           </div>
@@ -139,14 +139,14 @@ export default function PromoModal() {
           {/* Progress */}
           <div className="mb-1.5 flex items-center justify-between text-xs font-semibold">
             <span className="text-gray-900">
-              {promo.count} / {PROMO.FREE_AT} articles
+              {promo.count} / {PROMO.FREE_AT} items
             </span>
             {promo.discount > 0 ? (
               <span className={unlocked ? "text-emerald-600" : "text-orange-600"}>
-                −{promo.discount.toFixed(0)} MAD économisés
+                {promo.discount.toFixed(0)} MAD saved
               </span>
             ) : (
-              <span className="text-gray-400">Objectif : {PROMO.FREE_AT}</span>
+              <span className="text-gray-400">Goal: {PROMO.FREE_AT}</span>
             )}
           </div>
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-gray-100">
@@ -162,9 +162,9 @@ export default function PromoModal() {
 
           {/* Tier steps */}
           <div className="mt-4 space-y-2">
-            <TierRow reached={promo.freeDelivery} count={PROMO.DELIVERY_AT} reward="Livraison GRATUITE" Icon={Truck} />
-            <TierRow reached={promo.count >= PROMO.HALF_AT} count={PROMO.HALF_AT} reward="3ème article à −50%" Icon={Percent} />
-            <TierRow reached={promo.count >= PROMO.FREE_AT} count={PROMO.FREE_AT} reward="4ème article GRATUIT" Icon={Gift} />
+            <TierRow reached={promo.freeDelivery} count={PROMO.DELIVERY_AT} reward="FREE delivery" Icon={Truck} />
+            <TierRow reached={promo.count >= PROMO.HALF_AT} count={PROMO.HALF_AT} reward="3rd item 50% OFF" Icon={Percent} />
+            <TierRow reached={promo.count >= PROMO.FREE_AT} count={PROMO.FREE_AT} reward="4th item FREE" Icon={Gift} />
           </div>
 
           {/* Action */}
@@ -174,24 +174,24 @@ export default function PromoModal() {
               onClick={hide}
               className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-3.5 font-bold text-white shadow-sm transition hover:bg-emerald-600"
             >
-              Finaliser ma commande <ArrowRight className="h-4 w-4" />
+              Complete my order <ArrowRight className="h-4 w-4" />
             </Link>
           ) : (
             <button
               onClick={hide}
               className="mt-5 w-full rounded-xl bg-orange-500 py-3.5 font-bold text-white shadow-sm transition hover:bg-orange-600"
             >
-              Continuer mes achats
+              Continue shopping
             </button>
           )}
 
           {/* Trust row — real icons, not emoji */}
           <div className="mt-4 flex items-center justify-center gap-4 text-[11px] font-medium text-gray-400">
             <span className="inline-flex items-center gap-1">
-              <ShieldCheck className="h-3.5 w-3.5" /> Sécurisé
+              <ShieldCheck className="h-3.5 w-3.5" /> Secure
             </span>
             <span className="inline-flex items-center gap-1">
-              <Wallet className="h-3.5 w-3.5" /> Paiement à la livraison
+              <Wallet className="h-3.5 w-3.5" /> Cash on delivery
             </span>
           </div>
         </div>

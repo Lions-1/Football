@@ -26,7 +26,7 @@ export interface PromoResult {
   cheapestUnit: number; // price of the discounted/free unit
   itemsToNext: number; // items still needed to reach the next reward (0 if maxed)
   nextReward: "delivery" | "half" | "free" | null; // what the next tier unlocks
-  label: string; // FR label of the ACTIVE item discount ("" when none)
+  label: string; // label of the ACTIVE item discount ("" when none)
 }
 
 export function computePromo(items: CartItem[]): PromoResult {
@@ -44,10 +44,10 @@ export function computePromo(items: CartItem[]): PromoResult {
   let label = "";
   if (tier === 2) {
     discount = Math.round(cheapestUnit);
-    label = "offre 4ème gratuit";
+    label = "4th item free";
   } else if (tier === 1) {
     discount = Math.round(cheapestUnit * 0.5);
-    label = "offre 3ème à −50%";
+    label = "3rd item 50% off";
   }
 
   let itemsToNext = 0;

@@ -68,16 +68,16 @@ export default async function Home() {
       <div className="bg-gradient-to-r from-orange-500 via-orange-500 to-orange-600 text-white">
         <div className="mx-auto max-w-7xl px-4 py-2.5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-[12.5px] sm:text-sm font-semibold">
           <span className="inline-flex items-center gap-1.5">
-            <Gift className="w-4 h-4" /> Offres du moment
+            <Gift className="w-4 h-4" /> Current offers
           </span>
           <span className="hidden sm:inline text-white/50">•</span>
           <span className="inline-flex items-center gap-1.5">
-            <Truck className="w-4 h-4" /> 2 articles = Livraison OFFERTE
+            <Truck className="w-4 h-4" /> 2 items = FREE delivery
           </span>
           <span className="hidden sm:inline text-white/50">•</span>
-          <span>3ème article à −50%</span>
+          <span>3rd item 50% OFF</span>
           <span className="hidden sm:inline text-white/50">•</span>
-          <span>4ème article OFFERT</span>
+          <span>4th item FREE</span>
         </div>
       </div>
 
