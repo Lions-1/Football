@@ -2,7 +2,7 @@ import Link from "next/link";
 import TapLink from "@/components/TapLink";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { ArrowRight, Truck, MessageCircle, ShieldCheck, Star } from "lucide-react";
+import { ArrowRight, Truck, MessageCircle, ShieldCheck, Star, Gift } from "lucide-react";
 import { MAIN_NAV_BUCKETS, PREMIER_LEAGUE_MARQUEE, CLUB_LOGOS } from "@/lib/leagues-data";
 import HomeProducts from "@/components/HomeProducts";
 import CustomerReviews from "@/components/CustomerReviews";
@@ -64,6 +64,23 @@ export default async function Home() {
 
   return (
     <div>
+      {/* ═══ PROMO ANNOUNCEMENT BAR ═══ */}
+      <div className="bg-gradient-to-r from-orange-500 via-orange-500 to-orange-600 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-2.5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-[12.5px] sm:text-sm font-semibold">
+          <span className="inline-flex items-center gap-1.5">
+            <Gift className="w-4 h-4" /> Offres du moment
+          </span>
+          <span className="hidden sm:inline text-white/50">•</span>
+          <span className="inline-flex items-center gap-1.5">
+            <Truck className="w-4 h-4" /> 2 articles = Livraison OFFERTE
+          </span>
+          <span className="hidden sm:inline text-white/50">•</span>
+          <span>3ème article à −50%</span>
+          <span className="hidden sm:inline text-white/50">•</span>
+          <span>4ème article OFFERT</span>
+        </div>
+      </div>
+
       {/* ═══ HERO — dark stadium + bold typography ═══ */}
       <section className="hero-section relative overflow-hidden min-h-[520px] md:min-h-[580px] flex items-center bg-[#0a0a14]">
         <Image
@@ -561,8 +578,8 @@ export default async function Home() {
           {[
             {
               icon: Truck,
-              title: "Fast Delivery",
-              body: "Shipped across Morocco. Cash on delivery available in most cities.",
+              title: "Free Delivery on 2+ Items",
+              body: "Order 2 items or more and delivery is on us. Cash on delivery across Morocco.",
             },
             {
               icon: MessageCircle,

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { create } from "zustand";
 import {
-  X, Lock, Gift, ArrowRight, Check, ShieldCheck, Truck, Wallet,
+  X, Lock, Gift, ArrowRight, Check, ShieldCheck, Truck, Wallet, Percent,
 } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import { computePromo, PROMO } from "@/lib/promo";
@@ -24,36 +24,34 @@ function TierRow({
   reached,
   count,
   reward,
+  Icon,
 }: {
   reached: boolean;
   count: number;
   reward: string;
+  Icon: typeof Gift;
 }) {
   return (
     <div
       className={`flex items-center gap-3 rounded-xl border px-3.5 py-2.5 transition ${
-        reached
-          ? "border-emerald-200 bg-emerald-50"
-          : "border-gray-200 bg-gray-50"
+        reached ? "border-emerald-200 bg-emerald-50" : "border-gray-200 bg-gray-50"
       }`}
     >
       <div
-        className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
           reached ? "bg-emerald-500 text-white" : "bg-white text-gray-400 border border-gray-200"
         }`}
       >
-        {reached ? <Check className="h-4 w-4" /> : <span className="text-xs font-bold">{count}</span>}
+        {reached ? <Check className="h-4 w-4" /> : <Icon className="h-4 w-4" />}
       </div>
       <div className="min-w-0 flex-1">
         <p className={`text-sm font-bold leading-tight ${reached ? "text-emerald-700" : "text-gray-700"}`}>
           {reward}
         </p>
-        <p className="text-[11px] text-gray-400">Avec {count} articles</p>
+        <p className="text-[11px] text-gray-400">Dès {count} articles</p>
       </div>
       {reached && (
-        <span className="text-[10px] font-bold uppercase tracking-wide text-emerald-600">
-          Actif
-        </span>
+        <span className="text-[10px] font-bold uppercase tracking-wide text-emerald-600">Actif</span>
       )}
     </div>
   );
@@ -67,10 +65,18 @@ export default function PromoModal() {
   if (!open) return null;
 
   const promo = computePromo(items);
-  const unlocked = promo.tier === 2;
-  const accent = unlocked ? "emerald" : "orange";
+  const unlocked = promo.nextReward === null; // everything unlocked (4+ items)
   const pct = Math.min(100, Math.round((promo.count / PROMO.FREE_AT) * 100));
   const plural = promo.itemsToNext > 1 ? "s" : "";
+
+  const headline =
+    promo.nextReward === "delivery"
+      ? "Livraison OFFERTE dès 2 articles"
+      : promo.nextReward === "half"
+      ? "Le 3ème article à −50%"
+      : promo.nextReward === "free"
+      ? "Le 4ème article OFFERT"
+      : "Félicitations 🎉";
 
   return (
     <div
@@ -100,13 +106,12 @@ export default function PromoModal() {
               : "bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600"
           }`}
         >
-          {/* soft glow */}
           <div className="pointer-events-none absolute -top-10 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-white/20 blur-3xl" />
 
           <div className="relative">
             <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
               {unlocked ? <Check className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
-              {unlocked ? "Offre débloquée" : "Offre à débloquer"}
+              {unlocked ? "Offres débloquées" : "Offre à débloquer"}
             </span>
 
             {/* Medallion */}
@@ -116,35 +121,15 @@ export default function PromoModal() {
               </div>
             </div>
 
-            {promo.tier === 0 && (
-              <>
-                <h3 className="font-heading text-2xl font-black leading-tight text-white">
-                  3 achetés = 4ème OFFERT
-                </h3>
-                <p className="mt-1.5 text-sm text-white/90">
-                  Plus que <b className="font-extrabold">{promo.itemsToNext}</b> article{plural} pour le 3ème à −50%
-                </p>
-              </>
-            )}
-            {promo.tier === 1 && (
-              <>
-                <h3 className="font-heading text-2xl font-black leading-tight text-white">
-                  3ème article à −50% 🎉
-                </h3>
-                <p className="mt-1.5 text-sm text-white/90">
-                  Ajoutez <b className="font-extrabold">{promo.itemsToNext}</b> article pour le 4ème GRATUIT
-                </p>
-              </>
-            )}
-            {promo.tier === 2 && (
-              <>
-                <h3 className="font-heading text-2xl font-black leading-tight text-white">
-                  Félicitations 🎉
-                </h3>
-                <p className="mt-1.5 text-sm text-white/90">
-                  Votre 4ème article est <b className="font-extrabold">OFFERT</b>
-                </p>
-              </>
+            <h3 className="font-heading text-2xl font-black leading-tight text-white">{headline}</h3>
+            {unlocked ? (
+              <p className="mt-1.5 text-sm text-white/90">
+                4ème article <b className="font-extrabold">OFFERT</b> + livraison gratuite
+              </p>
+            ) : (
+              <p className="mt-1.5 text-sm text-white/90">
+                Plus que <b className="font-extrabold">{promo.itemsToNext}</b> article{plural} pour en profiter
+              </p>
             )}
           </div>
         </div>
@@ -177,12 +162,13 @@ export default function PromoModal() {
 
           {/* Tier steps */}
           <div className="mt-4 space-y-2">
-            <TierRow reached={promo.count >= PROMO.HALF_AT} count={PROMO.HALF_AT} reward="3ème article à −50%" />
-            <TierRow reached={promo.count >= PROMO.FREE_AT} count={PROMO.FREE_AT} reward="4ème article GRATUIT" />
+            <TierRow reached={promo.freeDelivery} count={PROMO.DELIVERY_AT} reward="Livraison GRATUITE" Icon={Truck} />
+            <TierRow reached={promo.count >= PROMO.HALF_AT} count={PROMO.HALF_AT} reward="3ème article à −50%" Icon={Percent} />
+            <TierRow reached={promo.count >= PROMO.FREE_AT} count={PROMO.FREE_AT} reward="4ème article GRATUIT" Icon={Gift} />
           </div>
 
           {/* Action */}
-          {unlocked ? (
+          {promo.count > 0 && promo.freeDelivery ? (
             <Link
               href="/cart"
               onClick={hide}
@@ -193,9 +179,7 @@ export default function PromoModal() {
           ) : (
             <button
               onClick={hide}
-              className={`mt-5 w-full rounded-xl py-3.5 font-bold text-white shadow-sm transition ${
-                accent === "orange" ? "bg-orange-500 hover:bg-orange-600" : "bg-emerald-500 hover:bg-emerald-600"
-              }`}
+              className="mt-5 w-full rounded-xl bg-orange-500 py-3.5 font-bold text-white shadow-sm transition hover:bg-orange-600"
             >
               Continuer mes achats
             </button>
@@ -207,10 +191,7 @@ export default function PromoModal() {
               <ShieldCheck className="h-3.5 w-3.5" /> Sécurisé
             </span>
             <span className="inline-flex items-center gap-1">
-              <Truck className="h-3.5 w-3.5" /> Livraison Maroc
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <Wallet className="h-3.5 w-3.5" /> Paiement livraison
+              <Wallet className="h-3.5 w-3.5" /> Paiement à la livraison
             </span>
           </div>
         </div>

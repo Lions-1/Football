@@ -16,7 +16,7 @@ export default function CartPage() {
     const lines = cart.items.map((item) => {
       const extras = [
         `Size: ${item.size}`,
-        item.surCommande ? "Sur Commande" : null,
+        item.surCommande ? "Pre-order" : null,
         item.customName ? `Name: ${item.customName}` : null,
         item.customNumber ? `#${item.customNumber}` : null,
       ]
@@ -25,13 +25,17 @@ export default function CartPage() {
       return `• ${item.name} (x${item.quantity})\n   ${extras}\n   ${(item.price * item.quantity).toFixed(0)} MAD`;
     });
 
+    const discountLabel =
+      promo.tier === 2 ? "4th item free" : promo.tier === 1 ? "3rd item 50% off" : "";
+
     const message =
       `Hi, I'd like to order:\n\n` +
       `${lines.join("\n\n")}\n\n` +
       (promo.discount > 0
-        ? `Sous-total: ${promo.subtotal.toFixed(0)} MAD\n` +
-          `Réduction (${promo.label}): −${promo.discount.toFixed(0)} MAD\n`
+        ? `Subtotal: ${promo.subtotal.toFixed(0)} MAD\n` +
+          `Discount (${discountLabel}): -${promo.discount.toFixed(0)} MAD\n`
         : ``) +
+      (promo.freeDelivery ? `Delivery: FREE\n` : ``) +
       `*Total: ${promo.total.toFixed(0)} MAD*\n\n` +
       `Please confirm availability and delivery.`;
 
@@ -107,42 +111,50 @@ export default function CartPage() {
       </div>
 
       {/* Promo progress nudge */}
-      {promo.tier < 2 && promo.itemsToNext > 0 && (
+      {promo.nextReward && (
         <div className="flex items-center gap-3 bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 mb-4">
           <Gift className="w-5 h-5 text-orange-500 shrink-0" />
           <p className="text-sm text-orange-700">
             Ajoutez <b>{promo.itemsToNext}</b> article{promo.itemsToNext > 1 ? "s" : ""} pour{" "}
-            {promo.nextReward === "free" ? (
-              <b>le 4ème GRATUIT</b>
-            ) : (
+            {promo.nextReward === "delivery" ? (
+              <b>la livraison GRATUITE</b>
+            ) : promo.nextReward === "half" ? (
               <b>le 3ème à −50%</b>
+            ) : (
+              <b>le 4ème GRATUIT</b>
             )}
             .
           </p>
         </div>
       )}
-      {promo.tier === 2 && (
+      {!promo.nextReward && (
         <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 mb-4">
           <Gift className="w-5 h-5 text-emerald-500 shrink-0" />
           <p className="text-sm text-emerald-700">
-            🎉 Offre appliquée : votre 4ème article est <b>OFFERT</b>.
+            🎉 Offres appliquées : 4ème article <b>OFFERT</b> + livraison gratuite.
           </p>
         </div>
       )}
 
       {/* Total */}
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-6 space-y-2">
+        {(promo.discount > 0 || promo.freeDelivery) && (
+          <div className="flex items-center justify-between text-sm text-gray-500">
+            <span>Sous-total</span>
+            <span>{promo.subtotal.toFixed(0)} MAD</span>
+          </div>
+        )}
         {promo.discount > 0 && (
-          <>
-            <div className="flex items-center justify-between text-sm text-gray-500">
-              <span>Sous-total</span>
-              <span>{promo.subtotal.toFixed(0)} MAD</span>
-            </div>
-            <div className="flex items-center justify-between text-sm font-semibold text-orange-600">
-              <span>Réduction ({promo.label})</span>
-              <span>−{promo.discount.toFixed(0)} MAD</span>
-            </div>
-          </>
+          <div className="flex items-center justify-between text-sm font-semibold text-orange-600">
+            <span>Réduction ({promo.label})</span>
+            <span>−{promo.discount.toFixed(0)} MAD</span>
+          </div>
+        )}
+        {promo.freeDelivery && (
+          <div className="flex items-center justify-between text-sm font-semibold text-emerald-600">
+            <span>Livraison</span>
+            <span>GRATUITE</span>
+          </div>
         )}
         <div className="flex items-center justify-between text-lg font-bold">
           <span>Total</span>
