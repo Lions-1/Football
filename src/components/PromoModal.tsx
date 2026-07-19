@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { create } from "zustand";
 import {
-  X, Lock, Gift, ArrowRight, Check, ShieldCheck, Truck, Wallet, Percent,
+  X, Lock, Gift, ArrowRight, Check, ShieldCheck, Truck, Percent,
 } from "lucide-react";
 import { useCartStore } from "@/lib/store";
 import { computePromo, PROMO } from "@/lib/promo";
@@ -191,7 +191,7 @@ export default function PromoModal() {
               <ShieldCheck className="h-3.5 w-3.5" /> Secure
             </span>
             <span className="inline-flex items-center gap-1">
-              <Wallet className="h-3.5 w-3.5" /> Cash on delivery
+              <Truck className="h-3.5 w-3.5" /> Morocco delivery
             </span>
           </div>
         </div>

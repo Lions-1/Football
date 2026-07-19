@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, ShoppingCart, Heart, Menu, X } from "lucide-react";
 import { useCartStore, useWishlistStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,15 @@ export default function Navbar() {
 
   const cartCount = useCartStore((s) => s.count());
   const wishlistCount = useWishlistStore((s) => s.items.length);
+
+  // Close the mobile drawer as soon as the user scrolls, so they see the page
+  // instead of having to tap the X.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const close = () => setMobileOpen(false);
+    window.addEventListener("scroll", close, { passive: true });
+    return () => window.removeEventListener("scroll", close);
+  }, [mobileOpen]);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();

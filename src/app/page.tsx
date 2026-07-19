@@ -417,7 +417,7 @@ export default async function Home() {
 
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/mebutiksports"
+              href="https://www.instagram.com/mebutiksportt"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex flex-col items-center gap-4 p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-400/50 hover:bg-pink-500/5 transition-all duration-300"
@@ -427,7 +427,7 @@ export default async function Home() {
               </div>
               <div>
                 <p className="text-white font-bold text-sm mb-1">Instagram</p>
-                <p className="text-white/50 text-xs">@mebutiksports</p>
+                <p className="text-white/50 text-xs">@mebutiksportt</p>
               </div>
               <span className="text-pink-400 text-xs font-semibold group-hover:underline">Follow us →</span>
             </a>
@@ -579,7 +579,7 @@ export default async function Home() {
             {
               icon: Truck,
               title: "Free Delivery on 2+ Items",
-              body: "Order 2 items or more and delivery is on us. Cash on delivery across Morocco.",
+              body: "Order 2 items or more and delivery is on us. Shipped across Morocco.",
             },
             {
               icon: MessageCircle,
