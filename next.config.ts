@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     localPatterns: [
       { pathname: "/api/img/**" },
+      { pathname: "/api/pi/**" }, // cached product-image route (base64 → bytes)
+      { pathname: "/api/ri/**" }, // cached review-image route
       { pathname: "/logo.png" },
       { pathname: "/logos/**" },
       { pathname: "/messi-worldcup.jpg" },

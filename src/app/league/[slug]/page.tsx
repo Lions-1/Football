@@ -5,7 +5,7 @@ import Image from "next/image";
 import ProductGrid from "@/components/ProductGrid";
 import { LEAGUE_LOGOS, COUNTRY_FLAGS, CLUB_LOGOS, CHAMPIONS_LEAGUE_CLUBS, SIZES } from "@/lib/leagues-data";
 import { Prisma } from "@prisma/client";
-import { firstProductImage } from "@/lib/product-images";
+import { firstProductImageSrc } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
 import CantFindCTA from "@/components/CantFindCTA";
 
@@ -183,7 +183,7 @@ export default async function LeaguePage({ params, searchParams }: Props) {
             name: p.name,
             slug: p.slug,
             price: p.price,
-            image: firstProductImage(p.images),
+            image: firstProductImageSrc(p.id, p.images),
             teamName: p.team.name,
             teamSlug: p.team.slug,
             surCommande: p.surCommande,

@@ -6,7 +6,7 @@ import ProductGrid from "@/components/ProductGrid";
 import ProductSearch from "@/components/ProductSearch";
 import CantFindCTA from "@/components/CantFindCTA";
 import FilterSidebar from "@/components/FilterSidebar";
-import { firstProductImage } from "@/lib/product-images";
+import { firstProductImageSrc } from "@/lib/product-images";
 
 export const dynamic = "force-dynamic";
 
@@ -278,7 +278,7 @@ export default async function ProductsPage({ searchParams }: Props) {
               name: p.name,
               slug: p.slug,
               price: p.price,
-              image: firstProductImage(p.images),
+              image: firstProductImageSrc(p.id, p.images),
               teamName: p.team.name,
               teamSlug: p.team.slug,
               surCommande: p.surCommande,

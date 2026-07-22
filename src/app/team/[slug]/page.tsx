@@ -5,7 +5,7 @@ import { ChevronRight, MessageCircle, ArrowLeft } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
 import { CLUB_LOGOS, COUNTRY_FLAGS, SIZES } from "@/lib/leagues-data";
 import { Prisma } from "@prisma/client";
-import { firstProductImage } from "@/lib/product-images";
+import { firstProductImageSrc } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
 import CantFindCTA from "@/components/CantFindCTA";
 
@@ -133,7 +133,7 @@ export default async function TeamPage({ params, searchParams }: Props) {
             name: p.name,
             slug: p.slug,
             price: p.price,
-            image: firstProductImage(p.images),
+            image: firstProductImageSrc(p.id, p.images),
             teamName: p.team.name,
             teamSlug: p.team.slug,
             surCommande: p.surCommande,

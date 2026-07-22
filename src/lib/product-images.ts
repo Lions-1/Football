@@ -71,3 +71,21 @@ export function firstProductImage(raw: string | null | undefined): string {
   const list = parseProductImages(raw);
   return list[0] || "";
 }
+
+/**
+ * Display sources for a product's images. Base64 data URLs are swapped for a
+ * cached image route (`/api/pi/<id>/<index>`) so they are NOT inlined into the
+ * page HTML — this is the single biggest bandwidth win, since the same photo
+ * would otherwise be re-shipped as base64 on every page it appears on. Remote
+ * URLs (Yupoo proxy, flag CDNs, etc.) are returned untouched.
+ */
+export function productImageSrcs(id: string, raw: string | null | undefined): string[] {
+  return parseProductImages(raw).map((src, i) =>
+    src.startsWith("data:") ? `/api/pi/${id}/${i}` : src
+  );
+}
+
+/** First display source for a product (cached route for base64, else the URL). */
+export function firstProductImageSrc(id: string, raw: string | null | undefined): string {
+  return productImageSrcs(id, raw)[0] || "";
+}

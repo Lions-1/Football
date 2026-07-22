@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
-import { parseProductImages, firstProductImage } from "@/lib/product-images";
+import { productImageSrcs, firstProductImageSrc } from "@/lib/product-images";
 
 // ISR: each product page is cached on first view and revalidated every 60s.
 export const revalidate = 60;
@@ -31,7 +31,7 @@ export default async function ProductPage({ params }: Props) {
     <ProductDetail
       product={{
         ...product,
-        images: parseProductImages(product.images),
+        images: productImageSrcs(product.id, product.images),
         sizes: JSON.parse(product.sizes) as string[],
         teamName: product.team.name,
         leagueName: product.team.league.name,
@@ -43,7 +43,7 @@ export default async function ProductPage({ params }: Props) {
         name: p.name,
         slug: p.slug,
         price: p.price,
-        image: firstProductImage(p.images),
+        image: firstProductImageSrc(p.id, p.images),
         teamName: p.team.name,
         teamSlug: p.team.slug,
         surCommande: p.surCommande,

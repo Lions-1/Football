@@ -7,7 +7,7 @@ import { MAIN_NAV_BUCKETS, PREMIER_LEAGUE_MARQUEE, CLUB_LOGOS } from "@/lib/leag
 import HomeProducts from "@/components/HomeProducts";
 import CustomerReviews from "@/components/CustomerReviews";
 import StaggerGrid from "@/components/StaggerGrid";
-import { parseProductImages } from "@/lib/product-images";
+import { productImageSrcs } from "@/lib/product-images";
 
 // Cache the homepage and revalidate every 60s — visitors get a CDN-fast page;
 // admin edits appear within a minute.
@@ -49,8 +49,10 @@ async function getHomeData() {
       orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
       take: 6,
     }),
-    // Customer review photos — section is hidden when empty
+    // Customer review photos — section is hidden when empty. Only ids are
+    // needed; the images are served (and cached) via /api/ri/<id>.
     prisma.review.findMany({
+      select: { id: true },
       orderBy: [{ order: "asc" }, { createdAt: "desc" }],
       take: 24,
     }),
@@ -486,7 +488,7 @@ export default async function Home() {
 
             <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" delay={70}>
               {retroProducts.map((product) => {
-                const images = parseProductImages(product.images);
+                const images = productImageSrcs(product.id, product.images);
                 return (
                   <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                     <div className="aspect-square rounded-xl overflow-hidden bg-[#1a0f08] border border-amber-200/10 group-hover:border-amber-300/60 transition relative">
@@ -543,7 +545,7 @@ export default async function Home() {
 
           <StaggerGrid className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" delay={70}>
             {preorderProducts.map((product) => {
-              const images = parseProductImages(product.images);
+              const images = productImageSrcs(product.id, product.images);
               return (
                 <Link key={product.id} href={`/product/${product.slug}`} className="group block stagger-item">
                   <div className="aspect-square rounded-xl overflow-hidden bg-gray-50 border border-gray-200 group-hover:border-orange-400 transition relative">
@@ -623,7 +625,7 @@ export default async function Home() {
       </section>
 
       {/* ═══ CUSTOMER REVIEWS — hidden when none uploaded ═══ */}
-      <CustomerReviews images={reviews.map((r) => r.image)} />
+      <CustomerReviews images={reviews.map((r) => `/api/ri/${r.id}`)} />
     </div>
   );
 }
