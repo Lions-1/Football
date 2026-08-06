@@ -9,9 +9,9 @@ import CustomerReviews from "@/components/CustomerReviews";
 import StaggerGrid from "@/components/StaggerGrid";
 import { productImageSrcs } from "@/lib/product-images";
 
-// Cache the homepage and revalidate every 60s — visitors get a CDN-fast page;
-// admin edits appear within a minute.
-export const revalidate = 60;
+// Cache the homepage for an hour to keep DB load (Neon compute) low. Admin
+// product/review changes call revalidatePath("/") so edits still show instantly.
+export const revalidate = 3600;
 
 /**
  * Colour palette for each Shop-by-Bucket tile. Keys mirror the `tone` field

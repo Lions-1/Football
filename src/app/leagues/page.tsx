@@ -4,8 +4,8 @@ import Image from "next/image";
 import { ArrowRight, Trophy } from "lucide-react";
 import { LEAGUE_LOGOS, CHAMPIONS_LEAGUE_CLUBS } from "@/lib/leagues-data";
 
-// ISR: cache for 60s. The leagues list rarely changes, so this is near-static.
-export const revalidate = 60;
+// ISR: cache for an hour (leagues rarely change) to minimise Neon compute.
+export const revalidate = 3600;
 
 export const metadata = {
   title: "All Leagues — Mebutik Sports",

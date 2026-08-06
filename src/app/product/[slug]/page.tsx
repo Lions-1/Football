@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 import { productImageSrcs, firstProductImageSrc } from "@/lib/product-images";
 
-// ISR: each product page is cached on first view and revalidated every 60s.
-export const revalidate = 60;
+// ISR: cached for an hour to minimise Neon compute; admin edits trigger an
+// on-demand revalidate so changes still show immediately.
+export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ slug: string }>;

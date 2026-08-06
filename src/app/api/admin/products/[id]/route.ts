@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export async function PUT(
   request: NextRequest,
@@ -31,6 +32,7 @@ export async function PUT(
     include: { team: { include: { league: true } } },
   });
 
+  revalidatePath("/", "layout");
   return NextResponse.json(product);
 }
 
@@ -43,5 +45,6 @@ export async function DELETE(
 
   const { id } = await params;
   await prisma.product.delete({ where: { id } });
+  revalidatePath("/", "layout");
   return NextResponse.json({ success: true });
 }
