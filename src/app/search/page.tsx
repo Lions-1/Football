@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import ProductGrid from "@/components/ProductGrid";
 import CantFindCTA from "@/components/CantFindCTA";
 import { firstProductImageSrc } from "@/lib/product-images";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -10,18 +11,12 @@ interface Props {
   searchParams: Promise<{ q?: string }>;
 }
 
-export default async function SearchPage({ searchParams }: Props) {
-  const params = await searchParams;
-  const query = params.q || "";
-
-  let products: Array<{
-    id: string; name: string; slug: string; price: number;
-    images: string; surCommande: boolean; category: string;
-    team: { name: string; league: { name: string } };
-  }> = [];
-
-  if (query) {
-    products = await prisma.product.findMany({
+// Cached per query so repeated searches don't wake the DB. Returns small
+// pre-mapped objects (no base64).
+const getSearchResults = unstable_cache(
+  async (query: string) => {
+    if (!query) return [];
+    const products = await prisma.product.findMany({
       where: {
         OR: [
           { name: { contains: query } },
@@ -33,7 +28,21 @@ export default async function SearchPage({ searchParams }: Props) {
       orderBy: { createdAt: "desc" },
       take: 50,
     });
-  }
+    return products.map((p) => ({
+      id: p.id, name: p.name, slug: p.slug, price: p.price,
+      image: firstProductImageSrc(p.id, p.images),
+      teamName: p.team.name, surCommande: p.surCommande, category: p.category,
+    }));
+  },
+  ["search-v1"],
+  { revalidate: 900, tags: ["products"] }
+);
+
+export default async function SearchPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const query = params.q || "";
+
+  const products = await getSearchResults(query);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -52,18 +61,7 @@ export default async function SearchPage({ searchParams }: Props) {
       {!query ? (
         <p className="text-gray-500 text-center py-16">Enter a search term to find jerseys</p>
       ) : (
-        <ProductGrid
-          products={products.map((p) => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            price: p.price,
-            image: firstProductImageSrc(p.id, p.images),
-            teamName: p.team.name,
-            surCommande: p.surCommande,
-            category: p.category,
-          }))}
-        />
+        <ProductGrid products={products} />
       )}
       {query && <CantFindCTA context={query} />}
     </div>

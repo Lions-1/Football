@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 function slugify(text: string) {
   return text
@@ -76,6 +76,7 @@ export async function POST(request: NextRequest) {
     include: { team: { include: { league: true } } },
   });
 
+  revalidateTag("products", "max"); // bust the cached browse-page queries
   revalidatePath("/", "layout"); // refresh cached pages so the new product shows now
   return NextResponse.json(product, { status: 201 });
 }

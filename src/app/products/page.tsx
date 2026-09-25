@@ -7,6 +7,7 @@ import ProductSearch from "@/components/ProductSearch";
 import CantFindCTA from "@/components/CantFindCTA";
 import FilterSidebar from "@/components/FilterSidebar";
 import { firstProductImageSrc } from "@/lib/product-images";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,69 @@ const SIDEBAR_LEAGUE_SLUGS = [
   "national-teams",
 ];
 
+// Cached data fetch keyed by all filter params. Returns small, pre-mapped
+// objects (NO base64) so the DB is queried only on a cache miss (hourly),
+// not on every visit — lets Neon scale to zero between hits.
+const getProductsPage = unstable_cache(
+  async (
+    category: string | undefined,
+    surCommande: boolean,
+    leagueFilter: string | undefined,
+    teamFilter: string | undefined,
+    searchQuery: string,
+    sizesKey: string,
+    page: number,
+  ) => {
+    const limit = 40;
+    const selectedSizes = sizesKey ? sizesKey.split(",") : [];
+
+    const where: Prisma.ProductWhereInput = {};
+    const andClauses: Prisma.ProductWhereInput[] = [];
+    if (category) where.category = category;
+    if (surCommande) where.surCommande = true;
+    if (teamFilter) where.team = { slug: teamFilter };
+    else if (leagueFilter) where.team = { league: { slug: leagueFilter } };
+    if (searchQuery) {
+      where.OR = [
+        { name: { contains: searchQuery } },
+        { team: { name: { contains: searchQuery } } },
+      ];
+    }
+    if (selectedSizes.length > 0) {
+      andClauses.push({ OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })) });
+    }
+    if (andClauses.length > 0) where.AND = andClauses;
+
+    const [products, total, leagues, categoryCounts] = await Promise.all([
+      prisma.product.findMany({
+        where,
+        include: { team: { include: { league: true } } },
+        orderBy: { createdAt: "desc" },
+        take: limit,
+        skip: (page - 1) * limit,
+      }),
+      prisma.product.count({ where }),
+      prisma.league.findMany({ orderBy: { order: "asc" } }),
+      prisma.product.groupBy({ by: ["category"], _count: { _all: true } }),
+    ]);
+
+    return {
+      products: products.map((p) => ({
+        id: p.id, name: p.name, slug: p.slug, price: p.price,
+        image: firstProductImageSrc(p.id, p.images),
+        teamName: p.team.name, teamSlug: p.team.slug,
+        surCommande: p.surCommande, category: p.category,
+      })),
+      total,
+      totalPages: Math.ceil(total / limit),
+      leagues: leagues.map((l) => ({ id: l.id, name: l.name, slug: l.slug, order: l.order })),
+      categoryCounts: categoryCounts.map((c) => ({ category: c.category || "", count: c._count._all })),
+    };
+  },
+  ["products-page-v1"],
+  { revalidate: 900, tags: ["products"] }
+);
+
 export default async function ProductsPage({ searchParams }: Props) {
   const params = await searchParams;
   const category = params.category;
@@ -46,30 +110,6 @@ export default async function ProductsPage({ searchParams }: Props) {
     .map((s) => s.trim().toUpperCase())
     .filter((s) => SIZES.includes(s));
   const page = parseInt(params.page || "1");
-  const limit = 40;
-
-  const where: Prisma.ProductWhereInput = {};
-  const andClauses: Prisma.ProductWhereInput[] = [];
-
-  if (category) where.category = category;
-  if (surCommande) where.surCommande = true;
-  if (teamFilter) where.team = { slug: teamFilter };
-  else if (leagueFilter) where.team = { league: { slug: leagueFilter } };
-  if (searchQuery) {
-    where.OR = [
-      { name: { contains: searchQuery } },
-      { team: { name: { contains: searchQuery } } },
-    ];
-  }
-
-  // Size filter — products whose `sizes` JSON string contains ANY selected size.
-  // `sizes` is stored as e.g. '["S","M","L"]', so `contains: '"M"'` matches.
-  if (selectedSizes.length > 0) {
-    andClauses.push({
-      OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })),
-    });
-  }
-  if (andClauses.length > 0) where.AND = andClauses;
 
   function buildUrl(overrides: Partial<{ sizes: string[]; page: number }>) {
     const parts: string[] = [];
@@ -95,28 +135,14 @@ export default async function ProductsPage({ searchParams }: Props) {
     return buildUrl({ sizes: next });
   }
 
-  const [products, total, leagues, categoryCounts] = await Promise.all([
-    prisma.product.findMany({
-      where,
-      include: { team: { include: { league: true } } },
-      orderBy: { createdAt: "desc" },
-      take: limit,
-      skip: (page - 1) * limit,
-    }),
-    prisma.product.count({ where }),
-    prisma.league.findMany({ orderBy: { order: "asc" } }),
-    prisma.product.groupBy({
-      by: ["category"],
-      _count: { _all: true },
-    }),
-  ]);
-
-  const totalPages = Math.ceil(total / limit);
+  const { products, total, totalPages, leagues, categoryCounts } = await getProductsPage(
+    category, surCommande, leagueFilter, teamFilter, searchQuery, selectedSizes.join(","), page,
+  );
 
   // Only surface categories with at least one product so the sidebar
   // doesn't advertise empty filters.
   const categoryHasProducts = new Map(
-    categoryCounts.map((c) => [c.category || "", c._count._all]),
+    categoryCounts.map((c) => [c.category, c.count]),
   );
   const visibleCategories = CATEGORIES.filter(
     (c) => (categoryHasProducts.get(c.slug) ?? 0) > 0,
@@ -272,19 +298,7 @@ export default async function ProductsPage({ searchParams }: Props) {
             </div>
           </div>
 
-          <ProductGrid
-            products={products.map((p) => ({
-              id: p.id,
-              name: p.name,
-              slug: p.slug,
-              price: p.price,
-              image: firstProductImageSrc(p.id, p.images),
-              teamName: p.team.name,
-              teamSlug: p.team.slug,
-              surCommande: p.surCommande,
-              category: p.category,
-            }))}
-          />
+          <ProductGrid products={products} />
 
           {/* Pagination */}
           {totalPages > 1 && (

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function PUT(
   request: NextRequest,
@@ -32,6 +32,7 @@ export async function PUT(
     include: { team: { include: { league: true } } },
   });
 
+  revalidateTag("products", "max");
   revalidatePath("/", "layout");
   return NextResponse.json(product);
 }
@@ -45,6 +46,7 @@ export async function DELETE(
 
   const { id } = await params;
   await prisma.product.delete({ where: { id } });
+  revalidateTag("products", "max");
   revalidatePath("/", "layout");
   return NextResponse.json({ success: true });
 }

@@ -8,6 +8,7 @@ import { Prisma } from "@prisma/client";
 import { firstProductImageSrc } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
 import CantFindCTA from "@/components/CantFindCTA";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,46 @@ interface Props {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ sizes?: string }>;
 }
+
+// Cached data fetch, keyed by team slug + selected sizes. Returns small,
+// already-mapped objects (NO base64) so the DB is queried only on a cache miss
+// (hourly) instead of every visit — letting Neon scale to zero between hits.
+const getTeamPage = unstable_cache(
+  async (slug: string, sizesKey: string) => {
+    const team = await prisma.team.findUnique({
+      where: { slug },
+      include: { league: true },
+    });
+    if (!team) return null;
+
+    const selectedSizes = sizesKey ? sizesKey.split(",") : [];
+    const where: Prisma.ProductWhereInput =
+      selectedSizes.length > 0
+        ? { teamId: team.id, OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })) }
+        : { teamId: team.id };
+
+    const products = await prisma.product.findMany({
+      where,
+      include: { team: { include: { league: true } } },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return {
+      team: {
+        id: team.id, name: team.name, slug: team.slug,
+        league: { name: team.league.name, slug: team.league.slug },
+      },
+      products: products.map((p) => ({
+        id: p.id, name: p.name, slug: p.slug, price: p.price,
+        image: firstProductImageSrc(p.id, p.images),
+        teamName: p.team.name, teamSlug: p.team.slug,
+        surCommande: p.surCommande, category: p.category,
+      })),
+    };
+  },
+  ["team-page-v1"],
+  { revalidate: 900, tags: ["products"] }
+);
 
 export default async function TeamPage({ params, searchParams }: Props) {
   const { slug } = await params;
@@ -24,26 +65,9 @@ export default async function TeamPage({ params, searchParams }: Props) {
     .map((s) => s.trim().toUpperCase())
     .filter((s) => SIZES.includes(s));
 
-  const team = await prisma.team.findUnique({
-    where: { slug },
-    include: { league: true },
-  });
-
-  if (!team) notFound();
-
-  const where: Prisma.ProductWhereInput =
-    selectedSizes.length > 0
-      ? {
-          teamId: team.id,
-          OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })),
-        }
-      : { teamId: team.id };
-
-  const products = await prisma.product.findMany({
-    where,
-    include: { team: { include: { league: true } } },
-    orderBy: { createdAt: "desc" },
-  });
+  const data = await getTeamPage(slug, selectedSizes.join(","));
+  if (!data) notFound();
+  const { team, products } = data;
 
   const basePath = `/team/${team.slug}`;
   const buildSizeHref = (next: string[]) =>
@@ -127,19 +151,7 @@ export default async function TeamPage({ params, searchParams }: Props) {
         </>
       ) : (
         <>
-        <ProductGrid
-          products={products.map((p) => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            price: p.price,
-            image: firstProductImageSrc(p.id, p.images),
-            teamName: p.team.name,
-            teamSlug: p.team.slug,
-            surCommande: p.surCommande,
-            category: p.category,
-          }))}
-        />
+        <ProductGrid products={products} />
         <CantFindCTA context={team.name} />
         </>
       )}

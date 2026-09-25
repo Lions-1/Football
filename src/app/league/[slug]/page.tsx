@@ -8,6 +8,7 @@ import { Prisma } from "@prisma/client";
 import { firstProductImageSrc } from "@/lib/product-images";
 import SizeFilterPills from "@/components/SizeFilterPills";
 import CantFindCTA from "@/components/CantFindCTA";
+import { unstable_cache } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,69 @@ interface Props {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ sizes?: string }>;
 }
+
+// Cached data fetch, keyed by league slug + selected sizes. Returns small,
+// already-mapped objects (NO base64) so the DB is queried only on a cache miss
+// (hourly), not on every visit — lets Neon scale to zero between hits.
+const getLeaguePage = unstable_cache(
+  async (slug: string, sizesKey: string) => {
+    const league = await prisma.league.findUnique({
+      where: { slug },
+      include: { teams: { orderBy: { name: "asc" } } },
+    });
+    if (!league) return null;
+
+    // Champions League: teams live in domestic leagues, so load them via the slug list.
+    const isChampionsLeague = slug === "champions-league";
+
+    const displayTeams = isChampionsLeague
+      ? await prisma.team.findMany({
+          where: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
+          orderBy: { name: "asc" },
+        })
+      : league.teams;
+
+    const baseWhere: Prisma.ProductWhereInput = isChampionsLeague
+      ? {
+          team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
+          // Current season only — older kits remain on the domestic league pages
+          OR: [
+            { season: { contains: "26/27" } },
+            { season: { contains: "2026-27" } },
+            { name: { contains: "26/27" } },
+            { name: { contains: "2026/27" } },
+            { name: { contains: "26-27" } },
+          ],
+        }
+      : { team: { leagueId: league.id } };
+
+    const selectedSizes = sizesKey ? sizesKey.split(",") : [];
+    const where: Prisma.ProductWhereInput =
+      selectedSizes.length > 0
+        ? { AND: [baseWhere, { OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })) }] }
+        : baseWhere;
+
+    const products = await prisma.product.findMany({
+      where,
+      include: { team: { include: { league: true } } },
+      orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
+      take: 80,
+    });
+
+    return {
+      league: { id: league.id, name: league.name, slug: league.slug },
+      displayTeams: displayTeams.map((t) => ({ id: t.id, name: t.name, slug: t.slug })),
+      products: products.map((p) => ({
+        id: p.id, name: p.name, slug: p.slug, price: p.price,
+        image: firstProductImageSrc(p.id, p.images),
+        teamName: p.team.name, teamSlug: p.team.slug,
+        surCommande: p.surCommande, category: p.category,
+      })),
+    };
+  },
+  ["league-page-v1"],
+  { revalidate: 900, tags: ["products"] }
+);
 
 export default async function LeaguePage({ params, searchParams }: Props) {
   const { slug } = await params;
@@ -24,61 +88,9 @@ export default async function LeaguePage({ params, searchParams }: Props) {
     .map((s) => s.trim().toUpperCase())
     .filter((s) => SIZES.includes(s));
 
-  const league = await prisma.league.findUnique({
-    where: { slug },
-    include: {
-      teams: {
-        orderBy: { name: "asc" },
-        include: { _count: { select: { products: true } } },
-      },
-    },
-  });
-
-  if (!league) notFound();
-
-  // Champions League: teams live in domestic leagues, so load them via the slug list.
-  const isChampionsLeague = slug === "champions-league";
-
-  const displayTeams = isChampionsLeague
-    ? await prisma.team.findMany({
-        where: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
-        orderBy: { name: "asc" },
-        include: { _count: { select: { products: true } } },
-      })
-    : league.teams;
-
-  const baseWhere: Prisma.ProductWhereInput = isChampionsLeague
-    ? {
-        team: { slug: { in: CHAMPIONS_LEAGUE_CLUBS } },
-        // Current season only — older kits remain on the domestic league pages
-        OR: [
-          { season: { contains: "26/27" } },
-          { season: { contains: "2026-27" } },
-          { name: { contains: "26/27" } },
-          { name: { contains: "2026/27" } },
-          { name: { contains: "26-27" } },
-        ],
-      }
-    : { team: { leagueId: league.id } };
-
-  // Apply size filter on top of the base where via AND so we don't clobber the
-  // CL OR-clause above.
-  const where: Prisma.ProductWhereInput =
-    selectedSizes.length > 0
-      ? {
-          AND: [
-            baseWhere,
-            { OR: selectedSizes.map((s) => ({ sizes: { contains: `"${s}"` } })) },
-          ],
-        }
-      : baseWhere;
-
-  const products = await prisma.product.findMany({
-    where,
-    include: { team: { include: { league: true } } },
-    orderBy: [{ bestSeller: "desc" }, { featured: "desc" }, { createdAt: "desc" }],
-    take: 80,
-  });
+  const data = await getLeaguePage(slug, selectedSizes.join(","));
+  if (!data) notFound();
+  const { league, displayTeams, products } = data;
 
   const basePath = `/league/${league.slug}`;
   const buildSizeHref = (next: string[]) =>
@@ -177,19 +189,7 @@ export default async function LeaguePage({ params, searchParams }: Props) {
           clearHref={basePath}
           className="mb-5"
         />
-        <ProductGrid
-          products={products.map((p) => ({
-            id: p.id,
-            name: p.name,
-            slug: p.slug,
-            price: p.price,
-            image: firstProductImageSrc(p.id, p.images),
-            teamName: p.team.name,
-            teamSlug: p.team.slug,
-            surCommande: p.surCommande,
-            category: p.category,
-          }))}
-        />
+        <ProductGrid products={products} />
       </section>
       <CantFindCTA context={league.name} />
     </div>
