@@ -220,12 +220,144 @@ DETAIL_INSET = 640   # framed close-up size on the 800px canvas
 DETAIL_RADIUS = 30
 
 
-def frame_detail(square: Image.Image, variant: str) -> Image.Image:
-    """Close-ups are pure fabric — there is no background to remove. On the
-    white catalog they are shown as a rounded, softly shadowed photo card on
-    the same white backdrop, so every product image shares one background."""
+def studio_wall_mask(img: Image.Image):
+    """Grey studio wall in a close-up: smooth (no knit texture), greyish,
+    darker than white fabric, and connected to the top edge or the upper part
+    of the side edges (the wall shows above/beside the shoulders)."""
+    import numpy as np
+    from scipy import ndimage
+
+    g = np.array(img.convert("L")).astype(float)
+    m = ndimage.uniform_filter(g, 9)
+    std = np.sqrt(np.maximum(ndimage.uniform_filter(g * g, 9) - m * m, 0))
+    hsv = np.array(img.convert("HSV")).astype(float) / 255
+    cand = (std < 7) & (hsv[..., 1] < 0.35) & (hsv[..., 2] > 0.25) & (hsv[..., 2] < 0.82)
+    cand = ndimage.binary_opening(cand, iterations=2)
+    lab, _ = ndimage.label(cand)
+    top = int(lab.shape[0] * 0.45)
+    seeds = set(np.unique(np.concatenate([lab[0], lab[:top, 0], lab[:top, -1]]))) - {0}
+    return np.isin(lab, list(seeds))
+
+
+def wall_free_square(img: Image.Image, cut: Image.Image, min_frac: float = 0.5, tol: float = 0.01):
+    """Largest square crop (>= min_frac of the short side) that contains almost
+    none of the studio wall and keeps a small logo/crest whole, as close to the
+    photo centre as possible. Returns a box in `img` coordinates, or None."""
+    import numpy as np
+
+    small = img.copy()
+    small.thumbnail((800, 800))
+    k = img.width / small.width
+    wall = studio_wall_mask(small)
+    fg = np.array(cut.resize(small.size).getchannel("A")) > 128
+    keep = fg if 0.005 < fg.mean() < 0.35 else None  # small subject = logo: keep it whole
+    h, w = wall.shape
+    s0 = min(h, w)
+
+    def integral(x):
+        return np.pad(x.astype(np.int64).cumsum(0).cumsum(1), ((1, 0), (1, 0)))
+
+    iw = integral(wall)
+    ik = integral(keep) if keep is not None else None
+    ktot = keep.sum() if keep is not None else 0
+    step = max(4, s0 // 60)
+    for s in range(s0, int(s0 * min_frac) - 1, -step):
+        best = None
+        ys = range(0, h - s + 1, max(4, s // 30))
+        xs = range(0, w - s + 1, max(4, s // 30))
+        for y in ys:
+            for x in xs:
+                if (iw[y + s, x + s] - iw[y, x + s] - iw[y + s, x] + iw[y, x]) > tol * s * s:
+                    continue
+                if ik is not None and (ik[y + s, x + s] - ik[y, x + s] - ik[y + s, x] + ik[y, x]) < 0.97 * ktot:
+                    continue
+                d = (x + s / 2 - w / 2) ** 2 + (y + s / 2 - h / 2) ** 2
+                if best is None or d < best[0]:
+                    best = (d, (x, y, x + s, y + s))
+        if best:
+            x0, y0, x1, y1 = best[1]
+            return (int(x0 * k), int(y0 * k), int(x1 * k), int(y1 * k))
+    return None
+
+
+def square_box(img: Image.Image) -> tuple[int, int, int, int]:
+    s = min(img.size)
+    l, t = (img.width - s) // 2, (img.height - s) // 2
+    return (l, t, l + s, t + s)
+
+
+def wall_cutout(cut: Image.Image, src: Image.Image) -> Image.Image | None:
+    """Close-ups where the shirt fills most of the frame but the grey studio
+    wall shows behind it (angled fronts, back/collar shots, crests near the
+    shoulder). Returns the square-cropped RGBA cut-out (wall removed, same
+    framing) — or None for pure fabric/logo close-ups, where the "background"
+    the model finds is actually fabric and must be kept."""
+    import numpy as np
+
+    box = square_box(src)
+    sq_cut = cut.crop(box)
+    a = np.array(sq_cut.getchannel("A")) > 128
+    cov = a.mean()
+    if not (0.40 <= cov <= 0.96):  # need a big subject AND some wall
+        return None
+    # The shirt must run off the bottom of the frame (mannequin close-ups do).
+    # If the cut ends mid-frame, the model tore through fabric (e.g. a shirt
+    # lying flat) and the edge would look ragged — use the zoom crop instead.
+    if a[-3:].mean() < 0.30:
+        return None
+    hsv = np.array(src.crop(box).convert("HSV")).astype(float) / 255
+    bg = ~a
+    # background must be wall/rack (greyish, beige, dark poles) — not coloured
+    # fabric. Brightness is not checked: dark rack poles pull it down.
+    wall = hsv[..., 1][bg].mean() < 0.30
+    return sq_cut.resize((SIZE, SIZE), Image.LANCZOS) if wall else None
+
+
+def is_blank(img: Image.Image) -> bool:
+    """A close-up crop with nothing to see (plain fabric, no logo/seam)."""
+    import numpy as np
+
+    g = np.array(img.convert("L").resize((200, 200))).astype(int)
+    edges = (np.abs(np.diff(g, axis=0))[:, :-1] + np.abs(np.diff(g, axis=1))[:-1, :]) > 30
+    return edges.mean() < 0.015
+
+
+def make_detail(src: Image.Image, cut: Image.Image) -> dict | None:
+    """Pick the best white-catalog treatment for a close-up photo.
+      1) shirt fills the frame (angled / back shots): remove wall + rack;
+      2) logo / crest on fabric: zoom past the wall, logo kept whole;
+      3) otherwise a centre crop. Returns None if the result is blank."""
+    centre = render_detail(src)
+    wc = wall_cutout(cut, src)
+    if wc is not None:
+        return {"square": centre, "wall_cut": wc}
+    box = wall_free_square(src, cut)
+    sq = src.crop(box).resize((SIZE, SIZE), Image.LANCZOS) if box else centre
+    if is_blank(sq):
+        return None
+    return {"square": sq, "wall_cut": None}
+
+
+def render_wall_closeup(sq_cut: Image.Image, variant: str) -> Image.Image:
+    """Close-up with the wall replaced by the white backdrop (soft shadow)."""
+    canvas = _gradient(variant).convert("RGBA")
+    sh_alpha = sq_cut.getchannel("A").filter(ImageFilter.GaussianBlur(14)).point(lambda v: int(v * 0.25))
+    shadow = Image.new("RGBA", sq_cut.size, (0, 0, 0, 255))
+    shadow.putalpha(sh_alpha)
+    canvas.alpha_composite(shadow, (4, 10))
+    canvas.alpha_composite(sq_cut)
+    return canvas.convert("RGB")
+
+
+def frame_detail(detail: dict, variant: str) -> Image.Image:
+    """White catalog: close-ups showing the grey wall get the wall removed;
+    pure fabric/logo close-ups (nothing to remove) are shown as a rounded,
+    softly shadowed photo card on the same white backdrop."""
+    square = detail["square"]
     if variant != "white":
         return square
+    if detail["wall_cut"] is not None:
+        return render_wall_closeup(detail["wall_cut"], variant)
     canvas = _gradient(variant).convert("RGBA")
     card = square.resize((DETAIL_INSET, DETAIL_INSET), Image.LANCZOS).convert("RGBA")
     mask = Image.new("L", card.size, 0)
@@ -303,7 +435,9 @@ def process_product(paths: list[str], out_dir: str,
             bbox = cut.getchannel("A").point(lambda v: 255 if v > 128 else 0).getbbox() or bbox
             fulls.append((cut, bbox))
         elif kind == "detail" and len(details) < MAX_DETAIL and not is_care_tag(cut, src):
-            details.append(render_detail(src))
+            d = make_detail(src, cut)
+            if d is not None:  # blank close-ups are skipped in favour of the next photo
+                details.append(d)
         if len(fulls) >= MAX_FULL and len(details) >= MAX_DETAIL:
             break
     written: dict[str, list[str]] = {}
