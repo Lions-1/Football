@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       { pathname: "/api/img/**" },
       { pathname: "/api/pi/**" }, // cached product-image route (base64 → bytes)
       { pathname: "/api/ri/**" }, // cached review-image route
+      { pathname: "/catalog/**" }, // static product photos (scripts/catalog pipeline)
       { pathname: "/logo.png" },
       { pathname: "/logos/**" },
       { pathname: "/messi-worldcup.jpg" },
@@ -28,6 +29,16 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.vamos-kw.com" },
       { protocol: "http", hostname: "localhost" },
     ],
+  },
+  // Catalog photos are content-hashed (<n>-<hash>.webp), so they never change
+  // at a given URL — cache them for a year on the CDN and in browsers.
+  async headers() {
+    return [
+      {
+        source: "/catalog/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
   },
 };
 
