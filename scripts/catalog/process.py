@@ -217,7 +217,7 @@ def watermark(img: Image.Image, variant: str) -> Image.Image:
     if variant == "white":
         # white text + soft grey outline: readable on the white backdrop AND on
         # dark shirts (plain white text would vanish on white)
-        fill, stroke, sw = (255, 255, 255, 170), (120, 120, 120, 120), 2
+        fill, stroke, sw = (255, 255, 255, 115), (120, 120, 120, 75), 2
     elif variant == "light":
         fill, stroke = (255, 255, 255, 165), (60, 60, 60, 70)
     else:

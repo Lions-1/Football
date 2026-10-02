@@ -62,6 +62,10 @@ function plannedFiles(r) {
 async function phaseFiles() {
   let n = 0, bytes = 0;
   for (const r of results) {
+    const dir = path.join(PUBLIC_DIR, r.slug);
+    // Re-publishing replaces the product's images (names are content-hashed,
+    // so stale files would otherwise linger next to the new ones).
+    if (APPLY) fs.rmSync(dir, { recursive: true, force: true });
     for (const f of plannedFiles(r)) {
       bytes += f.buf.length; n++;
       if (APPLY) {
@@ -83,14 +87,26 @@ async function phaseDb() {
     const files = plannedFiles(r);
     const missing = files.filter((f) => !fs.existsSync(f.dest));
     if (missing.length) { console.log(`  ! ${r.slug}: run --phase files first`); skipped++; continue; }
-    if (await prisma.product.findUnique({ where: { slug: r.slug } })) { console.log(`  = ${r.slug} exists, skipped`); skipped++; continue; }
+    const urls = JSON.stringify(files.map((f) => f.url));
+    const existing = await prisma.product.findUnique({ where: { slug: r.slug }, select: { id: true, images: true } });
+    if (existing) {
+      // already published: only refresh its image paths (files were re-published)
+      if (existing.images !== urls) {
+        console.log(`  ~ ${r.slug} exists — image paths refreshed`);
+        if (APPLY) await prisma.product.update({ where: { id: existing.id }, data: { images: urls } });
+      } else {
+        console.log(`  = ${r.slug} exists, unchanged`);
+      }
+      skipped++;
+      continue;
+    }
     const kit = KIT_LABEL[r.kit];
     const data = {
       name: `${team.name} 26-27 ${kit} Player Version`,
       description: [BRAND[r.team], team.name, SEASON, kit, "Jersey Player Version Men's"].filter(Boolean).join(" "),
       slug: r.slug,
       price: PRICE_MAD,
-      images: JSON.stringify(files.map((f) => f.url)),
+      images: urls,
       sizes: JSON.stringify(SIZES),
       teamId: team.id,
       category: "jersey",
