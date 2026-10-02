@@ -167,14 +167,28 @@ def classify(cut: Image.Image, src: Image.Image) -> tuple[str, tuple | None]:
     return "detail", bbox
 
 
-def is_care_tag(cut: Image.Image) -> bool:
-    """Care-label close-ups cut out as a compact rectangle — skip as a detail."""
+def is_care_tag(cut: Image.Image, src: Image.Image) -> bool:
+    """Care-label close-ups — never used as a product detail photo.
+
+    Calibrated (2026-10-03) on 7 labels vs crests/logos incl. white Adidas
+    stripes: a label is mostly bright white WITH some dark printed text
+    (dark 4-17%); logos are either colourful or text-free (dark ~0%)."""
     import numpy as np
 
     a = np.array(cut.getchannel("A")) > 128
+    if not a.any():
+        return False
     cov = a.mean()
     _, extent = shape_metrics(a)
-    return extent >= 0.80 and 0.10 <= cov <= 0.40
+    hsv = np.array(src.convert("HSV")).astype(float) / 255
+    s, v = hsv[..., 1][a], hsv[..., 2][a]
+    bright = ((v > 0.70) & (s < 0.18)).mean()
+    dark = (v < 0.40).mean()
+    g = np.array(src.convert("L")).astype(int)
+    edges = (np.abs(np.diff(g, axis=1)) > 60)[a[:, :-1]].mean()
+    return ((bright >= 0.70 and 0.03 <= dark <= 0.12)                    # white label, dark text
+            or (bright >= 0.25 and 0.10 <= dark <= 0.20 and edges >= 0.08)  # busier label
+            or (extent >= 0.80 and 0.10 <= cov <= 0.40))                 # compact rectangle
 
 
 def render_full(cut: Image.Image, bbox, variant: str) -> Image.Image:
@@ -195,10 +209,35 @@ def render_full(cut: Image.Image, bbox, variant: str) -> Image.Image:
 
 
 def render_detail(src: Image.Image) -> Image.Image:
+    """Centre square crop of a close-up photo (crest / logo / fabric)."""
     s = min(src.size)
     l = (src.width - s) // 2
     t = (src.height - s) // 2
     return src.crop((l, t, l + s, t + s)).resize((SIZE, SIZE), Image.LANCZOS).convert("RGB")
+
+
+DETAIL_INSET = 640   # framed close-up size on the 800px canvas
+DETAIL_RADIUS = 30
+
+
+def frame_detail(square: Image.Image, variant: str) -> Image.Image:
+    """Close-ups are pure fabric — there is no background to remove. On the
+    white catalog they are shown as a rounded, softly shadowed photo card on
+    the same white backdrop, so every product image shares one background."""
+    if variant != "white":
+        return square
+    canvas = _gradient(variant).convert("RGBA")
+    card = square.resize((DETAIL_INSET, DETAIL_INSET), Image.LANCZOS).convert("RGBA")
+    mask = Image.new("L", card.size, 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, *card.size), DETAIL_RADIUS, fill=255)
+    card.putalpha(mask)
+    x = y = (SIZE - DETAIL_INSET) // 2
+    shadow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle((x + 4, y + 12, x + DETAIL_INSET + 4, y + DETAIL_INSET + 12),
+                                             DETAIL_RADIUS, fill=(0, 0, 0, 70))
+    canvas.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(14)))
+    canvas.alpha_composite(card, (x, y))
+    return canvas.convert("RGB")
 
 
 def _text_layer(text: str, font: ImageFont.FreeTypeFont, angle: float, fill, stroke, sw: int = 1):
@@ -263,7 +302,7 @@ def process_product(paths: list[str], out_dir: str,
             cut = keep_main_subject(cut)
             bbox = cut.getchannel("A").point(lambda v: 255 if v > 128 else 0).getbbox() or bbox
             fulls.append((cut, bbox))
-        elif kind == "detail" and len(details) < MAX_DETAIL and not is_care_tag(cut):
+        elif kind == "detail" and len(details) < MAX_DETAIL and not is_care_tag(cut, src):
             details.append(render_detail(src))
         if len(fulls) >= MAX_FULL and len(details) >= MAX_DETAIL:
             break
@@ -271,7 +310,7 @@ def process_product(paths: list[str], out_dir: str,
     for v in variants:
         out = Path(out_dir) / v
         out.mkdir(parents=True, exist_ok=True)
-        imgs = [render_full(c, b, v) for c, b in fulls] + details
+        imgs = [render_full(c, b, v) for c, b in fulls] + [frame_detail(d, v) for d in details]
         written[v] = []
         for i, im in enumerate(imgs):
             f = out / f"{i + 1}.webp"

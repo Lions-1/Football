@@ -20,10 +20,21 @@ git add public/catalog && git commit && git push          #     wait for the dep
 node scripts/catalog/publish.mjs --phase db --apply      # 3b. create the products (skips existing slugs)
 ```
 
+### Re-publishing products that are already live (zero downtime)
+```
+node scripts/catalog/publish.mjs --phase files --keep-old --apply   # new files next to the old ones
+git add public/catalog && git commit && git push                     # wait until live
+node scripts/catalog/publish.mjs --phase db --apply                  # products now point at the new files
+node scripts/catalog/publish.mjs --phase prune --apply               # delete files nothing references
+git add -A public/catalog && git commit && git push
+```
+
 ## Rules baked in
 - `select_albums.py`: 2026/27, men's, Home/Away/Third, **Player version only**,
   newest album when a kit is listed twice. Club → Wanfing category ids in `CLUBS`.
 - `process.py`: BiRefNet (MIT) via rembg on CUDA (~1 s/photo). Full-shot vs
-  close-up classifier calibrated with `_features.py`; care tags skipped.
+  close-up classifier calibrated with `_features.py`; care labels skipped.
+  Full shots are cut out onto white; close-ups (pure fabric, nothing to cut
+  out) are shown as a rounded, shadowed photo card on the same white backdrop.
 - `publish.mjs`: 280 MAD, sizes S–XXL, "Available" (add `--pre-order` to change),
   name `<Team> 26-27 <Kit> Player Version`, description in the owner's style.

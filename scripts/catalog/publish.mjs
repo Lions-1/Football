@@ -25,6 +25,7 @@ const VARIANT = arg("--variant", "white");
 const PHASE = arg("--phase", "files");
 const INCLUDE_FLAGGED = args.includes("--include-flagged");
 const PRE_ORDER = args.includes("--pre-order");
+const KEEP_OLD = args.includes("--keep-old"); // zero-downtime re-publish: keep old files until DB points at the new ones
 
 const PRICE_MAD = 280;
 const SIZES = ["S", "M", "L", "XL", "XXL"];
@@ -45,7 +46,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", ".
 const WORK = path.join(ROOT, "scripts", "catalog", "work");
 const PUBLIC_DIR = path.join(ROOT, "public", "catalog");
 
-const results = JSON.parse(fs.readFileSync(path.join(WORK, "results.json"), "utf8"))
+const results = PHASE === "prune" ? [] : JSON.parse(fs.readFileSync(path.join(WORK, "results.json"), "utf8"))
   .filter((r) => INCLUDE_FLAGGED || !r.flag)
   .filter((r) => (r.files[VARIANT] || []).length > 0);
 
@@ -65,7 +66,7 @@ async function phaseFiles() {
     const dir = path.join(PUBLIC_DIR, r.slug);
     // Re-publishing replaces the product's images (names are content-hashed,
     // so stale files would otherwise linger next to the new ones).
-    if (APPLY) fs.rmSync(dir, { recursive: true, force: true });
+    if (APPLY && !KEEP_OLD) fs.rmSync(dir, { recursive: true, force: true });
     for (const f of plannedFiles(r)) {
       bytes += f.buf.length; n++;
       if (APPLY) {
@@ -122,4 +123,24 @@ async function phaseDb() {
 }
 
 if (!APPLY) console.log("DRY RUN — add --apply to write.\n");
-await (PHASE === "db" ? phaseDb() : phaseFiles());
+/** Remove files in public/catalog that no product in the DB references any more. */
+async function phasePrune() {
+  const prisma = new PrismaClient();
+  const used = new Set();
+  for (const p of await prisma.product.findMany({ select: { images: true } })) {
+    for (const u of JSON.parse(p.images || "[]")) if (u.startsWith("/catalog/")) used.add(u);
+  }
+  await prisma.$disconnect();
+  let removed = 0;
+  for (const dir of fs.existsSync(PUBLIC_DIR) ? fs.readdirSync(PUBLIC_DIR) : []) {
+    for (const f of fs.readdirSync(path.join(PUBLIC_DIR, dir))) {
+      if (used.has(`/catalog/${dir}/${f}`)) continue;
+      removed++;
+      if (APPLY) fs.rmSync(path.join(PUBLIC_DIR, dir, f));
+    }
+    if (APPLY && fs.readdirSync(path.join(PUBLIC_DIR, dir)).length === 0) fs.rmdirSync(path.join(PUBLIC_DIR, dir));
+  }
+  console.log(`${APPLY ? "Removed" : "Would remove"} ${removed} unreferenced files (${used.size} in use).`);
+}
+
+await (PHASE === "db" ? phaseDb() : PHASE === "prune" ? phasePrune() : phaseFiles());
