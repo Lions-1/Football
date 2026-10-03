@@ -59,8 +59,8 @@ const getProductsPage = unstable_cache(
     else if (leagueFilter) where.team = { league: { slug: leagueFilter } };
     if (searchQuery) {
       where.OR = [
-        { name: { contains: searchQuery } },
-        { team: { name: { contains: searchQuery } } },
+        { name: { contains: searchQuery, mode: "insensitive" } },
+        { team: { name: { contains: searchQuery, mode: "insensitive" } } },
       ];
     }
     if (selectedSizes.length > 0) {
@@ -94,7 +94,7 @@ const getProductsPage = unstable_cache(
       categoryCounts: categoryCounts.map((c) => ({ category: c.category || "", count: c._count._all })),
     };
   },
-  ["products-page-v1"],
+  ["products-page-v2"],
   { revalidate: 900, tags: ["products"] }
 );
 

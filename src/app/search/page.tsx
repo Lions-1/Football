@@ -19,9 +19,9 @@ const getSearchResults = unstable_cache(
     const products = await prisma.product.findMany({
       where: {
         OR: [
-          { name: { contains: query } },
-          { team: { name: { contains: query } } },
-          { team: { league: { name: { contains: query } } } },
+          { name: { contains: query, mode: "insensitive" } },
+          { team: { name: { contains: query, mode: "insensitive" } } },
+          { team: { league: { name: { contains: query, mode: "insensitive" } } } },
         ],
       },
       include: { team: { include: { league: true } } },
@@ -34,7 +34,7 @@ const getSearchResults = unstable_cache(
       teamName: p.team.name, surCommande: p.surCommande, category: p.category,
     }));
   },
-  ["search-v1"],
+  ["search-v2"],
   { revalidate: 900, tags: ["products"] }
 );
 
