@@ -20,7 +20,7 @@ import process
 HDR = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0 Safari/537.36",
        "Referer": "https://wanfing.x.yupoo.com/"}
 WORK = Path("work")
-VARIANTS = ("white",)
+VARIANTS = ("grey",)
 MAX_DOWNLOAD = 12  # photos fetched per album (enough to find 3 full + 2 detail)
 
 

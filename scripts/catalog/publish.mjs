@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 const args = process.argv.slice(2);
 const arg = (k, d) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : d; };
 const APPLY = args.includes("--apply");
-const VARIANT = arg("--variant", "white");
+const VARIANT = arg("--variant", "grey");
 const PHASE = arg("--phase", "files");
 const INCLUDE_FLAGGED = args.includes("--include-flagged");
 const PRE_ORDER = args.includes("--pre-order");

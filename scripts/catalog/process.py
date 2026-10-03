@@ -29,13 +29,17 @@ PHONE = "+212 628 552 405"
 
 # Backdrop palettes: (centre colour, edge colour)
 VARIANTS = {
-    "white": ((255, 255, 255), (240, 240, 240)),  # owner's choice: clean white
+    "white": ((255, 255, 255), (240, 240, 240)),  # clean white (used until 2026-10)
+    "grey": ((244, 244, 244), (222, 222, 222)),   # soft studio grey
+    "warm": ((246, 243, 239), (226, 221, 214)),   # warm stone
+    "cool": ((241, 244, 247), (218, 224, 231)),   # cool mist
     "light": ((243, 243, 243), (214, 214, 214)),  # light grey
     "studio": ((112, 112, 112), (58, 58, 58)),    # matches older grey photos
 }
 
 WEBP_QUALITY = 90   # high quality: keeps the knit texture and crest edges crisp
 SHARPEN = True      # light unsharp mask after the final resize
+WATERMARK = False   # owner removed the watermark (2026-10)
 
 MAX_FULL = 3     # full jersey shots per product
 MAX_DETAIL = 2   # close-up shots per product
@@ -357,7 +361,7 @@ def frame_detail(detail: dict, variant: str) -> Image.Image:
     pure fabric/logo close-ups (nothing to remove) are shown as a rounded,
     softly shadowed photo card on the same white backdrop."""
     square = detail["square"]
-    if variant != "white":
+    if variant not in ("white", "grey", "warm", "cool"):
         return square
     if detail["wall_cut"] is not None:
         return render_wall_closeup(detail["wall_cut"], variant)
@@ -385,6 +389,8 @@ def _text_layer(text: str, font: ImageFont.FreeTypeFont, angle: float, fill, str
 
 
 def watermark(img: Image.Image, variant: str) -> Image.Image:
+    if not WATERMARK:
+        return img
     base = img.convert("RGBA")
     over = Image.new("RGBA", base.size, (0, 0, 0, 0))
     sw = 1
