@@ -37,7 +37,25 @@ git add -A public/catalog && git commit && git push
   unsharp mask (`WEBP_QUALITY` / `SHARPEN` in process.py).
 - `process.py`: BiRefNet (MIT) via rembg on CUDA (~1 s/photo). Full-shot vs
   close-up classifier calibrated with `_features.py`; care labels skipped.
-  Full shots are cut out onto white; close-ups (pure fabric, nothing to cut
-  out) are shown as a rounded, shadowed photo card on the same white backdrop.
+  Full shots are cut out onto the soft grey backdrop (`grey` variant, no
+  watermark since 2026-10); close-ups (pure fabric, nothing to cut out) are
+  shown as a rounded, shadowed photo card on the same backdrop.
 - `publish.mjs`: 280 MAD, sizes S–XXL, "Available" (add `--pre-order` to change),
   name `<Team> 26-27 <Kit> Player Version`, description in the owner's style.
+
+## Minkang trial (minkang.x.yupoo.com, 2026-10-03)
+Pro studio shoot (mannequin, macro close-ups), 1000px originals. Currently
+used for Real Madrid home/away and Barcelona home/away/third, for the owner's
+client to compare against Wanfing.
+- Their close-ups carry a fixed "minkang.x.yupoo.com" text stamp (front/back
+  shots don't). `dewatermark.py fit work/minkang/src work/minkang/fit` measures
+  it (per-pixel opacity from ~90 photos) and `remove()` inverts it — brightness
+  at full res, colour at JPEG's half res, strength self-calibrated locally,
+  flat surfaces/leftover traces filled from neighbours. The real fabric under
+  the letters comes back; nothing is invented.
+- `run_minkang.py`: hand-picked photos per product (`PICKS`): front/back
+  cut-outs (stand pole trimmed) + 3 full-bleed close-ups (crest, sponsor,
+  brand). Rewrites those slugs in `work/results.json` (Wanfing version kept in
+  `work/results_wanfing.json` — copy it back + re-publish to revert).
+- Real Madrid third stays on Wanfing (Minkang album has only 2 photos).
+- Use of the supplier's photos without their stamp: confirm with Minkang.
