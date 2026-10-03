@@ -76,18 +76,23 @@ def album_cards(cat_html: str) -> list[dict]:
 
 
 def album_photos(album_id: str) -> list[str]:
-    """Photo URLs in album order, one per photo (prefer the 'big' rendition)."""
+    """Photo URLs in album order, one per photo — the ORIGINAL upload
+    (e.g. 1254px) rather than Yupoo's resized 'big' copy (1080px), which made
+    the shirts slightly soft. Falls back to 'big' if no original is listed."""
     h = fetch(f"{BASE}/albums/{album_id}?uid=1")
     urls = re.findall(r'(?:https:)?//photo\.yupoo\.com/wanfing/([a-z0-9]+)/([a-z0-9]+)\.(jpg|jpeg|png|webp)', h)
-    order, best = [], {}
+    order, orig, big = [], {}, {}
     for folder, name, ext in urls:
         if name in ("small", "medium", "square", "thumb"):
             continue
-        if folder not in best:
+        if folder not in order:
             order.append(folder)
-        if folder not in best or name == "big":
-            best[folder] = f"https://photo.yupoo.com/wanfing/{folder}/{name}.{ext}"
-    return [best[f] for f in order]
+        url = f"https://photo.yupoo.com/wanfing/{folder}/{name}.{ext}"
+        if name == "big":
+            big.setdefault(folder, url)
+        else:
+            orig.setdefault(folder, url)
+    return [orig.get(f) or big[f] for f in order]
 
 
 def choose(cands: list[dict]) -> dict:

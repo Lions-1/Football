@@ -32,6 +32,9 @@ git add -A public/catalog && git commit && git push
 ## Rules baked in
 - `select_albums.py`: 2026/27, men's, Home/Away/Third, **Player version only**,
   newest album when a kit is listed twice. Club → Wanfing category ids in `CLUBS`.
+- `select_albums.py` downloads each photo's ORIGINAL upload (~1254px), not
+  Yupoo's resized 'big' copy (1080px). Output is WebP quality 90 + a light
+  unsharp mask (`WEBP_QUALITY` / `SHARPEN` in process.py).
 - `process.py`: BiRefNet (MIT) via rembg on CUDA (~1 s/photo). Full-shot vs
   close-up classifier calibrated with `_features.py`; care labels skipped.
   Full shots are cut out onto white; close-ups (pure fabric, nothing to cut

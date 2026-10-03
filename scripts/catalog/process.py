@@ -34,6 +34,9 @@ VARIANTS = {
     "studio": ((112, 112, 112), (58, 58, 58)),    # matches older grey photos
 }
 
+WEBP_QUALITY = 90   # high quality: keeps the knit texture and crest edges crisp
+SHARPEN = True      # light unsharp mask after the final resize
+
 MAX_FULL = 3     # full jersey shots per product
 MAX_DETAIL = 2   # close-up shots per product
 
@@ -448,7 +451,9 @@ def process_product(paths: list[str], out_dir: str,
         written[v] = []
         for i, im in enumerate(imgs):
             f = out / f"{i + 1}.webp"
-            watermark(im, v).save(f, "WEBP", quality=80, method=6)
+            if SHARPEN:
+                im = im.filter(ImageFilter.UnsharpMask(radius=1.2, percent=55, threshold=2))
+            watermark(im, v).save(f, "WEBP", quality=WEBP_QUALITY, method=6)
             written[v].append(str(f))
     return written, len(fulls), len(details)
 
