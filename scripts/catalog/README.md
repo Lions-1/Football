@@ -43,19 +43,29 @@ git add -A public/catalog && git commit && git push
 - `publish.mjs`: 280 MAD, sizes S–XXL, "Available" (add `--pre-order` to change),
   name `<Team> 26-27 <Kit> Player Version`, description in the owner's style.
 
-## Minkang trial (minkang.x.yupoo.com, 2026-10-03)
-Pro studio shoot (mannequin, macro close-ups), 1000px originals. Currently
-used for Real Madrid home/away and Barcelona home/away/third, for the owner's
-client to compare against Wanfing.
-- Their close-ups carry a fixed "minkang.x.yupoo.com" text stamp (front/back
-  shots don't). `dewatermark.py fit work/minkang/src work/minkang/fit` measures
-  it (per-pixel opacity from ~90 photos) and `remove()` inverts it — brightness
-  at full res, colour at JPEG's half res, strength self-calibrated locally,
-  flat surfaces/leftover traces filled from neighbours. The real fabric under
-  the letters comes back; nothing is invented.
-- `run_minkang.py`: hand-picked photos per product (`PICKS`): front/back
-  cut-outs (stand pole trimmed) + 3 full-bleed close-ups (crest, sponsor,
-  brand). Rewrites those slugs in `work/results.json` (Wanfing version kept in
-  `work/results_wanfing.json` — copy it back + re-publish to revert).
-- Real Madrid third stays on Wanfing (Minkang album has only 2 photos).
-- Use of the supplier's photos without their stamp: confirm with Minkang.
+## Minkang (current source, since 2026-10-03)
+The owner's client chose Minkang's own studio look (dark wall, mannequin).
+```
+.venv\Scripts\python select_minkang.py            # 1. pick albums + download originals (all clubs, or name some)
+.venv\Scripts\python run_minkang.py               # 2. photo roles + stamp removal -> work/results.json + review_*.jpg
+#   look at work/minkang/review_*.jpg; fix a bad pick with PICKS in run_minkang.py
+node publish.mjs --phase files --keep-old --apply  # 3. then commit + push, wait for the deploy
+node publish.mjs --phase db --apply                # 4. create new / refresh existing products
+node publish.mjs --phase retire                    # 5. (dry run) products no longer in results.json; add --apply to delete (backup written)
+node publish.mjs --phase prune --apply             # 6. later (>15 min, cached pages): drop unused images, commit + push
+```
+- `select_minkang.py`: `CLUBS` = DB team slug -> Minkang category (they use
+  "LFC", "M-U", "Juv"...). 26/27, player version, men's short sleeve,
+  Home/Away/Third, most photos then newest. `ALBUM_OVERRIDES` fixes albums
+  Minkang mislabels (M-U & Chelsea "Third" that are really the away).
+  Liverpool and Juventus albums are password-protected ("加密相册") — ask
+  Minkang for the password. Kits with only front+back photos are kept.
+- `run_minkang.py`: FULL shots (mostly studio wall, centred subject) are used
+  exactly as shot — no stamp on them. CLOSE-ups (no wall, cut-out not touching
+  the top) get the stamp inverted out and are ranked by logo size (crest /
+  sponsor first). Odd-sized uploads are skipped as close-ups.
+- `dewatermark.py fit work/minkang/src work/minkang/fit` re-measures the stamp
+  (per-pixel opacity, ~260 photos); `remove()` inverts it at JPEG resolution
+  (brightness full-res, colour half-res), fills leftover traces on flat
+  surfaces. `CALIBRATE` stays False (tested worse on bright fabric).
+- Season label: clubs `26-27` (2026/27), national teams `2026` (`NATIONAL`).
