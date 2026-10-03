@@ -29,6 +29,9 @@ WORK = HERE / "work"
 SRC = WORK / "minkang" / "src"
 OUT = WORK / "out_minkang"
 VARIANT = "grey"
+# Owner's call (2026-10-03): keep Minkang's own dark studio background on the
+# front/back shots (they carry no stamp) so the client compares light vs dark.
+KEEP_STUDIO = True
 
 # slug -> (full shots front/back, close-ups: crest, sponsor, brand) by photo number
 PICKS = {
@@ -62,6 +65,8 @@ def trim_pole(cut: Image.Image) -> Image.Image:
 def full(path: Path) -> Image.Image:
     from rembg import remove
     src = Image.open(path).convert("RGB")
+    if KEEP_STUDIO:
+        return P.render_detail(src)
     cut = trim_pole(P.keep_main_subject(remove(src, session=P._rembg_session())))
     bbox = cut.getchannel("A").point(lambda v: 255 if v > 128 else 0).getbbox()
     return P.render_full(cut, bbox, VARIANT)
