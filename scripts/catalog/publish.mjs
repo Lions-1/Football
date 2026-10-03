@@ -40,13 +40,16 @@ const BRAND = {
   "bayern-munich": "Adidas", "borussia-dortmund": "Puma", "juventus": "Adidas",
   "inter-milan": "Nike", "ac-milan": "Puma", "napoli": "EA7", "as-roma": "Adidas",
   "paris-saint-germain": "Nike", "olympique-marseille": "Puma",
+  "aston-villa": "Adidas", "crystal-palace": "Macron", "morocco": "Puma",
 };
+// season label in the slug/name -> season field + description text
+const SEASONS = { "26-27": "2026/27", "2026": "2026" };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const WORK = path.join(ROOT, "scripts", "catalog", "work");
 const PUBLIC_DIR = path.join(ROOT, "public", "catalog");
 
-const results = PHASE === "prune" ? [] : JSON.parse(fs.readFileSync(path.join(WORK, "results.json"), "utf8"))
+const results = PHASE === "prune" || PHASE === "retire" ? [] : JSON.parse(fs.readFileSync(path.join(WORK, "results.json"), "utf8"))
   .filter((r) => INCLUDE_FLAGGED || !r.flag)
   .filter((r) => (r.files[VARIANT] || []).length > 0);
 
@@ -102,16 +105,18 @@ async function phaseDb() {
       continue;
     }
     const kit = KIT_LABEL[r.kit];
+    const label = r.season || "26-27";
+    const season = SEASONS[label] || SEASON;
     const data = {
-      name: `${team.name} 26-27 ${kit} Player Version`,
-      description: [BRAND[r.team], team.name, SEASON, kit, "Jersey Player Version Men's"].filter(Boolean).join(" "),
+      name: `${team.name} ${label} ${kit} Player Version`,
+      description: [BRAND[r.team], team.name, season, kit, "Jersey Player Version Men's"].filter(Boolean).join(" "),
       slug: r.slug,
       price: PRICE_MAD,
       images: urls,
       sizes: JSON.stringify(SIZES),
       teamId: team.id,
       category: "jersey",
-      season: SEASON,
+      season,
       surCommande: PRE_ORDER,
     };
     console.log(`  + ${data.name.padEnd(38)} ${files.length} imgs  ${PRICE_MAD} MAD`);
@@ -143,4 +148,23 @@ async function phasePrune() {
   console.log(`${APPLY ? "Removed" : "Would remove"} ${removed} unreferenced files (${used.size} in use).`);
 }
 
-await (PHASE === "db" ? phaseDb() : PHASE === "prune" ? phasePrune() : phaseFiles());
+/** Delete products that are not in results.json (e.g. the old Wanfing catalog),
+ *  after writing a JSON backup of them to work/. Refuses if any has an order. */
+async function phaseRetire() {
+  const prisma = new PrismaClient();
+  const keep = new Set(JSON.parse(fs.readFileSync(path.join(WORK, "results.json"), "utf8")).map((r) => r.slug));
+  const gone = (await prisma.product.findMany({ include: { team: { select: { slug: true } } } })).filter((p) => !keep.has(p.slug));
+  const ordered = await prisma.orderItem.findMany({ where: { productId: { in: gone.map((p) => p.id) } }, select: { productId: true } }).catch(() => []);
+  if (ordered.length) { console.log(`  ! ${ordered.length} order line(s) reference these products — not deleting`); await prisma.$disconnect(); return; }
+  for (const p of gone) console.log(`  - ${p.slug}`);
+  if (APPLY && gone.length) {
+    const f = path.join(WORK, `backup-retired-products-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}.json`);
+    fs.writeFileSync(f, JSON.stringify(gone, null, 1));
+    await prisma.product.deleteMany({ where: { id: { in: gone.map((p) => p.id) } } });
+    console.log(`  backup: ${path.relative(ROOT, f)}`);
+  }
+  console.log(`${APPLY ? "Deleted" : "Would delete"} ${gone.length} products not in results.json (keeping ${keep.size}).`);
+  await prisma.$disconnect();
+}
+
+await (PHASE === "db" ? phaseDb() : PHASE === "prune" ? phasePrune() : PHASE === "retire" ? phaseRetire() : phaseFiles());

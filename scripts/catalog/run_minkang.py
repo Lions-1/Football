@@ -1,14 +1,25 @@
-"""Minkang trial (2026-10-03): re-render chosen products from minkang.x.yupoo.com.
+"""Stage 2 (Minkang) — turn each downloaded album into the product photos.
 
-Their shoot is pro studio (mannequin, dark wall, macro close-ups). Front/back
-shots: GPU cut-out onto the site backdrop, stand pole trimmed. Close-ups: the
-Yupoo text stamp is inverted out (dewatermark.py) and the photo is shown
-full-bleed (they are pure fabric — no wall to hide).
+The owner's client chose Minkang's own studio look (2026-10-03):
+  1-2. front + back exactly as shot (dark studio wall, mannequin) — these
+       photos carry no stamp, nothing is altered;
+  3-5. up to 3 close-ups of pure fabric (crest / sponsor / brand logo) with the
+       Yupoo text stamp inverted out (dewatermark.py), shown full-bleed.
 
-Updates work/results.json in place for these slugs (Wanfing version kept in
-work/results_wanfing.json) so publish.mjs works unchanged.
+Photo roles are found automatically (calibrated 2026-10-03 on 5 hand-labelled
+albums, 47 photos, 0 errors):
+  - FULL  = mostly studio wall (>= 50% of the frame) and the GPU cut-out is a
+            centred subject (25-50% of the frame, not touching left/right)
+  - CLOSE = (almost) no wall, cut-out doesn't touch the top edge (rejects
+            collar/sleeve shots with the mannequin). On these the cut-out
+            isolates the logo, so its size ranks crest/sponsor shots first.
+Override per product in PICKS when the review sheet shows a bad choice.
 
-  .venv\\Scripts\\python run_minkang.py
+Writes work/out_minkang/<slug>/grey/n.webp, work/results.json (the file
+publish.mjs reads) and review sheets work/minkang/review_*.jpg.
+
+  .venv\\Scripts\\python run_minkang.py              # all products in the manifest
+  .venv\\Scripts\\python run_minkang.py napoli-26-27-home
 """
 from __future__ import annotations
 
@@ -18,7 +29,8 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter
+from scipy import ndimage as nd
 
 sys.path.insert(0, str(Path(__file__).parent))
 import dewatermark  # noqa: E402
@@ -28,65 +40,102 @@ HERE = Path(__file__).parent
 WORK = HERE / "work"
 SRC = WORK / "minkang" / "src"
 OUT = WORK / "out_minkang"
-VARIANT = "grey"
-# Owner's call (2026-10-03): keep Minkang's own dark studio background on the
-# front/back shots (they carry no stamp) so the client compares light vs dark.
-KEEP_STUDIO = True
+VARIANT = "grey"     # folder name publish.mjs reads (the backdrop is now the studio's own)
+MAX_CLOSE = 3
 
-# slug -> (full shots front/back, close-ups: crest, sponsor, brand) by photo number
-PICKS = {
-    "real-madrid-26-27-home": ([1, 2], [7, 8, 6]),
-    "real-madrid-26-27-away": ([1, 2], [4, 5, 3]),
-    "fc-barcelona-26-27-home": ([1, 2], [4, 5, 3]),
-    "fc-barcelona-26-27-away": ([1, 2], [7, 8, 6]),
-    "fc-barcelona-26-27-third": ([1, 9], [6, 7, 5]),
-}
+# manual overrides: slug -> ([front, back], [close-ups...]) by photo number
+PICKS: dict[str, tuple[list[int], list[int]]] = {}
 
 
-def trim_pole(cut: Image.Image) -> Image.Image:
-    """Remove the thin display stand below the mannequin/shirt."""
-    a = np.array(cut.getchannel("A")) > 128
-    widths = a.sum(1)
-    big = widths.max()
-    rows = np.where(widths > 0)[0]
-    # walk up from the bottom while the subject is only pole-thin
-    y = rows.max()
-    while y > rows.min() and widths[y] < big * 0.12:
-        y -= 1
-    if rows.max() - y < 8:
-        return cut
-    al = np.array(cut.getchannel("A"))
-    al[y + 1:] = 0
-    out = cut.copy()
-    out.putalpha(Image.fromarray(al))
-    return out
-
-
-def full(path: Path) -> Image.Image:
+def features(src: Image.Image) -> dict:
     from rembg import remove
-    src = Image.open(path).convert("RGB")
-    if KEEP_STUDIO:
-        return P.render_detail(src)
-    cut = trim_pole(P.keep_main_subject(remove(src, session=P._rembg_session())))
-    bbox = cut.getchannel("A").point(lambda v: 255 if v > 128 else 0).getbbox()
-    return P.render_full(cut, bbox, VARIANT)
+    a = np.array(remove(src, session=P._rembg_session()).getchannel("A")) > 128
+    hsv = np.array(src.convert("HSV")).astype(float)
+    g = np.array(src.convert("L")).astype(float)
+    std = np.sqrt(np.clip(nd.uniform_filter(g * g, 9) - nd.uniform_filter(g, 9) ** 2, 0, None))
+    return {
+        "cov": float(a.mean()),
+        "lr": float(np.concatenate([a[:, 0], a[:, -1]]).mean()),
+        "top": float(a[0].mean()),
+        # Minkang's studio wall: smooth, grey, mid-dark
+        "wall": float(((hsv[..., 1] < 45) & (g > 35) & (g < 150) & (std < 4)).mean()),
+    }
 
 
-def detail(path: Path) -> Image.Image:
-    img = dewatermark.remove(Image.open(path).convert("RGB"))
+def role(f: dict) -> str:
+    if f["wall"] >= 0.50 and f["lr"] <= 0.01 and 0.25 <= f["cov"] <= 0.50:
+        return "full"
+    if f["wall"] <= 0.07 and f["top"] <= 0.05 and f["lr"] <= 0.25:
+        return "close"
+    return "skip"
+
+
+def auto_pick(photos: dict[int, Path]) -> tuple[list[int], list[int], dict]:
+    feats, fulls, closes = {}, [], []
+    for n, p in sorted(photos.items()):
+        src = Image.open(p).convert("RGB")
+        f = features(src)
+        f["role"] = r = role(f)
+        if r == "close" and src.size != dewatermark.SIZE:
+            # the stamp model is exact only on 1000x1000 uploads (1 photo in 212 differs)
+            f["role"] = r = "skip"
+            f["note"] = f"odd size {src.size}"
+        feats[n] = f
+        if r == "full":
+            fulls.append(n)
+        elif r == "close":
+            closes.append(n)
+    # biggest logo first (crest / sponsor), then album order
+    closes.sort(key=lambda n: -feats[n]["cov"])
+    return fulls[:2], closes[:MAX_CLOSE], feats
+
+
+def square(img: Image.Image) -> Image.Image:
     return P.render_detail(img)
 
 
-def main() -> None:
+def render(slug: str, fulls: list[int], closes: list[int], photos: dict[int, Path]) -> list[Image.Image]:
+    imgs = [square(Image.open(photos[n]).convert("RGB")) for n in fulls]
+    for n in closes:
+        img = Image.open(photos[n]).convert("RGB")
+        imgs.append(square(dewatermark.remove(img)))
+    return imgs
+
+
+def review(rows: list[tuple[str, list[Path]]], path: Path) -> None:
+    T = 240
+    sheet = Image.new("RGB", (5 * T + 260, len(rows) * T), "white")
+    d = ImageDraw.Draw(sheet)
+    for y, (slug, files) in enumerate(rows):
+        d.text((6, y * T + 8), slug.replace("-26-27-", "\n26-27 ").replace("-2026-", "\n2026 "), fill="black")
+        for x, f in enumerate(files):
+            sheet.paste(Image.open(f).resize((T - 4, T - 4), Image.LANCZOS), (260 + x * T, y * T))
+    sheet.save(path, quality=86)
+
+
+def main(only: list[str]) -> None:
+    manifest = json.loads((WORK / "minkang" / "manifest.json").read_text("utf8"))
     res_path = WORK / "results.json"
-    backup = WORK / "results_wanfing.json"
-    if not backup.exists():
-        shutil.copy(res_path, backup)
-    results = json.loads(res_path.read_text("utf8"))
-    by_slug = {r["slug"]: r for r in results}
-    for slug, (fulls, details) in PICKS.items():
-        src = {int(p.stem): p for p in (SRC / slug).iterdir()}
-        imgs = [full(src[n]) for n in fulls] + [detail(src[n]) for n in details]
+    if not (WORK / "results_wanfing.json").exists() and res_path.exists():
+        shutil.copy(res_path, WORK / "results_wanfing.json")
+    old = {r["slug"]: r for r in json.loads(res_path.read_text("utf8"))} if res_path.exists() else {}
+    results = {s: r for s, r in old.items() if r.get("source") == "minkang"}
+    log, rows = {}, []
+    for m in manifest:
+        slug = m["slug"]
+        if only and slug not in only:
+            if slug in results:
+                rows.append((slug, [HERE / f for f in results[slug]["files"][VARIANT]]))
+            continue
+        photos = {int(p.stem): p for p in (SRC / slug).iterdir() if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")}
+        fulls, closes, feats = auto_pick(photos)
+        if slug in PICKS:
+            fulls, closes = PICKS[slug]
+        # flag = don't publish (publish.mjs skips flagged). A kit the supplier
+        # has only shot front+back is fine to sell; a missing front/back isn't.
+        flag = f"only {len(fulls)} front/back shot(s)" if len(fulls) < 2 else None
+        note = f"{len(closes)} close-up(s)" if len(closes) < 2 else None
+        imgs = render(slug, fulls, closes, photos)
         out = OUT / slug / VARIANT
         shutil.rmtree(out, ignore_errors=True)
         out.mkdir(parents=True)
@@ -97,11 +146,19 @@ def main() -> None:
             f = out / f"{i + 1}.webp"
             im.save(f, "WEBP", quality=P.WEBP_QUALITY, method=6)
             files.append(str(f.relative_to(HERE)).replace("\\", "/"))
-        by_slug[slug]["files"][VARIANT] = files
-        by_slug[slug]["source"] = "minkang"
-        print(f"{slug}: {len(files)} images")
-    res_path.write_text(json.dumps(results, indent=1), "utf8")
+        results[slug] = {"slug": slug, "team": m["team"], "kit": m["kit"], "season": m["season"],
+                         "album": m["album"], "title": m["title"], "source": "minkang",
+                         "full": len(fulls), "detail": len(closes), "flag": flag, "note": note,
+                         "files": {VARIANT: files}}
+        log[slug] = {"fulls": fulls, "closes": closes, "feats": feats}
+        rows.append((slug, [HERE / f for f in files]))
+        print(f"{slug:36s} front/back {fulls} close {closes}" + (f"  !! {flag}" if flag else f"  ({note})" if note else ""), flush=True)
+    res_path.write_text(json.dumps(list(results.values()), indent=1), "utf8")
+    (WORK / "minkang" / "picks_log.json").write_text(json.dumps(log, indent=1), "utf8")
+    for i in range(0, len(rows), 8):
+        review(rows[i:i + 8], WORK / "minkang" / f"review_{i // 8 + 1}.jpg")
+    print(f"{len(results)} products, review sheets: work/minkang/review_*.jpg")
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

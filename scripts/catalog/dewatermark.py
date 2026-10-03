@@ -25,6 +25,7 @@ MODEL = HERE / "work" / "minkang" / "wm.npz"
 SIZE = (1000, 1000)
 PAD = 8
 FLAT_LO, FLAT_HI = 30.0, 110.0   # local variance: below LO = flat surface, above HI = textured fabric
+CALIBRATE = False                # local self-calibration: tested worse on bright fabric (2026-10-03), off
 GHOST_LO = 0.12                  # local correlation with the letter outlines that counts as a visible trace
 HALO = 6                         # px around the letter outlines included in the fit (the stamp has a soft halo)
 
@@ -104,13 +105,37 @@ def _m():
     return _model
 
 
-def has_watermark(img: Image.Image) -> bool:
+def locate(img: Image.Image) -> tuple[int, int, float]:
+    """Where the stamp sits: (dy, dx) shift of the fitted box, and match score.
+    On 1000x1000 uploads it is exactly at the fitted box; other sizes (e.g.
+    1000x1250) get it elsewhere, so search around the centred position."""
     m = _m()
-    if img.size != SIZE:
-        return False
-    y0, y1, x0, x1 = m["box"]
-    g = _grad(np.asarray(img.convert("RGB"), dtype=np.float32)[y0:y1, x0:x1])
-    return np.corrcoef(g.ravel(), (1 - m["gamma"]).ravel())[0, 1] > 0.10
+    y0, y1, x0, x1 = (int(v) for v in m["box"])
+    tmpl = _grad(np.repeat((1 - m["gamma"])[..., None], 3, 2) * 255).ravel()
+    g = _grad(np.asarray(img.convert("RGB"), dtype=np.float32))
+    H, W = g.shape
+
+    def score(dy, dx):
+        if y0 + dy < 0 or x0 + dx < 0 or y1 + dy > H or x1 + dx > W:
+            return -1.0
+        return float(np.corrcoef(g[y0 + dy:y1 + dy, x0 + dx:x1 + dx].ravel(), tmpl)[0, 1])
+
+    if img.size == SIZE:
+        return 0, 0, score(0, 0)
+    best = (-1.0, 0, 0)
+    for cy, cx in {((H - SIZE[1]) // 2, (W - SIZE[0]) // 2), (0, 0)}:
+        for dy in range(cy - 40, cy + 41, 4):
+            for dx in range(cx - 40, cx + 41, 4):
+                best = max(best, (score(dy, dx), dy, dx))
+    _, by, bx = best
+    for dy in range(by - 3, by + 4):                 # refine to the pixel
+        for dx in range(bx - 3, bx + 4):
+            best = max(best, (score(dy, dx), dy, dx))
+    return best[1], best[2], best[0]
+
+
+def has_watermark(img: Image.Image) -> bool:
+    return locate(img)[2] > 0.10
 
 
 def _ycc(rgb):
@@ -147,9 +172,13 @@ def remove(img: Image.Image) -> Image.Image:
     letter shapes), then smooth that scale.
     """
     m = _m()
-    if img.size != SIZE:
-        return img
-    y0, y1, x0, x1 = m["box"]
+    # Minkang stamps every 1000x1000 close-up at the same spot: always invert
+    # there (detection is weak on dark patterned fabric). Other sizes: search.
+    dy, dx, sc = (0, 0, 1.0) if img.size == SIZE else locate(img)
+    if sc <= 0.05:
+        return img                                    # no stamp found
+    y0, y1, x0, x1 = (int(v) for v in m["box"])
+    y0, y1, x0, x1 = y0 + dy, y1 + dy, x0 + dx, x1 + dx
     # work on an even-aligned, padded window so the chroma grid matches the JPEG's
     Y0, X0 = y0 - y0 % 2 - 8, x0 - x0 % 2 - 8
     Y1, X1 = y1 + 8 + (y1 % 2), x1 + 8 + (x1 % 2)
@@ -169,7 +198,7 @@ def remove(img: Image.Image) -> Image.Image:
         score.append(np.abs(win((Jk - nd.gaussian_filter(Jk, 3.0)) * hpP)))
     sbest = scales[np.argmin(np.stack(score), 0)]
     conf = np.clip(win(hpP * hpP) / (win(hpP * hpP).max() * 0.15), 0, 1)
-    sm = np.clip(nd.gaussian_filter(sbest * conf + (1 - conf), 6.0), 0.5, 1.8)
+    sm = np.clip(nd.gaussian_filter(sbest * conf + (1 - conf), 6.0), 0.5, 1.8) if CALIBRATE else np.ones_like(P)
     a = np.clip(sm * P, 0, 0.85)
     Yj = (Yc - a * c) / (1 - a)
     ac = np.clip(_chroma_blur(a), 0, 0.85)                  # stamp is neutral grey:
