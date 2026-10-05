@@ -176,6 +176,8 @@ export const CLUB_LOGOS: Record<string, string> = {
   // Saudi Pro League
   "al-hilal":          "https://crests.football-data.org/1920.png",
   "al-nassr":          "https://crests.football-data.org/1919.png",
+  // Other clubs (owner's stock)
+  "celtic":            "https://crests.football-data.org/732.png",
 };
 
 // Premier League marquee — the 20 PL clubs we feature in the homepage

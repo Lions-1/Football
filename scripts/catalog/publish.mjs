@@ -42,6 +42,12 @@ const BRAND = {
   "paris-saint-germain": "Nike", "olympique-marseille": "Puma",
   "aston-villa": "Adidas", "crystal-palace": "Macron", "morocco": "Puma",
 };
+// Teams the owner's stock needs that the seed doesn't have: slug -> [name, league slug, league name]
+const NEW_TEAMS = {
+  "celtic": ["Celtic", "other-clubs", "Other Clubs"],
+  "boca-juniors": ["Boca Juniors", "other-clubs", "Other Clubs"],
+  "newells-old-boys": ["Newell's Old Boys", "other-clubs", "Other Clubs"],
+};
 // season label in the slug/name -> season field + description text
 const SEASONS = { "26-27": "2026/27", "2026": "2026" };
 
@@ -84,6 +90,15 @@ async function phaseFiles() {
 async function phaseDb() {
   const prisma = new PrismaClient();
   const teams = new Map((await prisma.team.findMany({ select: { id: true, slug: true, name: true } })).map((t) => [t.slug, t]));
+  for (const r of results) {
+    if (teams.has(r.team) || !NEW_TEAMS[r.team]) continue;
+    const [name, lslug, lname] = NEW_TEAMS[r.team];
+    console.log(`  + team ${name} (${lname})`);
+    if (!APPLY) { teams.set(r.team, { id: "dry", slug: r.team, name }); continue; }
+    const maxOrder = (await prisma.league.aggregate({ _max: { order: true } }))._max.order ?? 0;
+    const league = await prisma.league.upsert({ where: { slug: lslug }, update: {}, create: { slug: lslug, name: lname, order: maxOrder + 1 } });
+    teams.set(r.team, await prisma.team.create({ data: { slug: r.team, name, leagueId: league.id }, select: { id: true, slug: true, name: true } }));
+  }
   let created = 0, skipped = 0;
   for (const r of results) {
     const team = teams.get(r.team);
@@ -106,16 +121,19 @@ async function phaseDb() {
     }
     const kit = KIT_LABEL[r.kit];
     const label = r.season || "26-27";
-    const season = SEASONS[label] || SEASON;
+    const season = r.season_text || SEASONS[label] || SEASON;
+    const player = r.player !== false;            // stock items are fan / retro shirts
+    const retro = r.category === "retro";
     const data = {
-      name: `${team.name} ${label} ${kit} Player Version`,
-      description: [BRAND[r.team], team.name, season, kit, "Jersey Player Version Men's"].filter(Boolean).join(" "),
+      name: `${team.name} ${label} ${kit}` + (player ? " Player Version" : retro ? " Retro" : ""),
+      description: [r.brand || BRAND[r.team], team.name, season, kit,
+        player ? "Jersey Player Version Men's" : retro ? "Retro Jersey Men's" : "Jersey Men's"].filter(Boolean).join(" "),
       slug: r.slug,
       price: PRICE_MAD,
       images: urls,
       sizes: JSON.stringify(SIZES),
       teamId: team.id,
-      category: "jersey",
+      category: r.category || "jersey",
       season,
       surCommande: PRE_ORDER,
     };

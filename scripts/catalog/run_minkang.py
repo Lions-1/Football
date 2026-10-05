@@ -44,7 +44,14 @@ VARIANT = "grey"     # folder name publish.mjs reads (the backdrop is now the st
 MAX_CLOSE = 3
 
 # manual overrides: slug -> ([front, back], [close-ups...]) by photo number
-PICKS: dict[str, tuple[list[int], list[int]]] = {}
+PICKS: dict[str, tuple[list[int], list[int]]] = {
+    # stock retros (older shoots: back is the last photo, crest close-ups missed)
+    "france-2006-away-retro": ([1, 7], [4, 5, 3]),
+    "fc-barcelona-14-15-home-retro": ([1, 8], [5, 6, 4]),
+    "fc-barcelona-07-08-home-retro": ([1, 8], [5, 6, 4]),
+    "argentina-2006-away-retro": ([1, 7], [4, 5]),
+    "celtic-98-99-home-retro": ([1, 6], [3, 4]),
+}
 
 
 def features(src: Image.Image) -> dict:
@@ -113,8 +120,9 @@ def review(rows: list[tuple[str, list[Path]]], path: Path) -> None:
     sheet.save(path, quality=86)
 
 
-def main(only: list[str]) -> None:
-    manifest = json.loads((WORK / "minkang" / "manifest.json").read_text("utf8"))
+def main(only: list[str], manifest_name: str = "manifest.json") -> None:
+    manifest = json.loads((WORK / "minkang" / manifest_name).read_text("utf8"))
+    tag = "" if manifest_name == "manifest.json" else Path(manifest_name).stem.replace("manifest_", "") + "_"
     res_path = WORK / "results.json"
     if not (WORK / "results_wanfing.json").exists() and res_path.exists():
         shutil.copy(res_path, WORK / "results_wanfing.json")
@@ -124,13 +132,19 @@ def main(only: list[str]) -> None:
     for m in manifest:
         slug = m["slug"]
         if only and slug not in only:
-            if slug in results:
+            if slug in results and not tag:
                 rows.append((slug, [HERE / f for f in results[slug]["files"][VARIANT]]))
             continue
         photos = {int(p.stem): p for p in (SRC / slug).iterdir() if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp")}
         fulls, closes, feats = auto_pick(photos)
         if slug in PICKS:
             fulls, closes = PICKS[slug]
+        elif len(fulls) < 2 and len(photos) >= 2:
+            # older uploads (hanger on a light wall) don't look like the studio
+            # shots: fall back to the album order, front then back
+            fulls = sorted(photos)[:2]
+            closes = [n for n in closes if n not in fulls]
+            feats["fallback"] = "front/back by album order"
         # flag = don't publish (publish.mjs skips flagged). A kit the supplier
         # has only shot front+back is fine to sell; a missing front/back isn't.
         flag = f"only {len(fulls)} front/back shot(s)" if len(fulls) < 2 else None
@@ -149,16 +163,19 @@ def main(only: list[str]) -> None:
         results[slug] = {"slug": slug, "team": m["team"], "kit": m["kit"], "season": m["season"],
                          "album": m["album"], "title": m["title"], "source": "minkang",
                          "full": len(fulls), "detail": len(closes), "flag": flag, "note": note,
-                         "files": {VARIANT: files}}
+                         "files": {VARIANT: files},
+                         **{k: m[k] for k in ("brand", "category", "season_text", "player") if k in m}}
         log[slug] = {"fulls": fulls, "closes": closes, "feats": feats}
         rows.append((slug, [HERE / f for f in files]))
         print(f"{slug:36s} front/back {fulls} close {closes}" + (f"  !! {flag}" if flag else f"  ({note})" if note else ""), flush=True)
     res_path.write_text(json.dumps(list(results.values()), indent=1), "utf8")
     (WORK / "minkang" / "picks_log.json").write_text(json.dumps(log, indent=1), "utf8")
     for i in range(0, len(rows), 8):
-        review(rows[i:i + 8], WORK / "minkang" / f"review_{i // 8 + 1}.jpg")
+        review(rows[i:i + 8], WORK / "minkang" / f"review_{tag}{i // 8 + 1}.jpg")
     print(f"{len(results)} products, review sheets: work/minkang/review_*.jpg")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    args = sys.argv[1:]
+    man = next((a for a in args if a.endswith(".json")), "manifest.json")
+    main([a for a in args if not a.endswith(".json")], man)
