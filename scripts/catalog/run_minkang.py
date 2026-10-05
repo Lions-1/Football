@@ -164,7 +164,7 @@ def main(only: list[str], manifest_name: str = "manifest.json") -> None:
                          "album": m["album"], "title": m["title"], "source": "minkang",
                          "full": len(fulls), "detail": len(closes), "flag": flag, "note": note,
                          "files": {VARIANT: files},
-                         **{k: m[k] for k in ("brand", "category", "season_text", "player") if k in m}}
+                         **{k: m[k] for k in ("brand", "category", "season_text", "player", "price") if k in m}}
         log[slug] = {"fulls": fulls, "closes": closes, "feats": feats}
         rows.append((slug, [HERE / f for f in files]))
         print(f"{slug:36s} front/back {fulls} close {closes}" + (f"  !! {flag}" if flag else f"  ({note})" if note else ""), flush=True)

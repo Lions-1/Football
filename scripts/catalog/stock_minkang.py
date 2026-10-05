@@ -15,6 +15,7 @@ from pathlib import Path
 
 from select_minkang import WORK, album_photos, fetch
 
+PRICE_MAD = 350   # owner, 2026-10-05: stock shirts sell at 350
 # (team slug, season label, kit, album id, kit maker, retro?, stock photo #s)
 STOCK = [
     ("argentina", "1986", "away", "89921632", "Le Coq Sportif", True, [3]),
@@ -65,7 +66,7 @@ def main() -> None:
         out.append({"slug": slug, "team": team, "kit": kit, "season": label, "album": album,
                     "title": f"stock {stock}", "photos": len(urls), "brand": brand,
                     "category": "retro" if retro else "jersey", "season_text": season_text(label),
-                    "player": False})
+                    "player": False, "price": PRICE_MAD})
         print(f"  + {slug:40s} {len(urls):2d} photos", flush=True)
     (WORK / "manifest_stock.json").write_text(json.dumps(out, indent=1), "utf8")
 

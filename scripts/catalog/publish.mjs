@@ -107,7 +107,12 @@ async function phaseDb() {
     const missing = files.filter((f) => !fs.existsSync(f.dest));
     if (missing.length) { console.log(`  ! ${r.slug}: run --phase files first`); skipped++; continue; }
     const urls = JSON.stringify(files.map((f) => f.url));
-    const existing = await prisma.product.findUnique({ where: { slug: r.slug }, select: { id: true, images: true } });
+    const price = r.price ?? PRICE_MAD;
+    const existing = await prisma.product.findUnique({ where: { slug: r.slug }, select: { id: true, images: true, price: true } });
+    if (existing && existing.price !== price) {
+      console.log(`  ~ ${r.slug} price ${existing.price} -> ${price} MAD`);
+      if (APPLY) await prisma.product.update({ where: { id: existing.id }, data: { price } });
+    }
     if (existing) {
       // already published: only refresh its image paths (files were re-published)
       if (existing.images !== urls) {
@@ -129,7 +134,7 @@ async function phaseDb() {
       description: [r.brand || BRAND[r.team], team.name, season, kit,
         player ? "Jersey Player Version Men's" : retro ? "Retro Jersey Men's" : "Jersey Men's"].filter(Boolean).join(" "),
       slug: r.slug,
-      price: PRICE_MAD,
+      price,
       images: urls,
       sizes: JSON.stringify(SIZES),
       teamId: team.id,
@@ -137,7 +142,7 @@ async function phaseDb() {
       season,
       surCommande: PRE_ORDER,
     };
-    console.log(`  + ${data.name.padEnd(38)} ${files.length} imgs  ${PRICE_MAD} MAD`);
+    console.log(`  + ${data.name.padEnd(38)} ${files.length} imgs  ${price} MAD`);
     if (APPLY) await prisma.product.create({ data });
     created++;
   }
