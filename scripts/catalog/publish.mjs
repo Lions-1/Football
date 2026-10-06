@@ -30,7 +30,7 @@ const KEEP_OLD = args.includes("--keep-old"); // zero-downtime re-publish: keep 
 const PRICE_MAD = 280;
 const SIZES = ["S", "M", "L", "XL", "XXL"];
 const SEASON = "2026/27";
-const KIT_LABEL = { home: "Home", away: "Away", third: "Third" };
+const KIT_LABEL = { home: "Home", away: "Away", third: "Third", special: "Limited Edition" };
 // Kit manufacturer per club (2026/27) — used in the description, which follows
 // the owner's existing style: "Nike Nigeria Jayjay Okocha 1996 Retro Jersey Men's".
 const BRAND = {
@@ -48,6 +48,8 @@ const NEW_TEAMS = {
   "boca-juniors": ["Boca Juniors", "other-clubs", "Other Clubs"],
   "newells-old-boys": ["Newell's Old Boys", "other-clubs", "Other Clubs"],
   "inter-miami": ["Inter Miami", "other-clubs", "Other Clubs"],
+  "palmeiras": ["Palmeiras", "other-clubs", "Other Clubs"],
+  "al-nassr": ["Al Nassr", "other-clubs", "Other Clubs"],
 };
 // season label in the slug/name -> season field + description text
 const SEASONS = { "26-27": "2026/27", "2026": "2026" };

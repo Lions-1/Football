@@ -59,6 +59,7 @@ PICKS: dict[str, tuple[list[int], list[int]]] = {
     "arsenal-88-89-home-retro": ([1, 2], [5, 4, 3]),
     "manchester-united-95-96-away-retro": ([1, 7], [4, 3, 5]),
     "arsenal-92-93-home-retro": ([1, 6], [3, 4]),
+    "fc-barcelona-26-27-special": ([1, 2], [5, 4]),
 }
 
 
@@ -136,7 +137,9 @@ def main(only: list[str], manifest_name: str = "manifest.json") -> None:
     if not (WORK / "results_wanfing.json").exists() and res_path.exists():
         shutil.copy(res_path, WORK / "results_wanfing.json")
     old = {r["slug"]: r for r in json.loads(res_path.read_text("utf8"))} if res_path.exists() else {}
-    results = {s: r for s, r in old.items() if r.get("source") == "minkang"}
+    # keep every product from other sources (e.g. wanfing-stock); Wanfing
+    # catalog leftovers without a source tag are dropped as before
+    results = {s: r for s, r in old.items() if r.get("source")}
     log, rows = {}, []
     for m in manifest:
         slug = m["slug"]

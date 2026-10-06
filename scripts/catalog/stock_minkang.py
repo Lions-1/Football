@@ -64,6 +64,8 @@ STOCK = [
     ("arsenal", "92-93", "home", "84467338", "Adidas", True, ["c31", "c32"]),
     ("arsenal", "99-00", "away", "84286064", "Nike", True, ["c33", "c34"]),
     ("boca-juniors", "96-97", "home", "130120912", "Nike", True, ["c17", "c18"]),
+    # found on a second pass (2026-10-07)
+    ("fc-barcelona", "26-27", "special", "226515335", "Nike", False, [41]),
 ]
 
 

@@ -35,6 +35,7 @@ VARIANTS = {
     "cool": ((241, 244, 247), (218, 224, 231)),   # cool mist
     "light": ((243, 243, 243), (214, 214, 214)),  # light grey
     "studio": ((112, 112, 112), (58, 58, 58)),    # matches older grey photos
+    "minkang": ((86, 86, 86), (46, 46, 46)),      # Minkang's dark studio wall (catalog look since 2026-10)
 }
 
 WEBP_QUALITY = 90   # high quality: keeps the knit texture and crest edges crisp
@@ -361,6 +362,10 @@ def frame_detail(detail: dict, variant: str) -> Image.Image:
     pure fabric/logo close-ups (nothing to remove) are shown as a rounded,
     softly shadowed photo card on the same white backdrop."""
     square = detail["square"]
+    if variant == "minkang":
+        # like Minkang's own close-ups: full-bleed fabric; only a visible
+        # wardrobe wall gets replaced by the studio backdrop
+        return render_wall_closeup(detail["wall_cut"], variant) if detail["wall_cut"] is not None else square
     if variant not in ("white", "grey", "warm", "cool"):
         return square
     if detail["wall_cut"] is not None:
