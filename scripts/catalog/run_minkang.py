@@ -43,6 +43,9 @@ OUT = WORK / "out_minkang"
 VARIANT = "grey"     # folder name publish.mjs reads (the backdrop is now the studio's own)
 MAX_CLOSE = 3
 
+# older shoots where the Yupoo stamp is on the front/back photos too
+FULL_STAMPED = {"arsenal-91-93-away-retro"}
+
 # manual overrides: slug -> ([front, back], [close-ups...]) by photo number
 PICKS: dict[str, tuple[list[int], list[int]]] = {
     # stock retros (older shoots: back is the last photo, crest close-ups missed)
@@ -51,6 +54,11 @@ PICKS: dict[str, tuple[list[int], list[int]]] = {
     "fc-barcelona-07-08-home-retro": ([1, 8], [5, 6, 4]),
     "argentina-2006-away-retro": ([1, 7], [4, 5]),
     "celtic-98-99-home-retro": ([1, 6], [3, 4]),
+    # third stock batch: older shoots (3024px hanger photos have no stamp)
+    "manchester-united-92-93-away-retro": ([1, 3], [8, 7]),
+    "arsenal-88-89-home-retro": ([1, 2], [5, 4, 3]),
+    "manchester-united-95-96-away-retro": ([1, 7], [4, 3, 5]),
+    "arsenal-92-93-home-retro": ([1, 6], [3, 4]),
 }
 
 
@@ -102,7 +110,8 @@ def square(img: Image.Image) -> Image.Image:
 
 
 def render(slug: str, fulls: list[int], closes: list[int], photos: dict[int, Path]) -> list[Image.Image]:
-    imgs = [square(Image.open(photos[n]).convert("RGB")) for n in fulls]
+    imgs = [square(dewatermark.remove(Image.open(photos[n]).convert("RGB")) if slug in FULL_STAMPED
+                   else Image.open(photos[n]).convert("RGB")) for n in fulls]
     for n in closes:
         img = Image.open(photos[n]).convert("RGB")
         imgs.append(square(dewatermark.remove(img)))

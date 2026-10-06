@@ -43,6 +43,27 @@ STOCK = [
     # second batch (2026-10-06 photos, work/stock2)
     ("ajax", "26-27", "third", "252314327", "Adidas", False, ["b01"]),
     ("inter-miami", "26-27", "third", "253306717", "Adidas", False, ["b10"]),
+    # third batch (2026-10-06 21:15 photos, work/stock3) - retros
+    ("manchester-united", "93-95", "away", "83349922", "Umbro", True, ["c01"]),
+    ("manchester-united", "1991", "away", "212322826", "Adidas", True, ["c02"]),
+    ("manchester-united", "99-00", "away", "212382043", "Umbro", True, ["c03"]),
+    ("manchester-united", "92-93", "away", "82311450", "Umbro", True, ["c06"]),
+    ("manchester-united", "94-96", "third", "212322292", "Umbro", True, ["c07"]),
+    ("manchester-united", "95-96", "away", "84984222", "Umbro", True, ["c11"]),
+    ("manchester-united", "96-98", "third", "212580071", "Umbro", True, ["c15", "c16"]),
+    ("lazio", "99-00", "home", "75825936", "Puma", True, ["c08"]),
+    ("as-roma", "17-18", "home", "212928089", "Nike", True, ["c21"]),
+    ("arsenal", "95-96", "away", "91947696", "Nike", True, ["c09", "c24", "c25", "c26"]),
+    ("arsenal", "90-92", "home", "89660952", "Adidas", True, ["c10"]),
+    ("arsenal", "93-94", "away", "166609746", "Adidas", True, ["c12"]),
+    ("arsenal", "88-89", "home", "84985244", "Adidas", True, ["c13"]),
+    ("arsenal", "02-04", "away", "113916071", "Nike", True, ["c14"]),
+    ("arsenal", "91-93", "away", "82216237", "Adidas", True, ["c19"]),
+    ("arsenal", "02-04", "home", "83140560", "Nike", True, ["c27", "c35"]),
+    ("arsenal", "05-06", "home", "82258615", "Nike", True, ["c29", "c30"]),
+    ("arsenal", "92-93", "home", "84467338", "Adidas", True, ["c31", "c32"]),
+    ("arsenal", "99-00", "away", "84286064", "Nike", True, ["c33", "c34"]),
+    ("boca-juniors", "96-97", "home", "130120912", "Nike", True, ["c17", "c18"]),
 ]
 
 

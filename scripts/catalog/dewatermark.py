@@ -175,8 +175,8 @@ def remove(img: Image.Image) -> Image.Image:
     # Minkang stamps every 1000x1000 close-up at the same spot: always invert
     # there (detection is weak on dark patterned fabric). Other sizes: search.
     dy, dx, sc = (0, 0, 1.0) if img.size == SIZE else locate(img)
-    if sc <= 0.05:
-        return img                                    # no stamp found
+    if sc <= 0.05 or (img.size != SIZE and sc <= 0.30):
+        return img                                    # no stamp found (other-size uploads need a clear match)
     y0, y1, x0, x1 = (int(v) for v in m["box"])
     y0, y1, x0, x1 = y0 + dy, y1 + dy, x0 + dx, x1 + dx
     # work on an even-aligned, padded window so the chroma grid matches the JPEG's
