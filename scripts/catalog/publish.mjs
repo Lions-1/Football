@@ -40,13 +40,14 @@ const BRAND = {
   "bayern-munich": "Adidas", "borussia-dortmund": "Puma", "juventus": "Adidas",
   "inter-milan": "Nike", "ac-milan": "Puma", "napoli": "EA7", "as-roma": "Adidas",
   "paris-saint-germain": "Nike", "olympique-marseille": "Puma",
-  "aston-villa": "Adidas", "crystal-palace": "Macron", "morocco": "Puma",
+  "aston-villa": "Adidas", "ajax": "Adidas", "inter-miami": "Adidas", "crystal-palace": "Macron", "morocco": "Puma",
 };
 // Teams the owner's stock needs that the seed doesn't have: slug -> [name, league slug, league name]
 const NEW_TEAMS = {
   "celtic": ["Celtic", "other-clubs", "Other Clubs"],
   "boca-juniors": ["Boca Juniors", "other-clubs", "Other Clubs"],
   "newells-old-boys": ["Newell's Old Boys", "other-clubs", "Other Clubs"],
+  "inter-miami": ["Inter Miami", "other-clubs", "Other Clubs"],
 };
 // season label in the slug/name -> season field + description text
 const SEASONS = { "26-27": "2026/27", "2026": "2026" };

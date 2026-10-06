@@ -40,6 +40,9 @@ STOCK = [
     ("fc-barcelona", "25-26", "home", "211958125", "Nike", False, [37]),
     ("fc-barcelona", "07-08", "home", "130120939", "Nike", True, [38]),
     ("fc-barcelona", "13-14", "third", "151321244", "Nike", True, [43]),
+    # second batch (2026-10-06 photos, work/stock2)
+    ("ajax", "26-27", "third", "252314327", "Adidas", False, ["b01"]),
+    ("inter-miami", "26-27", "third", "253306717", "Adidas", False, ["b10"]),
 ]
 
 
