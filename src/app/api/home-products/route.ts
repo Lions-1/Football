@@ -10,12 +10,21 @@ export async function GET(request: NextRequest) {
     tab === "best" ? { bestSeller: true } :
     {};
 
-  const products = await prisma.product.findMany({
+  let products = await prisma.product.findMany({
     where,
     include: { team: true },
-    orderBy: { createdAt: "desc" },
-    take: 8,
+    orderBy: { createdAt: tab === "new" ? "desc" : "asc" },
+    take: tab === "new" ? 8 : 60,
   });
+  // Featured / Best Sellers: one home kit per club first (a showcase of the
+  // big clubs), then their other kits — in catalogue order.
+  if (tab !== "new") {
+    products = products
+      .map((p, i) => ({ p, i, home: p.slug.includes("-home") ? 0 : 1 }))
+      .sort((a, b) => a.home - b.home || a.i - b.i)
+      .map((x) => x.p)
+      .slice(0, 8);
+  }
 
   return NextResponse.json(
     products.map((p) => ({
