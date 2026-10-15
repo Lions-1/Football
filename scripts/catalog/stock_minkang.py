@@ -66,7 +66,11 @@ STOCK = [
     ("boca-juniors", "96-97", "home", "130120912", "Nike", True, ["c17", "c18"]),
     # found on a second pass (2026-10-07)
     ("fc-barcelona", "26-27", "special", "226515335", "Nike", False, [41]),
+    # owner's photo 2026-10-15 (Messi tribute shirt; Minkang sells it blank, no MESSI 10 print)
+    ("argentina", "2026", "special", "256317808", "Adidas", False, ["messi"]),
 ]
+# product names that don't follow "<Team> <season> <Kit>"
+NAMES = {"argentina-2026-special": "Argentina 2026 Messi Special Edition"}
 
 
 def season_text(label: str) -> str:
@@ -92,7 +96,8 @@ def main() -> None:
         out.append({"slug": slug, "team": team, "kit": kit, "season": label, "album": album,
                     "title": f"stock {stock}", "photos": len(urls), "brand": brand,
                     "category": "retro" if retro else "jersey", "season_text": season_text(label),
-                    "player": False, "price": PRICE_MAD})
+                    "player": False, "price": PRICE_MAD,
+                    **({"name": NAMES[slug]} if slug in NAMES else {})})
         print(f"  + {slug:40s} {len(urls):2d} photos", flush=True)
     (WORK / "manifest_stock.json").write_text(json.dumps(out, indent=1), "utf8")
 

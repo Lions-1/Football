@@ -133,8 +133,8 @@ async function phaseDb() {
     const player = r.player !== false;            // stock items are fan / retro shirts
     const retro = r.category === "retro";
     const data = {
-      name: `${team.name} ${label} ${kit}` + (player ? " Player Version" : retro ? " Retro" : ""),
-      description: [r.brand || BRAND[r.team], team.name, season, kit,
+      name: r.name || `${team.name} ${label} ${kit}` + (player ? " Player Version" : retro ? " Retro" : ""),
+      description: r.name ? [r.brand || BRAND[r.team], r.name, "Jersey Men's"].join(" ") : [r.brand || BRAND[r.team], team.name, season, kit,
         player ? "Jersey Player Version Men's" : retro ? "Retro Jersey Men's" : "Jersey Men's"].filter(Boolean).join(" "),
       slug: r.slug,
       price,
