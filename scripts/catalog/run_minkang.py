@@ -43,6 +43,22 @@ OUT = WORK / "out_minkang"
 VARIANT = "grey"     # folder name publish.mjs reads (the backdrop is now the studio's own)
 MAX_CLOSE = 3
 
+# owner's own photos, shown first (slug -> image path); square-fitted on a
+# blurred copy of the photo so nothing gets cropped
+OWNER_PHOTOS = {"argentina-2026-special": "work/owner_photos/argentina-2026-messi.jpg"}
+
+
+def owner_photo(path: str) -> Image.Image:
+    from PIL import ImageFilter as F
+    im = Image.open(HERE / path).convert("RGB")
+    im = im.crop((3, 3, im.width - 3, im.height - 3))      # drop the thin light frame edge
+    W = P.SIZE
+    im = im.resize((W, round(im.height * W / im.width)), Image.LANCZOS)
+    bg = im.resize((W, W), Image.LANCZOS).filter(F.GaussianBlur(30)).point(lambda v: int(v * 0.55))
+    bg.paste(im, (0, (W - im.height) // 2))
+    return bg
+
+
 # older shoots where the Yupoo stamp is on the front/back photos too
 FULL_STAMPED = {"arsenal-91-93-away-retro"}
 
@@ -112,7 +128,8 @@ def square(img: Image.Image) -> Image.Image:
 
 
 def render(slug: str, fulls: list[int], closes: list[int], photos: dict[int, Path]) -> list[Image.Image]:
-    imgs = [square(dewatermark.remove(Image.open(photos[n]).convert("RGB")) if slug in FULL_STAMPED
+    imgs = [owner_photo(OWNER_PHOTOS[slug])] if slug in OWNER_PHOTOS else []
+    imgs += [square(dewatermark.remove(Image.open(photos[n]).convert("RGB")) if slug in FULL_STAMPED
                    else Image.open(photos[n]).convert("RGB")) for n in fulls]
     for n in closes:
         img = Image.open(photos[n]).convert("RGB")
