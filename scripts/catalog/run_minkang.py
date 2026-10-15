@@ -76,7 +76,7 @@ PICKS: dict[str, tuple[list[int], list[int]]] = {
     "manchester-united-95-96-away-retro": ([1, 7], [4, 3, 5]),
     "arsenal-92-93-home-retro": ([1, 6], [3, 4]),
     "fc-barcelona-26-27-special": ([1, 2], [5, 4]),
-    "argentina-2026-special": ([1, 8], [6, 5, 3]),
+    "argentina-2026-special": ([], [6, 5, 3]),   # owner's photo is the front/back (with the MESSI 10 print)
 }
 
 
@@ -177,7 +177,7 @@ def main(only: list[str], manifest_name: str = "manifest.json") -> None:
             feats["fallback"] = "front/back by album order"
         # flag = don't publish (publish.mjs skips flagged). A kit the supplier
         # has only shot front+back is fine to sell; a missing front/back isn't.
-        flag = f"only {len(fulls)} front/back shot(s)" if len(fulls) < 2 else None
+        flag = f"only {len(fulls)} front/back shot(s)" if len(fulls) < 2 and slug not in OWNER_PHOTOS else None
         note = f"{len(closes)} close-up(s)" if len(closes) < 2 else None
         imgs = render(slug, fulls, closes, photos)
         out = OUT / slug / VARIANT
